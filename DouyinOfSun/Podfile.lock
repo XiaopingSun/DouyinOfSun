@@ -1,0 +1,33 @@
+PODS:
+  - Alamofire (4.8.0)
+  - Kingfisher (5.0.1)
+  - PLPlayerKit (3.4.0):
+    - PLPlayerKit/universal (= 3.4.0)
+  - PLPlayerKit/universal (3.4.0)
+  - SnapKit (4.2.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - Kingfisher
+  - PLPlayerKit (from `https://raw.githubusercontent.com/pili-engineering/PLPlayerKit/master/PLPlayerKit-Universal.podspec`)
+  - SnapKit
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Kingfisher
+    - SnapKit
+
+EXTERNAL SOURCES:
+  PLPlayerKit:
+    :podspec: https://raw.githubusercontent.com/pili-engineering/PLPlayerKit/master/PLPlayerKit-Universal.podspec
+
+SPEC CHECKSUMS:
+  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
+  Kingfisher: 4f771421b9208185217550528a06fd48756cb7c2
+  PLPlayerKit: 22ff50f0ae6ca804c72bd5a9f25dba0c4849999d
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+
+PODFILE CHECKSUM: d060e665abd8e57d24c1e3544dadebdbe9a96c6e
+
+COCOAPODS: 1.6.0.beta.2
