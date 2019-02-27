@@ -15,6 +15,14 @@
 		CC83E8372223EFAE00046ED7 /* imageFollow.png in Resources */ = {isa = PBXBuildFile; fileRef = CC83E8362223EFAE00046ED7 /* imageFollow.png */; };
 		CC83E8392223EFE800046ED7 /* FollowNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83E8382223EFE800046ED7 /* FollowNavigationBarView.swift */; };
 		CC83E86222261E2400046ED7 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83E86122261E2400046ED7 /* BaseViewController.swift */; };
+		CC83E8802226813D00046ED7 /* favorite3.json in Resources */ = {isa = PBXBuildFile; fileRef = CC83E87A2226813D00046ED7 /* favorite3.json */; };
+		CC83E8812226813D00046ED7 /* favorite2.json in Resources */ = {isa = PBXBuildFile; fileRef = CC83E87B2226813D00046ED7 /* favorite2.json */; };
+		CC83E8822226813D00046ED7 /* favorite5.json in Resources */ = {isa = PBXBuildFile; fileRef = CC83E87C2226813D00046ED7 /* favorite5.json */; };
+		CC83E8832226813D00046ED7 /* favorite4.json in Resources */ = {isa = PBXBuildFile; fileRef = CC83E87D2226813D00046ED7 /* favorite4.json */; };
+		CC83E8842226813D00046ED7 /* favorite6.json in Resources */ = {isa = PBXBuildFile; fileRef = CC83E87E2226813D00046ED7 /* favorite6.json */; };
+		CC83E8852226813D00046ED7 /* favorite1.json in Resources */ = {isa = PBXBuildFile; fileRef = CC83E87F2226813D00046ED7 /* favorite1.json */; };
+		CC83E8872226835C00046ED7 /* production1.json in Resources */ = {isa = PBXBuildFile; fileRef = CC83E8862226835C00046ED7 /* production1.json */; };
+		CC83E8892226837100046ED7 /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = CC83E8882226837100046ED7 /* user.json */; };
 		CCC100F021DDA0CF00FC5F79 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC100EF21DDA0CF00FC5F79 /* Common.swift */; };
 		CCC100F221DDA15700FC5F79 /* UIColor-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC100F121DDA15700FC5F79 /* UIColor-Extension.swift */; };
 		CCC1013821DDB79C00FC5F79 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1013721DDB79C00FC5F79 /* RecommendViewController.swift */; };
@@ -45,6 +53,14 @@
 		CC83E8362223EFAE00046ED7 /* imageFollow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageFollow.png; sourceTree = "<group>"; };
 		CC83E8382223EFE800046ED7 /* FollowNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNavigationBarView.swift; sourceTree = "<group>"; };
 		CC83E86122261E2400046ED7 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		CC83E87A2226813D00046ED7 /* favorite3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favorite3.json; sourceTree = "<group>"; };
+		CC83E87B2226813D00046ED7 /* favorite2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favorite2.json; sourceTree = "<group>"; };
+		CC83E87C2226813D00046ED7 /* favorite5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favorite5.json; sourceTree = "<group>"; };
+		CC83E87D2226813D00046ED7 /* favorite4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favorite4.json; sourceTree = "<group>"; };
+		CC83E87E2226813D00046ED7 /* favorite6.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favorite6.json; sourceTree = "<group>"; };
+		CC83E87F2226813D00046ED7 /* favorite1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favorite1.json; sourceTree = "<group>"; };
+		CC83E8862226835C00046ED7 /* production1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = production1.json; sourceTree = "<group>"; };
+		CC83E8882226837100046ED7 /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		CCC100EF21DDA0CF00FC5F79 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		CCC100F121DDA15700FC5F79 /* UIColor-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor-Extension.swift"; sourceTree = "<group>"; };
 		CCC1013721DDB79C00FC5F79 /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
@@ -149,9 +165,33 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		CC83E8782226813D00046ED7 /* productions */ = {
+			isa = PBXGroup;
+			children = (
+				CC83E8862226835C00046ED7 /* production1.json */,
+			);
+			path = productions;
+			sourceTree = "<group>";
+		};
+		CC83E8792226813D00046ED7 /* favorites */ = {
+			isa = PBXGroup;
+			children = (
+				CC83E87A2226813D00046ED7 /* favorite3.json */,
+				CC83E87B2226813D00046ED7 /* favorite2.json */,
+				CC83E87C2226813D00046ED7 /* favorite5.json */,
+				CC83E87D2226813D00046ED7 /* favorite4.json */,
+				CC83E87E2226813D00046ED7 /* favorite6.json */,
+				CC83E87F2226813D00046ED7 /* favorite1.json */,
+			);
+			path = favorites;
+			sourceTree = "<group>";
+		};
 		CCC2A2AE21DCA07600610D3B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				CC83E8782226813D00046ED7 /* productions */,
+				CC83E8792226813D00046ED7 /* favorites */,
+				CC83E8882226837100046ED7 /* user.json */,
 				CCC27F3B221E9EF200054AB6 /* imageHot.png */,
 				CC83E8362223EFAE00046ED7 /* imageFollow.png */,
 				CCC27F43221FE2A400054AB6 /* WechatIMG240.jpeg */,
@@ -477,12 +517,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC83E8892226837100046ED7 /* user.json in Resources */,
+				CC83E8822226813D00046ED7 /* favorite5.json in Resources */,
+				CC83E8812226813D00046ED7 /* favorite2.json in Resources */,
 				CCC27F44221FE2A400054AB6 /* WechatIMG240.jpeg in Resources */,
 				CC10E2CE21D77B9100090806 /* LaunchScreen.storyboard in Resources */,
+				CC83E8832226813D00046ED7 /* favorite4.json in Resources */,
 				CC83E8372223EFAE00046ED7 /* imageFollow.png in Resources */,
+				CC83E8842226813D00046ED7 /* favorite6.json in Resources */,
 				CC10E2CB21D77B9100090806 /* Assets.xcassets in Resources */,
+				CC83E8872226835C00046ED7 /* production1.json in Resources */,
 				CC10E2C921D77B8F00090806 /* Main.storyboard in Resources */,
 				CCC27F3C221E9EF200054AB6 /* imageHot.png in Resources */,
+				CC83E8802226813D00046ED7 /* favorite3.json in Resources */,
+				CC83E8852226813D00046ED7 /* favorite1.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
