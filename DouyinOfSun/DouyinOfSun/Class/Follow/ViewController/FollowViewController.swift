@@ -25,10 +25,6 @@ class FollowViewController: UIViewController {
 
 extension FollowViewController {
     private func setupUI() {
-//        let imageView = UIImageView(image: UIImage(named: "imageFollow"))
-//        imageView.frame = UIScreen.main.bounds
-//        view.addSubview(imageView)
-        
         view.addSubview(navigationBarView)
         navigationBarView.snp.makeConstraints { (make) in
             make.top.left.right.equalToSuperview()

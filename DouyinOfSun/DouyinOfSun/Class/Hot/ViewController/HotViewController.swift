@@ -41,11 +41,3 @@ extension HotViewController {
         }
     }
 }
-
-extension HotViewController: UIViewControllerInteractivePushGestureDelegate {
-    func destinationViewControllerFrom(fromViewController: UIViewController) -> UIViewController {
-        let myVC = MyViewController()
-        myVC.hidesBottomBarWhenPushed = true
-        return myVC
-    }
-}

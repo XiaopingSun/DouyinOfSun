@@ -14,6 +14,7 @@
 		CC10E2CE21D77B9100090806 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2CC21D77B9100090806 /* LaunchScreen.storyboard */; };
 		CC83E8372223EFAE00046ED7 /* imageFollow.png in Resources */ = {isa = PBXBuildFile; fileRef = CC83E8362223EFAE00046ED7 /* imageFollow.png */; };
 		CC83E8392223EFE800046ED7 /* FollowNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83E8382223EFE800046ED7 /* FollowNavigationBarView.swift */; };
+		CC83E86222261E2400046ED7 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83E86122261E2400046ED7 /* BaseViewController.swift */; };
 		CCC100F021DDA0CF00FC5F79 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC100EF21DDA0CF00FC5F79 /* Common.swift */; };
 		CCC100F221DDA15700FC5F79 /* UIColor-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC100F121DDA15700FC5F79 /* UIColor-Extension.swift */; };
 		CCC1013821DDB79C00FC5F79 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1013721DDB79C00FC5F79 /* RecommendViewController.swift */; };
@@ -43,6 +44,7 @@
 		CC10E2CF21D77B9100090806 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC83E8362223EFAE00046ED7 /* imageFollow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageFollow.png; sourceTree = "<group>"; };
 		CC83E8382223EFE800046ED7 /* FollowNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNavigationBarView.swift; sourceTree = "<group>"; };
+		CC83E86122261E2400046ED7 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		CCC100EF21DDA0CF00FC5F79 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		CCC100F121DDA15700FC5F79 /* UIColor-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor-Extension.swift"; sourceTree = "<group>"; };
 		CCC1013721DDB79C00FC5F79 /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +125,28 @@
 				CC10E2CF21D77B9100090806 /* Info.plist */,
 			);
 			path = DouyinOfSun;
+			sourceTree = "<group>";
+		};
+		CC83E85E22261E1700046ED7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CC83E85F22261E1700046ED7 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CC83E86122261E2400046ED7 /* BaseViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		CC83E86022261E1700046ED7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		CCC2A2AE21DCA07600610D3B /* Resource */ = {
@@ -386,6 +410,9 @@
 		CCC2A2CE21DCA25000610D3B /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				CC83E86022261E1700046ED7 /* Model */,
+				CC83E85E22261E1700046ED7 /* View */,
+				CC83E85F22261E1700046ED7 /* ViewController */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -524,6 +551,7 @@
 				CCC100F221DDA15700FC5F79 /* UIColor-Extension.swift in Sources */,
 				CCC27F46221FF0F600054AB6 /* HomeScrollView.swift in Sources */,
 				CCC27F01221AC48500054AB6 /* UIBarButtonItem-Extension.swift in Sources */,
+				CC83E86222261E2400046ED7 /* BaseViewController.swift in Sources */,
 				CCCD3AEA21F033BF009D536A /* HomeTabBar.swift in Sources */,
 				CCC100F021DDA0CF00FC5F79 /* Common.swift in Sources */,
 				CCC27F42221FDA0800054AB6 /* HotNavigationBarView.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: BaseViewController {
     
     fileprivate var homeTabBarSelectedType: HomeTabBarViewControllerSelectedType?
     
@@ -16,7 +16,6 @@ class MainViewController: UIViewController {
         let scrollView = HomeScrollView(frame: view.bounds)
         scrollView.contentSize = CGSize(width: 2 * kScreenWidth, height: 0)
         scrollView.contentOffset = CGPoint(x: kScreenWidth, y: 0)
-        scrollView.backgroundColor = UIColor.purple
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.isPagingEnabled = true
         scrollView.bounces = false
@@ -38,22 +37,20 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        isLeftPushGestureEnabled = true
+        interactiveGestureDelegate = self
         statusBarHidden = homeTabBarSelectedType == .hot ? true : false
+        statusBarStyle = .lightContent
         navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        navigationController?.navigationTransitionType = .leftPush
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
-    }
-    
-    override var prefersStatusBarHidden: Bool {
-        return statusBarHidden
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
     }
 }
 
@@ -83,6 +80,8 @@ extension MainViewController: HomeTabBarViewControllerDelegate {
     func homeTabBarViewController(tabBarViewController: HomeTabBarViewController, didSelected type: HomeTabBarViewControllerSelectedType) {
         statusBarHidden = type == .hot ? true : false
         homeTabBarSelectedType = type
+        navigationController!.navigationTransitionType = type == .hot ? .leftPush : .none
+        scrollView.isScrollEnabled = type == .hot ? true : false
     }
 }
 
@@ -92,6 +91,12 @@ extension MainViewController: UIScrollViewDelegate {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.x == kScreenWidth {
+            statusBarHidden = true
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView.contentOffset.x == kScreenWidth {
             statusBarHidden = true
         }

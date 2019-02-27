@@ -38,18 +38,6 @@ class HomeTabBar: UITabBar {
     
     private let titleArray = ["首页", "关注"]
     
-    private lazy var lineImage: UIImage = {
-        let rect: CGRect = CGRect(x: 0, y: 0, width: kScreenWidth, height: 0.12)
-        let color: UIColor = UIColor(r: 255, g: 255, b: 255)
-        UIGraphicsBeginImageContext(rect.size)
-        let context = UIGraphicsGetCurrentContext()
-        context?.setFillColor(color.cgColor)
-        context?.fill(rect)
-        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return image
-    }()
-    
     private lazy var recorderButton: UIButton = {
         let recorderButton = UIButton(type: UIButton.ButtonType.custom)
         recorderButton.setImage(UIImage(named: "btn_home_add_75x49_"), for: .normal)
@@ -136,7 +124,7 @@ extension HomeTabBar {
         
         // tabBar透明
         backgroundImage = getTabbarFillImage(withRect: CGRect(x: 0, y: 0, width: 1, height: 1), color: UIColor(red: 1, green: 1, blue: 1, alpha: 0))
-        shadowImage = getTabbarFillImage(withRect: CGRect(x: 0, y: 0, width: kScreenWidth, height: 0.12), color: UIColor(r: 255, g: 255, b: 255))
+        shadowImage = getTabbarFillImage(withRect: CGRect(x: 0, y: 0, width: kScreenWidth, height: 0.06), color: UIColor(r: 255, g: 255, b: 255))
         
         // 初始化items
         for i in 0..<titleArray.count {

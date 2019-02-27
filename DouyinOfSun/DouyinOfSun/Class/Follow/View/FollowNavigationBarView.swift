@@ -31,12 +31,6 @@ class FollowNavigationBarView: UIView {
         let titleView = HomeNaviTitleView(frame: CGRect.zero, titles: ["关注", "好友"])
         return titleView
     }()
-    
-    private lazy var lineView: UIView = {
-        let lineView = UIView(frame: CGRect.zero)
-        lineView.backgroundColor = UIColor(r: 210, g: 210, b: 210)
-        return lineView
-    }()
 
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -48,6 +42,25 @@ class FollowNavigationBarView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        // 划线
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        let path = CGMutablePath()
+        let lineWidth: CGFloat = 0.04
+        path.move(to: CGPoint(x: 0, y: bounds.size.height - lineWidth))
+        path.addLine(to: CGPoint(x: bounds.size.width, y: bounds.size.height - lineWidth))
+        context.addPath(path)
+        context.setStrokeColor(UIColor(r: 210, g: 210, b: 210).cgColor)
+        context.setLineWidth(lineWidth)
+        context.strokePath()
+    }
 }
 
 extension FollowNavigationBarView {
@@ -55,7 +68,6 @@ extension FollowNavigationBarView {
         addSubview(cameraButton)
         addSubview(cameraLabel)
         addSubview(titleView)
-        addSubview(lineView)
         
         cameraButton.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(20)
@@ -71,12 +83,6 @@ extension FollowNavigationBarView {
             make.centerX.equalToSuperview()
             make.centerY.equalTo(42)
             make.width.equalTo(120)
-        }
-        lineView.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-10)
-            make.width.equalTo(kScreenWidth)
-            make.height.equalTo(0.1)
         }
     }
 }

@@ -8,12 +8,11 @@
 
 import UIKit
 
-class MyViewController: UIViewController {
+class MyViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        isRightPopGestureEnable = true
         view.backgroundColor = UIColor.randomColor()
     }
     
@@ -21,14 +20,13 @@ class MyViewController: UIViewController {
         super.viewWillAppear(animated)
         
         statusBarHidden = false
+        statusBarStyle = .lightContent
         navigationController?.isNavigationBarHidden = true
     }
     
-    override var prefersStatusBarHidden: Bool {
-        return statusBarHidden
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        navigationController!.navigationTransitionType = .rightPop
     }
 }
