@@ -40,6 +40,12 @@
 		CCCD3AE821F02C7E009D536A /* FollowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD3AE721F02C7E009D536A /* FollowViewController.swift */; };
 		CCCD3AEA21F033BF009D536A /* HomeTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD3AE921F033BF009D536A /* HomeTabBar.swift */; };
 		CCCD3AEC21F06C5C009D536A /* HomeTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCD3AEB21F06C5C009D536A /* HomeTabBarButton.swift */; };
+		CCD25E4A2227767A007143DB /* MyNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD25E492227767A007143DB /* MyNavigationBarView.swift */; };
+		CCD25E4D2227BAF8007143DB /* MyCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD25E4C2227BAF8007143DB /* MyCollectionViewFlowLayout.swift */; };
+		CCD25E552227CDA0007143DB /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD25E542227CDA0007143DB /* MyCollectionViewCell.swift */; };
+		CCD25E572227CFE8007143DB /* UserInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD25E562227CFE8007143DB /* UserInfoHeaderView.swift */; };
+		CCD25E5F22291B09007143DB /* 91551426428_.pic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CCD25E5E22291B09007143DB /* 91551426428_.pic.jpg */; };
+		CCD25E6122293211007143DB /* UserInfoHeaderTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD25E6022293211007143DB /* UserInfoHeaderTabbar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +84,12 @@
 		CCCD3AE721F02C7E009D536A /* FollowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewController.swift; sourceTree = "<group>"; };
 		CCCD3AE921F033BF009D536A /* HomeTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBar.swift; sourceTree = "<group>"; };
 		CCCD3AEB21F06C5C009D536A /* HomeTabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarButton.swift; sourceTree = "<group>"; };
+		CCD25E492227767A007143DB /* MyNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNavigationBarView.swift; sourceTree = "<group>"; };
+		CCD25E4C2227BAF8007143DB /* MyCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		CCD25E542227CDA0007143DB /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
+		CCD25E562227CFE8007143DB /* UserInfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeaderView.swift; sourceTree = "<group>"; };
+		CCD25E5E22291B09007143DB /* 91551426428_.pic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 91551426428_.pic.jpg; sourceTree = "<group>"; };
+		CCD25E6022293211007143DB /* UserInfoHeaderTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeaderTabbar.swift; sourceTree = "<group>"; };
 		D9FE4981281986EB731EC25D /* Pods-DouyinOfSun.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DouyinOfSun.debug.xcconfig"; path = "Target Support Files/Pods-DouyinOfSun/Pods-DouyinOfSun.debug.xcconfig"; sourceTree = "<group>"; };
 		FDE0FCF7674974CED5E40862 /* Pods_DouyinOfSun.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DouyinOfSun.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -192,6 +204,7 @@
 				CC83E8782226813D00046ED7 /* productions */,
 				CC83E8792226813D00046ED7 /* favorites */,
 				CC83E8882226837100046ED7 /* user.json */,
+				CCD25E5E22291B09007143DB /* 91551426428_.pic.jpg */,
 				CCC27F3B221E9EF200054AB6 /* imageHot.png */,
 				CC83E8362223EFAE00046ED7 /* imageFollow.png */,
 				CCC27F43221FE2A400054AB6 /* WechatIMG240.jpeg */,
@@ -349,6 +362,11 @@
 		CCC2A2C021DCA20500610D3B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CCD25E492227767A007143DB /* MyNavigationBarView.swift */,
+				CCD25E4C2227BAF8007143DB /* MyCollectionViewFlowLayout.swift */,
+				CCD25E542227CDA0007143DB /* MyCollectionViewCell.swift */,
+				CCD25E562227CFE8007143DB /* UserInfoHeaderView.swift */,
+				CCD25E6022293211007143DB /* UserInfoHeaderTabbar.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -523,6 +541,7 @@
 				CCC27F44221FE2A400054AB6 /* WechatIMG240.jpeg in Resources */,
 				CC10E2CE21D77B9100090806 /* LaunchScreen.storyboard in Resources */,
 				CC83E8832226813D00046ED7 /* favorite4.json in Resources */,
+				CCD25E5F22291B09007143DB /* 91551426428_.pic.jpg in Resources */,
 				CC83E8372223EFAE00046ED7 /* imageFollow.png in Resources */,
 				CC83E8842226813D00046ED7 /* favorite6.json in Resources */,
 				CC10E2CB21D77B9100090806 /* Assets.xcassets in Resources */,
@@ -594,6 +613,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCD25E6122293211007143DB /* UserInfoHeaderTabbar.swift in Sources */,
+				CCD25E4D2227BAF8007143DB /* MyCollectionViewFlowLayout.swift in Sources */,
 				CC10E2C421D77B8F00090806 /* AppDelegate.swift in Sources */,
 				CC83E8392223EFE800046ED7 /* FollowNavigationBarView.swift in Sources */,
 				CCC100F221DDA15700FC5F79 /* UIColor-Extension.swift in Sources */,
@@ -601,8 +622,11 @@
 				CCC27F01221AC48500054AB6 /* UIBarButtonItem-Extension.swift in Sources */,
 				CC83E86222261E2400046ED7 /* BaseViewController.swift in Sources */,
 				CCCD3AEA21F033BF009D536A /* HomeTabBar.swift in Sources */,
+				CCD25E552227CDA0007143DB /* MyCollectionViewCell.swift in Sources */,
+				CCD25E4A2227767A007143DB /* MyNavigationBarView.swift in Sources */,
 				CCC100F021DDA0CF00FC5F79 /* Common.swift in Sources */,
 				CCC27F42221FDA0800054AB6 /* HotNavigationBarView.swift in Sources */,
+				CCD25E572227CFE8007143DB /* UserInfoHeaderView.swift in Sources */,
 				CCCD3AE821F02C7E009D536A /* FollowViewController.swift in Sources */,
 				CCC1013A21DDB89500FC5F79 /* HomeTabBarViewController.swift in Sources */,
 				CCCD3AE621F02C72009D536A /* HotViewController.swift in Sources */,
