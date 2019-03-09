@@ -8,10 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		4A99E930CF4D9F68D3E972B6 /* Pods_DouyinOfSun.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDE0FCF7674974CED5E40862 /* Pods_DouyinOfSun.framework */; };
+		CC05A3CF2233738200B2D43E /* LoadMoreControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05A3CE2233738200B2D43E /* LoadMoreControl.swift */; };
 		CC10E2C421D77B8F00090806 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC10E2C321D77B8F00090806 /* AppDelegate.swift */; };
 		CC10E2C921D77B8F00090806 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2C721D77B8F00090806 /* Main.storyboard */; };
 		CC10E2CB21D77B9100090806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2CA21D77B9100090806 /* Assets.xcassets */; };
 		CC10E2CE21D77B9100090806 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2CC21D77B9100090806 /* LaunchScreen.storyboard */; };
+		CC32E7D6222E60580040ABED /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D5222E60580040ABED /* BaseModel.swift */; };
+		CC32E7D8222E60970040ABED /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D7222E60970040ABED /* UserInfoModel.swift */; };
+		CC32E7DA222E71B30040ABED /* AwemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D9222E71B30040ABED /* AwemeModel.swift */; };
 		CC83E8372223EFAE00046ED7 /* imageFollow.png in Resources */ = {isa = PBXBuildFile; fileRef = CC83E8362223EFAE00046ED7 /* imageFollow.png */; };
 		CC83E8392223EFE800046ED7 /* FollowNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83E8382223EFE800046ED7 /* FollowNavigationBarView.swift */; };
 		CC83E86222261E2400046ED7 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83E86122261E2400046ED7 /* BaseViewController.swift */; };
@@ -23,6 +27,16 @@
 		CC83E8852226813D00046ED7 /* favorite1.json in Resources */ = {isa = PBXBuildFile; fileRef = CC83E87F2226813D00046ED7 /* favorite1.json */; };
 		CC83E8872226835C00046ED7 /* production1.json in Resources */ = {isa = PBXBuildFile; fileRef = CC83E8862226835C00046ED7 /* production1.json */; };
 		CC83E8892226837100046ED7 /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = CC83E8882226837100046ED7 /* user.json */; };
+		CC95BD2B222FA25800FF9043 /* WebDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC95BD2A222FA25800FF9043 /* WebDownloader.swift */; };
+		CC95BD2D222FBBE100FF9043 /* WebCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC95BD2C222FBBE100FF9043 /* WebCacheManager.swift */; };
+		CCC01B472230AA0100A2A380 /* WebCombineOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC01B462230AA0100A2A380 /* WebCombineOperation.swift */; };
+		CCC01B492230AA5D00A2A380 /* WebDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC01B482230AA5D00A2A380 /* WebDownloadOperation.swift */; };
+		CCC01B512230BCBF00A2A380 /* UIImageView-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC01B502230BCBF00A2A380 /* UIImageView-Extension.swift */; };
+		CCC01B532230C93600A2A380 /* String-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC01B522230C93600A2A380 /* String-Extension.swift */; };
+		CCC01B592230F0C500A2A380 /* WebPImageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC01B552230F0C400A2A380 /* WebPImageOperation.swift */; };
+		CCC01B5A2230F0C500A2A380 /* WebPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC01B562230F0C500A2A380 /* WebPImage.m */; };
+		CCC01B5B2230F0C500A2A380 /* WebPQueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC01B572230F0C500A2A380 /* WebPQueueManager.swift */; };
+		CCC01B5C2230F0C500A2A380 /* WebPImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC01B582230F0C500A2A380 /* WebPImageView.swift */; };
 		CCC100F021DDA0CF00FC5F79 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC100EF21DDA0CF00FC5F79 /* Common.swift */; };
 		CCC100F221DDA15700FC5F79 /* UIColor-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC100F121DDA15700FC5F79 /* UIColor-Extension.swift */; };
 		CCC1013821DDB79C00FC5F79 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1013721DDB79C00FC5F79 /* RecommendViewController.swift */; };
@@ -46,16 +60,21 @@
 		CCD25E572227CFE8007143DB /* UserInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD25E562227CFE8007143DB /* UserInfoHeaderView.swift */; };
 		CCD25E5F22291B09007143DB /* 91551426428_.pic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CCD25E5E22291B09007143DB /* 91551426428_.pic.jpg */; };
 		CCD25E6122293211007143DB /* UserInfoHeaderTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD25E6022293211007143DB /* UserInfoHeaderTabbar.swift */; };
+		CCD998D7222E4B54001F8611 /* cover_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CCD998D6222E4B54001F8611 /* cover_default.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		74359629AEB9C03AAF3062F1 /* Pods-DouyinOfSun.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DouyinOfSun.release.xcconfig"; path = "Target Support Files/Pods-DouyinOfSun/Pods-DouyinOfSun.release.xcconfig"; sourceTree = "<group>"; };
+		CC05A3CE2233738200B2D43E /* LoadMoreControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreControl.swift; sourceTree = "<group>"; };
 		CC10E2C021D77B8F00090806 /* DouyinOfSun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DouyinOfSun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC10E2C321D77B8F00090806 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC10E2C821D77B8F00090806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CC10E2CA21D77B9100090806 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC10E2CD21D77B9100090806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC10E2CF21D77B9100090806 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC32E7D5222E60580040ABED /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
+		CC32E7D7222E60970040ABED /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
+		CC32E7D9222E71B30040ABED /* AwemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwemeModel.swift; sourceTree = "<group>"; };
 		CC83E8362223EFAE00046ED7 /* imageFollow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageFollow.png; sourceTree = "<group>"; };
 		CC83E8382223EFE800046ED7 /* FollowNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNavigationBarView.swift; sourceTree = "<group>"; };
 		CC83E86122261E2400046ED7 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +86,18 @@
 		CC83E87F2226813D00046ED7 /* favorite1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favorite1.json; sourceTree = "<group>"; };
 		CC83E8862226835C00046ED7 /* production1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = production1.json; sourceTree = "<group>"; };
 		CC83E8882226837100046ED7 /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
+		CC95BD1F222F623800FF9043 /* DouyinOfSun-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DouyinOfSun-Bridging-Header.h"; sourceTree = "<group>"; };
+		CC95BD2A222FA25800FF9043 /* WebDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDownloader.swift; sourceTree = "<group>"; };
+		CC95BD2C222FBBE100FF9043 /* WebCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebCacheManager.swift; sourceTree = "<group>"; };
+		CCC01B462230AA0100A2A380 /* WebCombineOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebCombineOperation.swift; sourceTree = "<group>"; };
+		CCC01B482230AA5D00A2A380 /* WebDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDownloadOperation.swift; sourceTree = "<group>"; };
+		CCC01B502230BCBF00A2A380 /* UIImageView-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView-Extension.swift"; sourceTree = "<group>"; };
+		CCC01B522230C93600A2A380 /* String-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String-Extension.swift"; sourceTree = "<group>"; };
+		CCC01B542230F0C400A2A380 /* WebPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebPImage.h; sourceTree = "<group>"; };
+		CCC01B552230F0C400A2A380 /* WebPImageOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebPImageOperation.swift; sourceTree = "<group>"; };
+		CCC01B562230F0C500A2A380 /* WebPImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebPImage.m; sourceTree = "<group>"; };
+		CCC01B572230F0C500A2A380 /* WebPQueueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebPQueueManager.swift; sourceTree = "<group>"; };
+		CCC01B582230F0C500A2A380 /* WebPImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebPImageView.swift; sourceTree = "<group>"; };
 		CCC100EF21DDA0CF00FC5F79 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		CCC100F121DDA15700FC5F79 /* UIColor-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor-Extension.swift"; sourceTree = "<group>"; };
 		CCC1013721DDB79C00FC5F79 /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +121,7 @@
 		CCD25E562227CFE8007143DB /* UserInfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeaderView.swift; sourceTree = "<group>"; };
 		CCD25E5E22291B09007143DB /* 91551426428_.pic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 91551426428_.pic.jpg; sourceTree = "<group>"; };
 		CCD25E6022293211007143DB /* UserInfoHeaderTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeaderTabbar.swift; sourceTree = "<group>"; };
+		CCD998D6222E4B54001F8611 /* cover_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cover_default.png; sourceTree = "<group>"; };
 		D9FE4981281986EB731EC25D /* Pods-DouyinOfSun.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DouyinOfSun.debug.xcconfig"; path = "Target Support Files/Pods-DouyinOfSun/Pods-DouyinOfSun.debug.xcconfig"; sourceTree = "<group>"; };
 		FDE0FCF7674974CED5E40862 /* Pods_DouyinOfSun.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DouyinOfSun.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -147,6 +179,7 @@
 				CCC2A2AE21DCA07600610D3B /* Resource */,
 				CCC2A2AF21DCA20500610D3B /* Class */,
 				CC10E2C321D77B8F00090806 /* AppDelegate.swift */,
+				CC95BD1F222F623800FF9043 /* DouyinOfSun-Bridging-Header.h */,
 				CC10E2C721D77B8F00090806 /* Main.storyboard */,
 				CC10E2CA21D77B9100090806 /* Assets.xcassets */,
 				CC10E2CC21D77B9100090806 /* LaunchScreen.storyboard */,
@@ -173,6 +206,7 @@
 		CC83E86022261E1700046ED7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CC32E7D5222E60580040ABED /* BaseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -198,12 +232,36 @@
 			path = favorites;
 			sourceTree = "<group>";
 		};
+		CC95BD1A222F5E2B00FF9043 /* Webp */ = {
+			isa = PBXGroup;
+			children = (
+				CCC01B542230F0C400A2A380 /* WebPImage.h */,
+				CCC01B562230F0C500A2A380 /* WebPImage.m */,
+				CCC01B552230F0C400A2A380 /* WebPImageOperation.swift */,
+				CCC01B582230F0C500A2A380 /* WebPImageView.swift */,
+				CCC01B572230F0C500A2A380 /* WebPQueueManager.swift */,
+			);
+			path = Webp;
+			sourceTree = "<group>";
+		};
+		CC95BD29222F9FCA00FF9043 /* WebCache */ = {
+			isa = PBXGroup;
+			children = (
+				CC95BD2A222FA25800FF9043 /* WebDownloader.swift */,
+				CC95BD2C222FBBE100FF9043 /* WebCacheManager.swift */,
+				CCC01B462230AA0100A2A380 /* WebCombineOperation.swift */,
+				CCC01B482230AA5D00A2A380 /* WebDownloadOperation.swift */,
+			);
+			path = WebCache;
+			sourceTree = "<group>";
+		};
 		CCC2A2AE21DCA07600610D3B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
 				CC83E8782226813D00046ED7 /* productions */,
 				CC83E8792226813D00046ED7 /* favorites */,
 				CC83E8882226837100046ED7 /* user.json */,
+				CCD998D6222E4B54001F8611 /* cover_default.png */,
 				CCD25E5E22291B09007143DB /* 91551426428_.pic.jpg */,
 				CCC27F3B221E9EF200054AB6 /* imageHot.png */,
 				CC83E8362223EFAE00046ED7 /* imageFollow.png */,
@@ -231,7 +289,10 @@
 		CCC2A2B021DCA20500610D3B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				CC95BD29222F9FCA00FF9043 /* WebCache */,
+				CC95BD1A222F5E2B00FF9043 /* Webp */,
 				CCC100EF21DDA0CF00FC5F79 /* Common.swift */,
+				CC05A3CE2233738200B2D43E /* LoadMoreControl.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -242,6 +303,8 @@
 				CCC100F121DDA15700FC5F79 /* UIColor-Extension.swift */,
 				CCCD3AE321EF01B2009D536A /* UIViewController-InteractiveGesture.swift */,
 				CCC27F00221AC48500054AB6 /* UIBarButtonItem-Extension.swift */,
+				CCC01B502230BCBF00A2A380 /* UIImageView-Extension.swift */,
+				CCC01B522230C93600A2A380 /* String-Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -355,6 +418,8 @@
 		CCC2A2BF21DCA20500610D3B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CC32E7D7222E60970040ABED /* UserInfoModel.swift */,
+				CC32E7D9222E71B30040ABED /* AwemeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -509,6 +574,7 @@
 				TargetAttributes = {
 					CC10E2BF21D77B8F00090806 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -537,6 +603,7 @@
 			files = (
 				CC83E8892226837100046ED7 /* user.json in Resources */,
 				CC83E8822226813D00046ED7 /* favorite5.json in Resources */,
+				CCD998D7222E4B54001F8611 /* cover_default.png in Resources */,
 				CC83E8812226813D00046ED7 /* favorite2.json in Resources */,
 				CCC27F44221FE2A400054AB6 /* WechatIMG240.jpeg in Resources */,
 				CC10E2CE21D77B9100090806 /* LaunchScreen.storyboard in Resources */,
@@ -566,18 +633,22 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-DouyinOfSun/Pods-DouyinOfSun-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${PODS_ROOT}/PLPlayerKit/Pod/Library-Universal/PLPlayerKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/libwebp/libwebp.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PLPlayerKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libwebp.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -614,27 +685,41 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCD25E6122293211007143DB /* UserInfoHeaderTabbar.swift in Sources */,
+				CC32E7DA222E71B30040ABED /* AwemeModel.swift in Sources */,
 				CCD25E4D2227BAF8007143DB /* MyCollectionViewFlowLayout.swift in Sources */,
+				CCC01B512230BCBF00A2A380 /* UIImageView-Extension.swift in Sources */,
+				CCC01B472230AA0100A2A380 /* WebCombineOperation.swift in Sources */,
 				CC10E2C421D77B8F00090806 /* AppDelegate.swift in Sources */,
 				CC83E8392223EFE800046ED7 /* FollowNavigationBarView.swift in Sources */,
+				CC32E7D8222E60970040ABED /* UserInfoModel.swift in Sources */,
 				CCC100F221DDA15700FC5F79 /* UIColor-Extension.swift in Sources */,
 				CCC27F46221FF0F600054AB6 /* HomeScrollView.swift in Sources */,
+				CC95BD2B222FA25800FF9043 /* WebDownloader.swift in Sources */,
+				CC32E7D6222E60580040ABED /* BaseModel.swift in Sources */,
 				CCC27F01221AC48500054AB6 /* UIBarButtonItem-Extension.swift in Sources */,
 				CC83E86222261E2400046ED7 /* BaseViewController.swift in Sources */,
 				CCCD3AEA21F033BF009D536A /* HomeTabBar.swift in Sources */,
+				CCC01B5A2230F0C500A2A380 /* WebPImage.m in Sources */,
 				CCD25E552227CDA0007143DB /* MyCollectionViewCell.swift in Sources */,
 				CCD25E4A2227767A007143DB /* MyNavigationBarView.swift in Sources */,
+				CC05A3CF2233738200B2D43E /* LoadMoreControl.swift in Sources */,
 				CCC100F021DDA0CF00FC5F79 /* Common.swift in Sources */,
 				CCC27F42221FDA0800054AB6 /* HotNavigationBarView.swift in Sources */,
 				CCD25E572227CFE8007143DB /* UserInfoHeaderView.swift in Sources */,
 				CCCD3AE821F02C7E009D536A /* FollowViewController.swift in Sources */,
 				CCC1013A21DDB89500FC5F79 /* HomeTabBarViewController.swift in Sources */,
+				CCC01B532230C93600A2A380 /* String-Extension.swift in Sources */,
 				CCCD3AE621F02C72009D536A /* HotViewController.swift in Sources */,
 				CCC2A2CD21DCA23A00610D3B /* MainViewController.swift in Sources */,
+				CCC01B5C2230F0C500A2A380 /* WebPImageView.swift in Sources */,
 				CCCD3AE421EF01B2009D536A /* UIViewController-InteractiveGesture.swift in Sources */,
 				CCC27F3A221D9A8F00054AB6 /* MyViewController.swift in Sources */,
 				CCC27F29221BD78000054AB6 /* HomeNaviTitleView.swift in Sources */,
+				CC95BD2D222FBBE100FF9043 /* WebCacheManager.swift in Sources */,
+				CCC01B592230F0C500A2A380 /* WebPImageOperation.swift in Sources */,
 				CCCD3AEC21F06C5C009D536A /* HomeTabBarButton.swift in Sources */,
+				CCC01B492230AA5D00A2A380 /* WebDownloadOperation.swift in Sources */,
+				CCC01B5B2230F0C500A2A380 /* WebPQueueManager.swift in Sources */,
 				CCC1013821DDB79C00FC5F79 /* RecommendViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -782,6 +867,7 @@
 			baseConfigurationReference = D9FE4981281986EB731EC25D /* Pods-DouyinOfSun.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GDFHW66V92;
 				INFOPLIST_FILE = DouyinOfSun/Info.plist;
@@ -792,6 +878,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Sun.DouyinOfSun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DouyinOfSun/DouyinOfSun-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -802,6 +890,7 @@
 			baseConfigurationReference = 74359629AEB9C03AAF3062F1 /* Pods-DouyinOfSun.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GDFHW66V92;
 				INFOPLIST_FILE = DouyinOfSun/Info.plist;
@@ -812,6 +901,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Sun.DouyinOfSun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DouyinOfSun/DouyinOfSun-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

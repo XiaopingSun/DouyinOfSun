@@ -9,24 +9,30 @@
 import UIKit
 import SnapKit
 
+protocol UserInfoHeaderTabbarDelegate: class {
+    func userInfoHeaderTabbar(headerTabbar: UserInfoHeaderTabbar, didSelectedWithType type: UserInfoHeaderTabbarType)
+}
+
+enum UserInfoHeaderTabbarType: Int {
+    case productions = 10001
+    case favorites = 10002
+}
+
 class UserInfoHeaderTabbar: UIView {
     
     private var buttonArray = [UIButton]()
-    
-    enum TabbarButtonType: Int {
-        case production = 10001
-        case favorites = 10002
-    }
+    private var isIndicatorAnimating: Bool = false
+    weak var delegate: UserInfoHeaderTabbarDelegate?
     
     private lazy var line: UIView = {
         let line = UIView(frame: CGRect.zero)
-        line.backgroundColor = UIColor.lightGray
+        line.backgroundColor = UIColor(r: 255, g: 255, b: 255, alpha: 0.2)
         return line
     }()
     
     private lazy var indicator: UIView = {
         let indicator = UIView(frame: CGRect.zero)
-        indicator.backgroundColor = UIColor(r: 255, g: 207, b: 40)
+        indicator.backgroundColor = UIColor(r: 250.0, g: 206.0, b: 21.0, alpha: 1.0)
         return indicator
     }()
         
@@ -41,8 +47,19 @@ class UserInfoHeaderTabbar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setAwemeNumber(productionsNum: UInt, favoritesNum: UInt) {
+        for button in buttonArray {
+            if button.tag == UserInfoHeaderTabbarType.productions.rawValue {
+                button.setTitle("作品 \(productionsNum)", for: .normal)
+            } else if button.tag == UserInfoHeaderTabbarType.favorites.rawValue {
+                button.setTitle("喜欢 \(favoritesNum)", for: .normal)
+            }
+        }
+    }
+    
     @objc private func buttonDidSelected(sender: UIButton) {
-        if sender.isSelected {return}
+        if sender.isSelected { return }
+        if isIndicatorAnimating == true { return }
         for button in buttonArray {
             if button == sender {
                 button.isSelected = true
@@ -50,14 +67,22 @@ class UserInfoHeaderTabbar: UIView {
                 button.isSelected = false
             }
         }
-        UIView.animate(withDuration: 0.5) {
-            self.indicator.snp.remakeConstraints { (make) in
-                make.centerX.equalTo(sender)
-                make.bottom.equalToSuperview()
-                make.height.equalTo(2)
-                make.width.equalTo(kScreenWidth / 4.0)
-            }
+        
+        self.isIndicatorAnimating = true
+        self.indicator.snp.remakeConstraints { (make) in
+            make.centerX.equalTo(sender)
+            make.bottom.equalToSuperview()
+            make.height.equalTo(2)
+            make.width.equalTo(kScreenWidth / 4.0)
         }
+        self.needsUpdateConstraints()
+        UIView.animate(withDuration: 0.3, animations: {
+            self.layoutIfNeeded()
+        }, completion: { (_) in
+            self.isIndicatorAnimating = false
+        })
+        
+        self.delegate?.userInfoHeaderTabbar(headerTabbar: self, didSelectedWithType: UserInfoHeaderTabbarType(rawValue: sender.tag)!)
     }
 }
 
@@ -71,7 +96,7 @@ extension UserInfoHeaderTabbar {
             button.setTitleColor(UIColor.white, for: .selected)
             button.setTitleColor(UIColor(r: 210, g: 210, b: 210), for: .normal)
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16.0)
-            button.tag = i == 0 ? TabbarButtonType.production.rawValue : TabbarButtonType.favorites.rawValue
+            button.tag = i == 0 ? UserInfoHeaderTabbarType.productions.rawValue : UserInfoHeaderTabbarType.favorites.rawValue
             button.isSelected = i == 0
             button.addTarget(self, action: #selector(buttonDidSelected(sender:)), for: .touchUpInside)
             

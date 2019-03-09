@@ -8,6 +8,8 @@ target 'DouyinOfSun' do
 pod 'Alamofire'
 pod 'Kingfisher'
 pod 'SnapKit'
+pod 'HandyJSON'
+pod 'libwebp'
 pod 'PLPlayerKit', :podspec => 'https://raw.githubusercontent.com/pili-engineering/PLPlayerKit/master/PLPlayerKit-Universal.podspec'
 
   # Pods for DouyinOfSun
