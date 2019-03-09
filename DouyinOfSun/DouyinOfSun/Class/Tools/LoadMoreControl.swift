@@ -138,8 +138,9 @@ extension LoadMoreControl {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "contentOffset" {
             DispatchQueue.main.async {
-                if (self.superView?.isKind(of: UITableView.self))! {
-                    if let tableView = self.superView as? UITableView {
+                guard let superView = self.superView else {return}
+                if (superView.isKind(of: UITableView.self)) {
+                    if let tableView = superView as? UITableView {
                         let lastSection = tableView.numberOfSections - 1
                         if lastSection >= 0 {
                             let lastRow = tableView.numberOfRows(inSection: tableView.numberOfSections - 1) - 1
@@ -161,8 +162,8 @@ extension LoadMoreControl {
                         }
                     }
                 }
-                if (self.superView?.isKind(of: UICollectionView.self))! {
-                    if let collectionView = self.superView as? UICollectionView {
+                if (superView.isKind(of: UICollectionView.self)) {
+                    if let collectionView = superView as? UICollectionView {
                         let lastSection = collectionView.numberOfSections - 1
                         if lastSection >= 0 {
                             let lastRow = collectionView.numberOfItems(inSection: collectionView.numberOfSections - 1) - 1

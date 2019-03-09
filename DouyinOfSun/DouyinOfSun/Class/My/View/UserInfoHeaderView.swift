@@ -30,7 +30,6 @@ class UserInfoHeaderView: UICollectionReusableView {
     var user: user? {
         didSet {
             portraitImageV.setImageWithURL(imageUrl: URL(string: user?.avatar_medium?.url_list?.first ?? "")!) {[weak self] (image, error) in
-                self?.topAvatarImageV.image = image
                 self?.portraitImageV.image = image
             }
             bottomImageView.setImageWithURL(imageUrl: URL(string: user?.avatar_larger?.url_list?.first ?? "")!) {[weak self] (image, error) in
