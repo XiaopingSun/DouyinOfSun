@@ -16,8 +16,8 @@ class MyCollectionViewCell: UICollectionViewCell {
     
     var aweme_list: aweme_list? {
         didSet {
-            guard let dynamic_cover = aweme_list?.video?.dynamic_cover?.url_list?.first else {return}
-            if (dynamic_cover.hasSuffix("jpeg")) {
+            let dynamic_cover = aweme_list?.video?.dynamic_cover?.url_list?.first
+            if (dynamic_cover?.hasSuffix("jpeg"))! {
                 imageView.setImageWithURL(imageUrl: URL(string: dynamic_cover ?? "")!) { (image, error) in
                     if error == nil {
                         self.imageView.image = image

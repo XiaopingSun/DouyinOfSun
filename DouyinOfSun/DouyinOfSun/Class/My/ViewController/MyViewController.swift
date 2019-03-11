@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import HandyJSON
+import Photos
 
 private let kCellIndentifier: String = "MyCollectionViewCell"
 private let kHeaderViewIdentifier: String = "MyCollectionViewCellHeaderView"
@@ -60,8 +61,7 @@ class MyViewController: BaseViewController {
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = UIColor.randomColor()
         setupUI()
-        loadUserData()
-        loadAwemeData(pageNumber: pageNumber)
+        loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,33 +93,44 @@ extension MyViewController {
             make.edges.equalToSuperview()
         }
     }
-    private func loadUserData() {
-        let userInfoJson: String = try! NSString(contentsOfFile: Bundle.main.path(forResource: "user", ofType: "json")!, encoding: String.Encoding.utf8.rawValue) as String
-        user = JSONDeserializer<UserInfoModel>.deserializeFrom(json: userInfoJson)?.user
-        navigationBarView.titleLabel.text = user?.nickname
-        collectionView.reloadSections(IndexSet(integer: 0))
+    private func loadData() {
+        DispatchQueue.global().async {
+            let userInfoJson: String = try! NSString(contentsOfFile: Bundle.main.path(forResource: "user", ofType: "json")!, encoding: String.Encoding.utf8.rawValue) as String
+            self.user = JSONDeserializer<UserInfoModel>.deserializeFrom(json: userInfoJson)?.user
+            
+            DispatchQueue.main.async {
+                self.navigationBarView.titleLabel.text = self.user?.nickname
+                self.collectionView.reloadSections(IndexSet(integer: 0))
+                
+                self.loadAwemeData(pageNumber: self.pageNumber)
+            }
+        }
     }
     
     private func loadAwemeData(pageNumber: UInt) {
-        let jsonPath = (selectedTabbarType == .productions ? "production" : "favorite") + String(pageNumber)
-        let awemeDataJson: String = try! NSString(contentsOfFile: Bundle.main.path(forResource: jsonPath, ofType: "json")!, encoding: String.Encoding.utf8.rawValue) as String
-        let awemeModel = JSONDeserializer<AwemeModel>.deserializeFrom(json: awemeDataJson)
-        var validAwemeModel = [aweme_list]()
-        for aweme in (awemeModel?.aweme_list)! {
-            if aweme.video != nil {
-                validAwemeModel.append(aweme)
+        DispatchQueue.global().async {
+            let jsonPath = (self.selectedTabbarType == .productions ? "production" : "favorite") + String(pageNumber)
+            let awemeDataJson: String = try! NSString(contentsOfFile: Bundle.main.path(forResource: jsonPath, ofType: "json")!, encoding: String.Encoding.utf8.rawValue) as String
+            let awemeModel = JSONDeserializer<AwemeModel>.deserializeFrom(json: awemeDataJson)
+            var validAwemeModel = [aweme_list]()
+            for aweme in (awemeModel?.aweme_list)! {
+                if aweme.video != nil {
+                    validAwemeModel.append(aweme)
+                }
             }
-        }
-        awemeList += validAwemeModel
-        
-        var indexPaths = [IndexPath]()
-        for row in Int(awemeList.count) - Int(validAwemeModel.count) ..< Int(awemeList.count) {
-            indexPaths.append(IndexPath(row: row, section: 1))
-        }
-        collectionView.insertItems(at: indexPaths)
-        self.loadMore.endLoading()
-        if awemeModel?.has_more == 0 {
-            self.loadMore.loadingAll()
+            self.awemeList += validAwemeModel
+            
+            DispatchQueue.main.async {
+                var indexPaths = [IndexPath]()
+                for row in Int(self.awemeList.count) - Int(validAwemeModel.count) ..< Int(self.awemeList.count) {
+                    indexPaths.append(IndexPath(row: row, section: 1))
+                }
+                self.collectionView.insertItems(at: indexPaths)
+                self.loadMore.endLoading()
+                if awemeModel?.has_more == 0 {
+                    self.loadMore.loadingAll()
+                }
+            }
         }
     }
 }
@@ -131,7 +142,9 @@ extension MyViewController: MyNavigationBarViewDelegate {
     func MyNavigationBarViewMoreDidSelected(navigationBarView: MyNavigationBarView) {
         let moreAlert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         let cleanAction = UIAlertAction(title: "清理缓存", style: UIAlertAction.Style.default) { (_) in
-            
+            WebCacheManager.shared().clearCache(cacheClearCompletedBlock: { (size) in
+                UIWindow.showTips(text: "清除" + size + "M缓存")
+            })
         }
         let cancelAction = UIAlertAction(title: "取消", style: UIAlertAction.Style.cancel, handler: nil)
         moreAlert.addAction(cleanAction)
@@ -142,7 +155,11 @@ extension MyViewController: MyNavigationBarViewDelegate {
 
 extension MyViewController: UserInfoHeaderViewDelegate {
     func userInfoHeaderViewPortraitImageViewDidSelected() {
-        
+        let portraitVC = MyIconDetailViewController()
+        portraitVC.portraitUrlStr = user?.avatar_larger?.url_list?.first
+        portraitVC.delegate = self
+        portraitVC.modalTransitionStyle = .crossDissolve
+        present(portraitVC, animated: true, completion: nil)
     }
     func userInfoHeaderViewGithubButtonDidSelected() {
         UIApplication.shared.openURL(URL.init(string: "https://github.com/XiaopingSun/DouyinOfSun")!)
@@ -160,6 +177,25 @@ extension MyViewController: UserInfoHeaderViewDelegate {
         self.loadMore.reset()
         self.loadMore.startLoading()
         self.loadAwemeData(pageNumber: self.pageNumber)
+    }
+}
+
+extension MyViewController: MyIconDetailViewControllerDelegate {
+    func iconDetailViewController(viewController: MyIconDetailViewController, didSelectedDownloadToAlbum image: UIImage?) {
+        guard let image = image else {return}
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetChangeRequest.creationRequestForAsset(from: image)
+        }) { (success, error) in
+            if success == true && error == nil {
+                DispatchQueue.main.async {
+                    UIWindow.showTips(text: "保存图片成功")
+                }
+            } else {
+                DispatchQueue.main.async {
+                    UIWindow.showTips(text: "保存图片失败")
+                }
+            }
+        }
     }
 }
 
@@ -192,9 +228,6 @@ extension MyViewController: UICollectionViewDataSource {
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kCellIndentifier, for: indexPath) as! MyCollectionViewCell
-        if indexPath.item == 3 {
-            
-        }
         cell.aweme_list = awemeList[indexPath.item]
         return cell
     }

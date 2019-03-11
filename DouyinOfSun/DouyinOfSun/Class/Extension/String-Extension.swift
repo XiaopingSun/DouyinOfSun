@@ -66,6 +66,9 @@ extension String {
     }
     
     static func format(decimal:Float, _ maximumDigits:Int = 1, _ minimumDigits:Int = 1) ->String? {
+        if decimal == 0 {
+            return "0"
+        }
         let number = NSNumber(value: decimal)
         let numberFormatter = NumberFormatter()
         numberFormatter.maximumFractionDigits = maximumDigits //设置小数点后最多2位

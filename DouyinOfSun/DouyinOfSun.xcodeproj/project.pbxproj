@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4A99E930CF4D9F68D3E972B6 /* Pods_DouyinOfSun.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDE0FCF7674974CED5E40862 /* Pods_DouyinOfSun.framework */; };
 		CC05A3CF2233738200B2D43E /* LoadMoreControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05A3CE2233738200B2D43E /* LoadMoreControl.swift */; };
+		CC05A3D12235FDBB00B2D43E /* UIWindow-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05A3D02235FDBB00B2D43E /* UIWindow-Extension.swift */; };
+		CC05A3D32236389000B2D43E /* MyIconDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05A3D22236388F00B2D43E /* MyIconDetailViewController.swift */; };
 		CC10E2C421D77B8F00090806 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC10E2C321D77B8F00090806 /* AppDelegate.swift */; };
 		CC10E2C921D77B8F00090806 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2C721D77B8F00090806 /* Main.storyboard */; };
 		CC10E2CB21D77B9100090806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2CA21D77B9100090806 /* Assets.xcassets */; };
@@ -66,6 +68,8 @@
 /* Begin PBXFileReference section */
 		74359629AEB9C03AAF3062F1 /* Pods-DouyinOfSun.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DouyinOfSun.release.xcconfig"; path = "Target Support Files/Pods-DouyinOfSun/Pods-DouyinOfSun.release.xcconfig"; sourceTree = "<group>"; };
 		CC05A3CE2233738200B2D43E /* LoadMoreControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreControl.swift; sourceTree = "<group>"; };
+		CC05A3D02235FDBB00B2D43E /* UIWindow-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow-Extension.swift"; sourceTree = "<group>"; };
+		CC05A3D22236388F00B2D43E /* MyIconDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyIconDetailViewController.swift; sourceTree = "<group>"; };
 		CC10E2C021D77B8F00090806 /* DouyinOfSun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DouyinOfSun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC10E2C321D77B8F00090806 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC10E2C821D77B8F00090806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -301,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				CCC100F121DDA15700FC5F79 /* UIColor-Extension.swift */,
+				CC05A3D02235FDBB00B2D43E /* UIWindow-Extension.swift */,
 				CCCD3AE321EF01B2009D536A /* UIViewController-InteractiveGesture.swift */,
 				CCC27F00221AC48500054AB6 /* UIBarButtonItem-Extension.swift */,
 				CCC01B502230BCBF00A2A380 /* UIImageView-Extension.swift */,
@@ -440,6 +445,7 @@
 			isa = PBXGroup;
 			children = (
 				CCC27F39221D9A8F00054AB6 /* MyViewController.swift */,
+				CC05A3D22236388F00B2D43E /* MyIconDetailViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -685,6 +691,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCD25E6122293211007143DB /* UserInfoHeaderTabbar.swift in Sources */,
+				CC05A3D12235FDBB00B2D43E /* UIWindow-Extension.swift in Sources */,
 				CC32E7DA222E71B30040ABED /* AwemeModel.swift in Sources */,
 				CCD25E4D2227BAF8007143DB /* MyCollectionViewFlowLayout.swift in Sources */,
 				CCC01B512230BCBF00A2A380 /* UIImageView-Extension.swift in Sources */,
@@ -710,6 +717,7 @@
 				CCC1013A21DDB89500FC5F79 /* HomeTabBarViewController.swift in Sources */,
 				CCC01B532230C93600A2A380 /* String-Extension.swift in Sources */,
 				CCCD3AE621F02C72009D536A /* HotViewController.swift in Sources */,
+				CC05A3D32236389000B2D43E /* MyIconDetailViewController.swift in Sources */,
 				CCC2A2CD21DCA23A00610D3B /* MainViewController.swift in Sources */,
 				CCC01B5C2230F0C500A2A380 /* WebPImageView.swift in Sources */,
 				CCCD3AE421EF01B2009D536A /* UIViewController-InteractiveGesture.swift in Sources */,
