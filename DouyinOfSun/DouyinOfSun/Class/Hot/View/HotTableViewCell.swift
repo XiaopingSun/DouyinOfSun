@@ -11,7 +11,7 @@ import SnapKit
 import PLPlayerKit
 
 private let kMyCellContainTag: Int = 0x01001
-private let kMyCellCommendIconTag: Int = 0x01002
+private let kMyCellCommentIconTag: Int = 0x01002
 private let kMyCellShareIconTag: Int = 0x01003
 
 private let kAvatarImageViewLength: CGFloat = 50
@@ -25,6 +25,8 @@ class HotTableViewCell: UITableViewCell {
         case paused
     }
     
+    private var lastTapTime: CFTimeInterval = 0
+    private var isPlaying: Bool = false
     private var animationStatus: CellAnimationStatus = .uninit
     
     var aweme: aweme_list? {
@@ -35,6 +37,9 @@ class HotTableViewCell: UITableViewCell {
             favoriteNumber.text = String.formatCount(count: (aweme?.statistics?.digg_count)!)
             commentNumber.text = String.formatCount(count: (aweme?.statistics?.comment_count)!)
             shareNumber.text = String.formatCount(count: (aweme?.statistics?.share_count)!)
+            backgroundImageView.setImageWithURL(imageUrl: URL(string: (aweme?.video?.origin_cover?.url_list?.first)!)!) {[weak self] (image, error) in
+                self?.backgroundImageView.image = image
+            }
             musicAlbum.albumImageView.setImageWithURL(imageUrl: URL(string: (aweme?.music?.cover_thumb?.url_list?.first)!)!) {[weak self] (image, error) in
                 if error == nil {
                     self?.musicAlbum.albumImageView.image = image?.drawCircleImage()
@@ -48,10 +53,18 @@ class HotTableViewCell: UITableViewCell {
         }
     }
     
-    lazy var playerView: PLPlayerView = {
+    private lazy var playerView: PLPlayerView = {
         let playerView = PLPlayerView(frame: CGRect.zero)
         playerView.delegate = self
         return playerView
+    }()
+    
+    private lazy var backgroundImageView: UIImageView = {
+        let backgroundImageView = UIImageView(frame: CGRect.zero)
+        backgroundImageView.image = UIImage(named: "img_video_loading")
+        backgroundImageView.backgroundColor = UIColor.black
+        backgroundImageView.contentMode = .scaleAspectFit
+        return backgroundImageView
     }()
     
     private lazy var container: UIView = {
@@ -146,7 +159,7 @@ class HotTableViewCell: UITableViewCell {
         let commentIcon = UIImageView(frame: CGRect.zero)
         commentIcon.image = UIImage(named: "icon_home_comment")
         commentIcon.isUserInteractionEnabled = true
-        commentIcon.tag = kMyCellCommendIconTag
+        commentIcon.tag = kMyCellCommentIconTag
         commentIcon.contentMode = .center
         commentIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGesture(sender:))))
         return commentIcon
@@ -205,6 +218,9 @@ class HotTableViewCell: UITableViewCell {
         gradientLayer.frame = CGRect(x: 0, y: frame.size.height - 500, width: frame.size.width, height: 500)
         CATransaction.commit()
         
+        backgroundImageView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
         playerView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
@@ -292,12 +308,71 @@ class HotTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        playerView.stop()
         resetAll()
     }
     
     @objc private func handleGesture(sender: UITapGestureRecognizer) {
-        
+        switch sender.view?.tag {
+        case kMyCellContainTag:
+            let point = sender.location(in: container)
+            let time = CACurrentMediaTime()
+            if (time - lastTapTime) > 0.3 {
+                // 延迟执行singleTap
+                self.perform(#selector(singleTapToPausePlayer), with: nil, afterDelay: 0.3)
+            } else {
+                // 取消执行单击方法
+                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(singleTapToPausePlayer), object: nil)
+                favoriteView.startLikeAnimation(true)
+                showLikeAnimation(touchPoint: point)
+            }
+            lastTapTime = time
+
+        case kMyCellCommentIconTag:
+            print("kMyCellCommentIconTag")
+        case kMyCellShareIconTag:
+            print("kMyCellShareIconTag")
+        default:
+            break
+        }
+    }
+    
+    @objc func showLikeAnimation(touchPoint: CGPoint) {
+        let likeImageView = UIImageView(image: UIImage(named: "heart_82x75_"))
+        let doubleRandom: Double = Double(arc4random() % 20) - 10
+        let scale = CGFloat(doubleRandom / 10.0)
+        let angle = CGFloat(.pi/4 * scale)
+        likeImageView.frame = CGRect(x: touchPoint.x - 50, y: touchPoint.y - 48, width: 100, height: 92)
+        likeImageView.transform = CGAffineTransform(scaleX: 1.2, y: 1.4).concatenating(CGAffineTransform.init(rotationAngle: angle))
+        container.addSubview(likeImageView)
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1.0, options: .curveEaseOut, animations: {
+            likeImageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0).concatenating(CGAffineTransform(rotationAngle: angle))
+        }) { finished in
+            UIView.animate(withDuration: 0.4, delay: 0.2, options: .curveEaseOut, animations: {
+                likeImageView.transform = CGAffineTransform(scaleX: 3.0, y: 3.0).concatenating(CGAffineTransform(rotationAngle: angle))
+                likeImageView.alpha = 0.0
+            }, completion: { finished in
+                likeImageView.removeFromSuperview()
+            })
+        }
+    }
+    
+    @objc private func singleTapToPausePlayer() {
+        if isPlaying == false {
+            playerView.resume()
+            UIView.animate(withDuration: 0.1, animations: {
+                self.pauseIcon.alpha = 0.0
+            }) { _ in
+                self.pauseIcon.isHidden = true
+            }
+        } else {
+            pauseIcon.isHidden = false
+            pauseIcon.transform = CGAffineTransform(scaleX: 1.8, y: 1.8)
+            pauseIcon.alpha = 1.0
+            playerView.pause()
+            UIView.animate(withDuration: 0.24) {
+                self.pauseIcon.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            }
+        }
     }
     
     func play() {
@@ -331,6 +406,8 @@ class HotTableViewCell: UITableViewCell {
     
     func stop() {
         playerView.stop()
+        resetAnimations()
+        sendSubviewToBack(playerView)
         if pauseIcon.isHidden == false {
             pauseIcon.isHidden = true
         }
@@ -340,6 +417,7 @@ class HotTableViewCell: UITableViewCell {
 extension HotTableViewCell {
     private func initSubviews() {
         addSubview(playerView)
+        addSubview(backgroundImageView)
         addSubview(container)
         container.addSubview(pauseIcon)
         container.addSubview(playerStatusBar)
@@ -379,10 +457,13 @@ extension HotTableViewCell {
     private func resetAll() {
         pauseIcon.isHidden = true
         descLabel.text = ""
+        isPlaying = false
         avatarImageView.image = UIImage(named: "img_find_default")
+        backgroundImageView.image = UIImage(named: "img_video_loading")
         focusIcon.reset()
         favoriteView.reset()
         resetAnimations()
+        playerView.stop()
     }
     
     func resetAnimations() {
@@ -395,6 +476,7 @@ extension HotTableViewCell {
 extension HotTableViewCell: PLPlayerViewDelegate {
     func playerView(_ playerView: PLPlayerView, _ player: PLPlayer, statusDidChange state: PLPlayerStatus) {
         if state == .statusPlaying {
+            isPlaying = true
             if animationStatus == .uninit {
                 startAnimations()
             } else if animationStatus == .paused {
@@ -404,8 +486,9 @@ extension HotTableViewCell: PLPlayerViewDelegate {
             if animationStatus == .animating {
                 pauseAnimation()
             }
+            isPlaying = false
         } else if state == .statusStopped {
-            resetAll()
+            isPlaying = false
         }
     }
     
@@ -414,6 +497,8 @@ extension HotTableViewCell: PLPlayerViewDelegate {
     }
     
     func playerView(_ playerView: PLPlayerView, _ player: PLPlayer, firstRender firstRenderType: PLPlayerFirstRenderType) {
-        
+        if firstRenderType == .video {
+            sendSubviewToBack(backgroundImageView)
+        }
     }
 }

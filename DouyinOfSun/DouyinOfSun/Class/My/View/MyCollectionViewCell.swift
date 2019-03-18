@@ -32,7 +32,6 @@ class MyCollectionViewCell: UICollectionViewCell {
                     }
                 }
             }
-
             favoriteNumButton.setTitle(String.formatCount(count: NSInteger(aweme_list?.statistics?.digg_count ?? 0)), for: .normal)
         }
     }

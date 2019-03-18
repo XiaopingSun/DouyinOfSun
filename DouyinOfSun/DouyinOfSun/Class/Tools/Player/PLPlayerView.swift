@@ -20,28 +20,12 @@ class PLPlayerView: UIView {
     
     weak var delegate: PLPlayerViewDelegate?
     
-    private lazy var backgroundImageView: UIImageView = {
-        let backgroundImageView = UIImageView(frame: CGRect.zero)
-        backgroundImageView.image = UIImage(named: "img_video_loading")
-        return backgroundImageView
-    }()
-    
-    private lazy var player: PLPlayer? = {
-        let option = PLPlayerOption.default()
-        option.setOptionValue(15, forKey: PLPlayerOptionKeyTimeoutIntervalForMediaPackets)
-        let player = PLPlayer(url: nil, option: option)
-        player?.loopPlay = true
-        player?.delegate = self
-        player?.delegateQueue = DispatchQueue.main
-        player?.isBackgroundPlayEnable = false
-        return player
-    }()
+    private var player: PLPlayer?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         backgroundColor = UIColor.clear
-        initSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,7 +33,21 @@ class PLPlayerView: UIView {
     }
     
     func playWithUrl(urlStr: String) {
-        player?.play(with: URL(string: urlStr), sameSource: true)
+        let option = PLPlayerOption.default()
+        option.setOptionValue(15, forKey: PLPlayerOptionKeyTimeoutIntervalForMediaPackets)
+        self.player = PLPlayer(url: URL(string: urlStr), option: option)
+        player?.loopPlay = true
+        player?.delegate = self
+        player?.delegateQueue = DispatchQueue.main
+        player?.isBackgroundPlayEnable = false
+        
+        guard let playerView = player?.playerView else { return }
+        playerView.contentMode = .scaleAspectFit
+        addSubview(playerView)
+        playerView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        player?.play()
     }
     
     func resume() {
@@ -67,22 +65,8 @@ class PLPlayerView: UIView {
     func stop() {
         if player?.status == .statusPlaying || player?.status == .statusPaused {
             player?.stop()
-        }
-    }
-}
-
-extension PLPlayerView {
-    private func initSubviews() {
-        addSubview(backgroundImageView)
-        guard let playerView = player?.playerView else { return }
-        playerView.contentMode = .scaleAspectFit
-        addSubview(playerView)
-        
-        backgroundImageView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
-        playerView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            player?.playerView?.removeFromSuperview()
+            player = nil
         }
     }
 }

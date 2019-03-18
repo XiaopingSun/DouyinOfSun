@@ -14,6 +14,8 @@ private let kFavoriteViewLikeAfterTag: Int = 0x01002
 
 class FavoriteView: UIView {
     
+    private var isLiked: Bool = false
+    
     private lazy var isFavoritedImageView: UIImageView = {
         let isFavoritedImageView = UIImageView(frame: CGRect.zero)
         isFavoritedImageView.contentMode = .center
@@ -69,9 +71,11 @@ extension FavoriteView {
         }
     }
     
-    private func startLikeAnimation(_ isLike: Bool) {
+    func startLikeAnimation(_ isLike: Bool) {
+        if self.isLiked == isLike {return}
         isFavoritedImageView.isUserInteractionEnabled = false
         unFavoriteImageView.isUserInteractionEnabled = false
+        isLiked = isLike
         if isLike {
             let length: CGFloat = 30
             let duration: CGFloat = 0.5
@@ -141,6 +145,7 @@ extension FavoriteView {
     }
     
     func reset() {
+        isLiked = false
         isFavoritedImageView.isHidden = true
         unFavoriteImageView.isHidden = false
         self.layer.removeAllAnimations()

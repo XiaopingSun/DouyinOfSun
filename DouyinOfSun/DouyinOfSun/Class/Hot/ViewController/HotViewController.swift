@@ -97,7 +97,9 @@ extension HotViewController {
                 }
                 tempAwemeList += validAwemeModel
             }
-            self.awemeList = tempAwemeList
+            self.awemeList = tempAwemeList.sorted(by: { (obj1, obj2) -> Bool in
+                return Int(arc4random() % 3) - 1 > 0
+            })
             DispatchQueue.main.async {
                 // reloadData会按默认高度init对应个数的cell，造成播放器大量实例化
                 var indexPaths = [IndexPath]()
@@ -106,7 +108,7 @@ extension HotViewController {
                     indexPaths.append(indexPath)
                 }
                 self.tableView.insertRows(at: indexPaths, with: UITableView.RowAnimation.none)
-                self.addObserver(self, forKeyPath: "currentIndex", options: [.initial, .new], context: nil)
+                self.addObserver(self, forKeyPath: "currentIndex", options: [.initial, .old, .new], context: nil)
             }
         }
     }
@@ -128,8 +130,17 @@ extension HotViewController {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "currentIndex" {
-            let currentCell = tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as! HotTableViewCell
-            CacheCellManager.shared().play(cell: currentCell)
+            guard let nonnilChange = change else {
+                return
+            }
+            let old = nonnilChange[NSKeyValueChangeKey.oldKey]
+            let new = nonnilChange[NSKeyValueChangeKey.newKey]
+            if new != nil && old != nil && old as! Int == new as! Int {
+                return
+            } else {
+                let currentCell = tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as! HotTableViewCell
+                CacheCellManager.shared().play(cell: currentCell)
+            }
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
@@ -138,7 +149,7 @@ extension HotViewController {
 
 extension HotViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        tableView.deselectRow(at: indexPath, animated: false)
     }
 }
 
@@ -154,7 +165,7 @@ extension HotViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: hotCellIdentifier, for: indexPath) as! HotTableViewCell
         if awemeList.count != 0 {
-            cell.aweme = awemeList[Int(arc4random()) % awemeList.count]
+            cell.aweme = awemeList[indexPath.row]
         }
         return cell
     }
@@ -170,16 +181,18 @@ extension HotViewController: UIScrollViewDelegate {
             let translatedPoint = scrollView.panGestureRecognizer.translation(in: scrollView)
             scrollView.panGestureRecognizer.isEnabled = false
             
+            var tempIndex = self.currentIndex
+            
             if translatedPoint.y < -kScreenHeight / 2.0 || velocity.y > 0.3 {
-                self.currentIndex += 1
-            }
-            if (translatedPoint.y > kScreenHeight / 2.0 || velocity.y < -0.3) && self.currentIndex > 0 {
-                self.currentIndex -= 1
+                tempIndex += 1
+            } else if (translatedPoint.y > kScreenHeight / 2.0 || velocity.y < -0.3) && self.currentIndex > 0 {
+                tempIndex -= 1
             }
             UIView.animate(withDuration: 0.24, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
-                self.tableView.scrollToRow(at: IndexPath(row: self.currentIndex, section: 0), at: UITableView.ScrollPosition.top, animated: false)
+                self.tableView.scrollToRow(at: IndexPath(row: tempIndex, section: 0), at: UITableView.ScrollPosition.top, animated: false)
             }, completion: { (_) in
                 scrollView.panGestureRecognizer.isEnabled = true
+                self.currentIndex = tempIndex
             })
         }
     }
