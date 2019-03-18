@@ -31,4 +31,8 @@ extension FollowViewController {
             make.height.equalTo(64)
         }
     }
+    
+    class func loadData() {
+        
+    }
 }

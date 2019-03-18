@@ -27,7 +27,7 @@ class aweme_list: BaseModel {
     var share_url: String?
     var statistics: statistics?
     var status: status?
-    var rate: Int?
+    var rate: CGFloat?
     var is_top: Int?
     var label_top: label_top?
     var share_info: share_info?
@@ -40,11 +40,12 @@ class aweme_list: BaseModel {
     var author_user_id: UInt?
     var region: String?
     var vr_type: Int?
+    var desc: String?
 }
 
 class author: BaseModel {
     var total_favorited: UInt?
-    var avatar_300x300: video_icon?
+    var avatar_300x300: avatar_300x300?
     var province: String?
     var avatar_larger: avatar_larger?
     var city: String?
@@ -54,9 +55,9 @@ class author: BaseModel {
     var following_count: UInt?
     var location: String?
     var followers_detail: [followers_detail]?
-    var avatar_168x168: String?
+    var avatar_168x168: avatar_168x168?
     var gender: UInt?
-    var avatar_thumb: String?
+    var avatar_thumb: avatar_thumb?
     var uid: String?
     var avatar_medium: [avatar_medium]?
     var follower_count: UInt?
@@ -207,10 +208,10 @@ class bit_rate: BaseModel {
 
 class statistics: BaseModel {
     var aweme_id: String?
-    var comment_count: UInt?
-    var digg_count: UInt?
+    var comment_count: Int?
+    var digg_count: Int?
     var play_count: UInt?
-    var share_count: UInt?
+    var share_count: Int?
     var forward_count: UInt?
 }
 

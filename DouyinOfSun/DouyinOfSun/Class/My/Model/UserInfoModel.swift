@@ -16,7 +16,7 @@ class UserInfoModel: BaseModel {
 
 class user: BaseModel {
     var total_favorited: UInt?
-    var avatar_300x300: video_icon?
+    var avatar_300x300: avatar_300x300?
     var province: String?
     var avatar_larger: avatar_larger?
     var city: String?
@@ -37,7 +37,7 @@ class user: BaseModel {
     var short_id: String?
 }
 
-class video_icon: BaseModel {
+class avatar_300x300: BaseModel {
     var uri: String?
     var url_list: [String]?
 }

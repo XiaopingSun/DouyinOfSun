@@ -88,17 +88,20 @@ extension MainViewController: HomeTabBarViewControllerDelegate {
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         statusBarHidden = false
+        CacheCellManager.shared().pauseAll()
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x == kScreenWidth {
             statusBarHidden = true
+            CacheCellManager.shared().resume()
         }
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView.contentOffset.x == kScreenWidth {
             statusBarHidden = true
+            CacheCellManager.shared().resume()
         }
     }
 }

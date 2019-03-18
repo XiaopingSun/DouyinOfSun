@@ -49,6 +49,7 @@ class HomeTabBar: UITabBar {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
+        homeTabBarDelegate?.tabBar(tabBar: self, clickButton: .hot)
     }
     
     override func layoutSubviews() {
