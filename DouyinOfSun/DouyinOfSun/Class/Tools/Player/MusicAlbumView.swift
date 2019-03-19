@@ -131,6 +131,7 @@ extension MusicAlbumView {
         rotationAnimation.duration = 4.0
         rotationAnimation.isCumulative = true
         rotationAnimation.repeatCount = Float(Int.max)
+        rotationAnimation.isRemovedOnCompletion = false
         albumContainer.layer.add(rotationAnimation, forKey: "rotationAnimation")
     }
 }

@@ -11,25 +11,16 @@ import UIKit
 class CircleTextView: UIView {
     
     var textColor: UIColor?
-    var font: UIFont = UIFont.systemFont(ofSize: 14) {
+    var font: UIFont = UIFont.systemFont(ofSize: 14)
+    var text: String = "" {
         didSet {
-            let size: CGSize = (text?.singleLineSizeWithAttributeText(font: font))!
+            let size: CGSize = text.singleLineSizeWithAttributeText(font: font)
             textWidth = size.width
             textHeight = size.height
+            textSeparateWidth = kCircleTextViewSeparateText.singleLineSizeWithText(font: font).width
             textLayerFrame = CGRect(x: 0, y: 0, width: textWidth * 3 + textSeparateWidth * 2, height: textHeight)
             translationX = textWidth + textSeparateWidth
             drawTextLayer()
-        }
-    }
-    var text: String? {
-        didSet {
-            let size: CGSize = (text?.singleLineSizeWithAttributeText(font: font))!
-            textWidth = size.width
-            textHeight = size.height
-            textLayerFrame = CGRect(x: 0, y: 0, width: textWidth * 3 + textSeparateWidth * 2, height: textHeight)
-            translationX = textWidth + textSeparateWidth
-            drawTextLayer()
-            startAnimation()
         }
     }
     
@@ -65,9 +56,6 @@ class CircleTextView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         text = ""
-        textColor = UIColor.white
-        font = UIFont.systemFont(ofSize: 14)
-        textSeparateWidth = kCircleTextViewSeparateText.singleLineSizeWithText(font: font).width
         self.layer.backgroundColor = UIColor.clear.cgColor
         self.layer.masksToBounds = true
         setupLayer()
@@ -94,22 +82,19 @@ extension CircleTextView {
     
     private func drawTextLayer() {
         textLayer.foregroundColor = textColor?.cgColor
-        let fontName: CFString = font.fontName as CFString
-        let fontRef: CGFont = CGFont(fontName)!
-        textLayer.font = fontRef
+        textLayer.font = font
         textLayer.fontSize = font.pointSize
-        textLayer.string = text! + kCircleTextViewSeparateText + text! + kCircleTextViewSeparateText + text!
+        textLayer.string = text + kCircleTextViewSeparateText + text + kCircleTextViewSeparateText + text
     }
     
     func startAnimation() {
-        if textLayer.animation(forKey: kCircleTextViewAnimation) != nil {
-            textLayer.removeAnimation(forKey: kCircleTextViewAnimation)
-        }
+        reset()
+        
         let animation = CABasicAnimation(keyPath: "transform.translation.x")
         animation.fromValue = bounds.origin.x
         animation.toValue = bounds.origin.x - translationX
         animation.duration = CFTimeInterval(textWidth * 0.035)
-        animation.repeatCount = Float(Int.max)
+        animation.repeatCount = MAXFLOAT
         animation.isRemovedOnCompletion = false
         animation.fillMode = .forwards
         animation.timingFunction = CAMediaTimingFunction(name: .linear)

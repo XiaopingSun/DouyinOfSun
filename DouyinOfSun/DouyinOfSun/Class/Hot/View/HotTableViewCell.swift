@@ -233,8 +233,8 @@ class HotTableViewCell: UITableViewCell {
         }
         playerStatusBar.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-(kTabbarH - 0.5))
-            make.height.equalTo(0.5)
+            make.bottom.equalToSuperview().offset(-(kTabbarH))
+            make.height.equalTo(0.8)
         }
         musicIcon.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
@@ -463,6 +463,7 @@ extension HotTableViewCell {
         focusIcon.reset()
         favoriteView.reset()
         resetAnimations()
+        playerStatusBar.reset()
         playerView.stop()
     }
     
@@ -500,5 +501,9 @@ extension HotTableViewCell: PLPlayerViewDelegate {
         if firstRenderType == .video {
             sendSubviewToBack(backgroundImageView)
         }
+    }
+    
+    func playerView(_ playerView: PLPlayerView, _ player: PLPlayer, playingProgressValue playingProgress: CGFloat) {
+        playerStatusBar.updateProgress(progress: playingProgress)
     }
 }

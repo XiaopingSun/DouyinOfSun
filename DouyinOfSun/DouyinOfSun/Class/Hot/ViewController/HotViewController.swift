@@ -30,6 +30,7 @@ class HotViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
+        tableView.isScrollEnabled = false
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = UIScrollView.ContentInsetAdjustmentBehavior.never
         } else {
@@ -107,6 +108,7 @@ extension HotViewController {
                     let indexPath = IndexPath(row: i, section: 0)
                     indexPaths.append(indexPath)
                 }
+                self.tableView.isScrollEnabled = true
                 self.tableView.insertRows(at: indexPaths, with: UITableView.RowAnimation.none)
                 self.addObserver(self, forKeyPath: "currentIndex", options: [.initial, .old, .new], context: nil)
             }

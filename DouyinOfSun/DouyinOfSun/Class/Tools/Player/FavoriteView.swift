@@ -77,9 +77,10 @@ extension FavoriteView {
         unFavoriteImageView.isUserInteractionEnabled = false
         isLiked = isLike
         if isLike {
+            // 六瓣layer动画
             let length: CGFloat = 30
             let duration: CGFloat = 0.5
-            for i in 0 ..< 5{
+            for i in 0 ..< 6 {
                 let layer = CAShapeLayer()
                 layer.position = unFavoriteImageView.center
                 layer.fillColor = UIColor(r: 241.0, g: 47.0, b: 84.0, alpha: 1.0).cgColor
@@ -96,7 +97,7 @@ extension FavoriteView {
                 
                 layer.path = startPath.cgPath
                 layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi / 3.0 * Double(i)), 0.0, 0.0, 1.0)
-                self.layer.addSublayer(layer)
+                self.layer.insertSublayer(layer, below: isFavoritedImageView.layer)
                 
                 let group = CAAnimationGroup()
                 group.isRemovedOnCompletion = false
@@ -119,23 +120,57 @@ extension FavoriteView {
                 layer.add(group, forKey: nil)
             }
             
+            // 圆环layer动画
+            let startCirclePath = UIBezierPath(arcCenter: CGPoint(x: unFavoriteImageView.center.x, y: unFavoriteImageView.center.y - 3), radius: 10, startAngle: 0, endAngle: CGFloat(Double.pi * 2), clockwise: true)
+            let endCirclePath = UIBezierPath(arcCenter: CGPoint(x: unFavoriteImageView.center.x, y: unFavoriteImageView.center.y - 3), radius: 25, startAngle: 0, endAngle: CGFloat(Double.pi * 2), clockwise: true)
+            let circleLayer = CAShapeLayer()
+            circleLayer.frame = self.bounds
+            circleLayer.strokeColor = UIColor(r: 241.0, g: 47.0, b: 84.0, alpha: 1.0).cgColor
+            circleLayer.fillColor = UIColor.clear.cgColor
+            circleLayer.lineWidth = 1.5
+            circleLayer.path = startCirclePath.cgPath
+            self.layer.insertSublayer(circleLayer, below: unFavoriteImageView.layer)
+            
+            let group = CAAnimationGroup()
+            group.isRemovedOnCompletion = false
+            group.timingFunction = CAMediaTimingFunction(name:.easeInEaseOut)
+            group.fillMode = .forwards;
+            group.duration = CFTimeInterval(duration - 0.1);
+            
+            let pathAnimation = CABasicAnimation(keyPath: "path")
+            pathAnimation.fromValue = startCirclePath.cgPath
+            pathAnimation.toValue = endCirclePath.cgPath
+            pathAnimation.beginTime = CFTimeInterval(0)
+            pathAnimation.duration = CFTimeInterval(duration - 0.1)
+            
+            let opacityAnimation = CAKeyframeAnimation(keyPath: "opacity")
+            opacityAnimation.values = [0, 1, 0]
+            
+            group.animations = [pathAnimation, opacityAnimation]
+            circleLayer.add(group, forKey: nil)
+            
+            // heart动画
             isFavoritedImageView.isHidden = false
-            isFavoritedImageView.alpha = 0.0
-            isFavoritedImageView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5).concatenating(CGAffineTransform(rotationAngle: .pi / 3.0 * 2))
-            UIView.animate(withDuration: 0.4, delay: 0.2, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.8, options: .curveEaseIn, animations: {
-                self.unFavoriteImageView.alpha = 0.0
-                self.isFavoritedImageView.alpha = 1.0
-                self.isFavoritedImageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0).concatenating(CGAffineTransform(rotationAngle: 0))
+            isFavoritedImageView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+            UIView.animate(withDuration: 0.1, animations: {
+                self.unFavoriteImageView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
             }) { (_) in
-                self.unFavoriteImageView.alpha = 1.0
-                self.unFavoriteImageView.isUserInteractionEnabled = true
-                self.isFavoritedImageView.isUserInteractionEnabled = true
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.isFavoritedImageView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                }, completion: { (_) in
+                    UIView.animate(withDuration: 0.1, animations: {
+                        self.isFavoritedImageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                    }, completion: { (_) in
+                        self.unFavoriteImageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                        self.unFavoriteImageView.isUserInteractionEnabled = true
+                        self.isFavoritedImageView.isUserInteractionEnabled = true
+                    })
+                })
             }
         } else {
-            isFavoritedImageView.alpha = 1.0
-            isFavoritedImageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0).concatenating(CGAffineTransform(rotationAngle: 0))
-            UIView.animate(withDuration: 0.35, delay: 0.0, options: .curveEaseIn, animations: {
-                self.isFavoritedImageView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1).concatenating(CGAffineTransform(rotationAngle: -.pi / 4.0))
+            isFavoritedImageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+                self.isFavoritedImageView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
             }) { (_) in
                 self.isFavoritedImageView.isHidden = true
                 self.unFavoriteImageView.isUserInteractionEnabled = true
