@@ -20,7 +20,8 @@ protocol HomeTabBarViewControllerDelegate: class {
 class HomeTabBarViewController: UITabBarController {
     
     weak var homeTabBarViewControllerDelegate: HomeTabBarViewControllerDelegate?
-    
+    var hotVC: HotViewController?
+    var followVC: FollowViewController?
     fileprivate lazy var homeTabBar: HomeTabBar = {[weak self] in
         let homeTabBar = HomeTabBar(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: kTabbarH))
         homeTabBar.homeTabBarDelegate = self
@@ -29,8 +30,9 @@ class HomeTabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setViewControllers([HotViewController(), FollowViewController()], animated: false)        
+        hotVC = HotViewController()
+        followVC = FollowViewController()
+        setViewControllers([hotVC!, followVC!], animated: false)
         setValue(homeTabBar, forKey: "tabBar")
     }
 }

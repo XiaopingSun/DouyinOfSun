@@ -25,8 +25,8 @@ class HotTableViewCell: UITableViewCell {
         case paused
     }
     
+    var isPlaying: Bool = false
     private var lastTapTime: CFTimeInterval = 0
-    private var isPlaying: Bool = false
     private var animationStatus: CellAnimationStatus = .uninit
     
     var aweme: aweme_list? {

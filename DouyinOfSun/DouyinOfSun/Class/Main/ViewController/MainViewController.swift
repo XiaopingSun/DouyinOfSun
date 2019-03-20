@@ -11,7 +11,9 @@ import UIKit
 class MainViewController: BaseViewController {
     
     fileprivate var homeTabBarSelectedType: HomeTabBarViewControllerSelectedType?
-    
+    fileprivate var isCurrentCellPaused: Bool = false
+    fileprivate var recommendVC: RecommendViewController?
+    fileprivate var homeTabVC: HomeTabBarViewController?
     fileprivate lazy var scrollView: HomeScrollView = {
         let scrollView = HomeScrollView(frame: view.bounds)
         scrollView.contentSize = CGSize(width: 2 * kScreenWidth, height: 0)
@@ -60,19 +62,19 @@ extension MainViewController {
     }
     
     private func addChildViewController() {
-        let recommendVC = RecommendViewController()
-        let homeTabVC = HomeTabBarViewController()
-        homeTabVC.homeTabBarViewControllerDelegate = self
-        homeTabVC.selectedIndex = 0
+        recommendVC = RecommendViewController()
+        homeTabVC = HomeTabBarViewController()
+        homeTabVC?.homeTabBarViewControllerDelegate = self
+        homeTabVC?.selectedIndex = 0
         homeTabBarSelectedType = .hot
         
-        addChild(recommendVC)
-        addChild(homeTabVC)
+        addChild(recommendVC!)
+        addChild(homeTabVC!)
         
-        scrollView.addSubview(recommendVC.view)
-        scrollView.addSubview(homeTabVC.view)
-        recommendVC.view.frame = CGRect(x: 0, y: 0, width: kScreenWidth, height: kScreenHeight)
-        homeTabVC.view.frame = CGRect(x: kScreenWidth, y: 0, width: kScreenWidth, height: kScreenHeight)
+        scrollView.addSubview(recommendVC!.view)
+        scrollView.addSubview(homeTabVC!.view)
+        recommendVC!.view.frame = CGRect(x: 0, y: 0, width: kScreenWidth, height: kScreenHeight)
+        homeTabVC!.view.frame = CGRect(x: kScreenWidth, y: 0, width: kScreenWidth, height: kScreenHeight)
     }
 }
 
@@ -87,21 +89,23 @@ extension MainViewController: HomeTabBarViewControllerDelegate {
 
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        statusBarHidden = false
-        CacheCellManager.shared().pauseAll()
+        if scrollView.contentOffset.x == kScreenWidth {
+            statusBarHidden = false
+            homeTabVC?.hotVC?.hotVCTransformOperation(isActive: false)
+        }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x == kScreenWidth {
-            statusBarHidden = true
-            CacheCellManager.shared().resume()
+            statusBarHidden = false
+            homeTabVC?.hotVC?.hotVCTransformOperation(isActive: true)
         }
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView.contentOffset.x == kScreenWidth {
             statusBarHidden = true
-            CacheCellManager.shared().resume()
+            homeTabVC?.hotVC?.hotVCTransformOperation(isActive: true)
         }
     }
 }

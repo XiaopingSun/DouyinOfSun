@@ -19,7 +19,7 @@ class CacheCellManager: NSObject {
     }
     
     private var cellArray = [HotTableViewCell]()
-    private var currentPlayingCell: HotTableViewCell?
+    var currentPlayingCell: HotTableViewCell?
     
     class func setAudioMode() {
         do {
@@ -41,12 +41,6 @@ class CacheCellManager: NSObject {
         }
         cell.play()
         currentPlayingCell = cell
-    }
-    
-    func pause(cell: HotTableViewCell) {
-        if cellArray.contains(cell) {
-            cell.pause(isPauseIconHidden: false)
-        }
     }
     
     func pauseAll() {

@@ -17,6 +17,7 @@ class HotViewController: UIViewController {
     @objc dynamic var currentIndex: Int = 0
     private var awemeList = [aweme_list]()
     private var systemVolume: CGFloat = 0
+    private var isCurrentCellPaused = false
     private lazy var navigationBarView: HotNavigationBarView = {
         let navigationBarView = HotNavigationBarView(frame: CGRect.zero)
         return navigationBarView
@@ -46,33 +47,25 @@ class HotViewController: UIViewController {
         view.backgroundColor = UIColor(r: 22, g: 24, b: 35)
         setupUI()
         loadData()
-        addNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        MPVolumeViewManager.shared().load()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if awemeList.count == 0 {return}
-        CacheCellManager.shared().resume()
+        hotVCTransformOperation(isActive: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if awemeList.count == 0 {return}
-        CacheCellManager.shared().pauseAll()
-        MPVolumeViewManager.shared().unload()
+        hotVCTransformOperation(isActive: false)
     }
     
     deinit {
         self.removeObserver(self, forKeyPath: "currentIndex")
-        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
     }
 }
 
@@ -125,14 +118,25 @@ extension HotViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(systemVolumeDidChangeNotification(sender:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
     }
     
+    private func removeNotification() {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
+    }
+    
     @objc private func applicationWillResignActiveNotification() {
         if awemeList.count == 0 {return}
-        CacheCellManager.shared().pauseAll()
+        isCurrentCellPaused = !(CacheCellManager.shared().currentPlayingCell?.isPlaying ?? true)
+        if isCurrentCellPaused == false {
+            CacheCellManager.shared().pauseAll()
+        }
     }
     
     @objc private func applicationDidBecomeActiveNotification() {
         if awemeList.count == 0 {return}
-        CacheCellManager.shared().resume()
+        if isCurrentCellPaused == false {
+            CacheCellManager.shared().resume()
+        }
     }
     
     @objc private func systemVolumeDidChangeNotification(sender: Notification) {
@@ -158,6 +162,25 @@ extension HotViewController {
             }
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+        }
+    }
+    
+    func hotVCTransformOperation(isActive: Bool) {
+        if isActive == false {
+            if awemeList.count == 0 {return}
+            isCurrentCellPaused = !(CacheCellManager.shared().currentPlayingCell?.isPlaying ?? true)
+            if isCurrentCellPaused == false {
+                CacheCellManager.shared().pauseAll()
+            }
+            MPVolumeViewManager.shared().unload()
+            removeNotification()
+        } else {
+            if awemeList.count == 0 {return}
+            if isCurrentCellPaused == false {
+                CacheCellManager.shared().resume()
+            }
+            MPVolumeViewManager.shared().load()
+            addNotification()
         }
     }
 }
