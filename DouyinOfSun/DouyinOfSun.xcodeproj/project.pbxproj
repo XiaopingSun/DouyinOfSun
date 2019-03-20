@@ -26,6 +26,7 @@
 		CC10E2C921D77B8F00090806 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2C721D77B8F00090806 /* Main.storyboard */; };
 		CC10E2CB21D77B9100090806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2CA21D77B9100090806 /* Assets.xcassets */; };
 		CC10E2CE21D77B9100090806 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2CC21D77B9100090806 /* LaunchScreen.storyboard */; };
+		CC252FF72241DE9A001191AA /* MPVolumeViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC252FF62241DE9A001191AA /* MPVolumeViewManager.swift */; };
 		CC32E7D6222E60580040ABED /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D5222E60580040ABED /* BaseModel.swift */; };
 		CC32E7D8222E60970040ABED /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D7222E60970040ABED /* UserInfoModel.swift */; };
 		CC32E7DA222E71B30040ABED /* AwemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D9222E71B30040ABED /* AwemeModel.swift */; };
@@ -98,6 +99,7 @@
 		CC10E2CA21D77B9100090806 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC10E2CD21D77B9100090806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC10E2CF21D77B9100090806 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC252FF62241DE9A001191AA /* MPVolumeViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPVolumeViewManager.swift; sourceTree = "<group>"; };
 		CC32E7D5222E60580040ABED /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		CC32E7D7222E60970040ABED /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		CC32E7D9222E71B30040ABED /* AwemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwemeModel.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				CC05A4632239096700B2D43E /* FavoriteView.swift */,
 				CC05A48D223B98B900B2D43E /* FocusView.swift */,
 				CC05A48F223C8A1600B2D43E /* CacheCellManager.swift */,
+				CC252FF62241DE9A001191AA /* MPVolumeViewManager.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -748,6 +751,7 @@
 				CC32E7D6222E60580040ABED /* BaseModel.swift in Sources */,
 				CCC27F01221AC48500054AB6 /* UIBarButtonItem-Extension.swift in Sources */,
 				CC05A490223C8A1600B2D43E /* CacheCellManager.swift in Sources */,
+				CC252FF72241DE9A001191AA /* MPVolumeViewManager.swift in Sources */,
 				CC05A3FA22376E6F00B2D43E /* PLPlayerView.swift in Sources */,
 				CC05A46E223A5BA200B2D43E /* UIImage-Extension.swift in Sources */,
 				CC83E86222261E2400046ED7 /* BaseViewController.swift in Sources */,

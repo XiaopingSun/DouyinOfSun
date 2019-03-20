@@ -407,10 +407,15 @@ class HotTableViewCell: UITableViewCell {
     func stop() {
         playerView.stop()
         resetAnimations()
+        playerStatusBar.reset()
         sendSubviewToBack(playerView)
         if pauseIcon.isHidden == false {
             pauseIcon.isHidden = true
         }
+    }
+    
+    func updateVolume(newValue: CGFloat, oldValue: CGFloat) {
+        playerStatusBar.updateVolume(newValue: newValue, oldValue: oldValue)
     }
 }
 
@@ -490,6 +495,11 @@ extension HotTableViewCell: PLPlayerViewDelegate {
             isPlaying = false
         } else if state == .statusStopped {
             isPlaying = false
+        }
+        if state == .statusCaching || state == .statusPreparing || state == .statusReady {
+            playerStatusBar.showCachingAnimation()
+        } else {
+            playerStatusBar.removeCachingAnimation()
         }
     }
     

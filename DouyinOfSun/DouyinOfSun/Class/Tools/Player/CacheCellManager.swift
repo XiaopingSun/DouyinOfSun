@@ -65,4 +65,8 @@ class CacheCellManager: NSObject {
     func resume() {
         currentPlayingCell?.resume()
     }
+    
+    func updateVolume(newValue: CGFloat, oldValue: CGFloat) {
+        currentPlayingCell?.updateVolume(newValue: newValue, oldValue: oldValue)
+    }
 }

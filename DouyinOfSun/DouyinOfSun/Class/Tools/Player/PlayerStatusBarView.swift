@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class PlayerStatusBarView: UIView {
     
@@ -18,8 +19,10 @@ class PlayerStatusBarView: UIView {
     private var currentProgress: CGFloat = 0
     private var isChangingVolume: Bool = false
     private var status: PlayerStatusBarViewStatus = .progress
+    private var lastChangeVolumeTime: CFTimeInterval = 0
+    private var isVolumeDismissing: Bool = false
     private lazy var progressView: UIView = {
-        let progressView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: self.frame.size.height))
+        let progressView = UIView(frame: CGRect.zero)
         progressView.backgroundColor = UIColor.white
         progressView.isHidden = false
         progressView.alpha = 1
@@ -27,7 +30,7 @@ class PlayerStatusBarView: UIView {
     }()
     
     private lazy var cachingView: UIView = {
-        let cachingView = UIView(frame: CGRect(x: self.frame.size.width - 0.5, y: 0, width: 1.0, height: self.frame.size.height))
+        let cachingView = UIView(frame: CGRect.zero)
         cachingView.backgroundColor = UIColor.white
         cachingView.isHidden = true
         cachingView.alpha = 0.0
@@ -35,7 +38,7 @@ class PlayerStatusBarView: UIView {
     }()
     
     private lazy var volumeView: UIView = {
-        let volumeView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: self.frame.size.height))
+        let volumeView = UIView(frame: CGRect.zero)
         volumeView.backgroundColor = UIColor(r: 250.0, g: 206.0, b: 21.0, alpha: 1.0)
         volumeView.isHidden = true
         volumeView.alpha = 0.0
@@ -59,6 +62,19 @@ extension PlayerStatusBarView {
         addSubview(progressView)
         addSubview(cachingView)
         addSubview(volumeView)
+        
+        progressView.snp.makeConstraints { (make) in
+            make.left.top.bottom.equalToSuperview()
+            make.width.equalTo(0)
+        }
+        volumeView.snp.makeConstraints { (make) in
+            make.left.top.bottom.equalToSuperview()
+            make.width.equalTo(0)
+        }
+        cachingView.snp.makeConstraints { (make) in
+            make.centerX.top.bottom.equalToSuperview()
+            make.width.equalTo(1.0)
+        }
     }
 }
 
@@ -82,13 +98,13 @@ extension PlayerStatusBarView {
         animationGroup.repeatCount = .infinity
         animationGroup.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         animationGroup.isRemovedOnCompletion = false
-        
+
         let scaleAnimation = CAKeyframeAnimation(keyPath: "transform.scale.x")
         scaleAnimation.values = [1.0, 0.4 * kScreenWidth, 0.6 * kScreenWidth, 0.8 * kScreenWidth, 1.0 * kScreenWidth]
-        
+
         let opacityAnimation = CAKeyframeAnimation(keyPath: "opacity")
         opacityAnimation.values = [0.4, 0.9, 1, 0.9, 0.2]
-        
+
         animationGroup.animations = [scaleAnimation, opacityAnimation]
         cachingView.layer.add(animationGroup, forKey: nil)
     }
@@ -103,71 +119,120 @@ extension PlayerStatusBarView {
     }
     
     func updateProgress(progress: CGFloat) {
+        if progress == currentProgress {
+            return
+        }
         if progress < currentProgress {
-            self.progressView.frame = CGRect(x: 0, y: 0, width: 0, height: self.frame.size.height)
+            self.progressView.snp.updateConstraints { (make) in
+                make.width.equalTo(kScreenWidth)
+            }
+            self.setNeedsLayout()
+            UIView.animate(withDuration: 0.3, animations: {
+                self.layoutIfNeeded()
+            }) { (_) in
+                self.progressView.snp.updateConstraints({ (make) in
+                    make.width.equalTo(0)
+                })
+                self.setNeedsLayout()
+                self.layoutIfNeeded()
+                self.progressView.snp.updateConstraints({ (make) in
+                    make.width.equalTo(progress * kScreenWidth)
+                })
+                self.setNeedsLayout()
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.layoutIfNeeded()
+                })
+            }
+        } else {
+            self.progressView.snp.updateConstraints { (make) in
+                make.width.equalTo(progress * kScreenWidth)
+            }
+            self.setNeedsLayout()
+            UIView.animate(withDuration: 0.5, animations: {
+                self.layoutIfNeeded()
+            })
         }
         self.currentProgress = progress
-        UIView.animate(withDuration: 0.5, animations: {
-            self.progressView.frame = CGRect(x: 0, y: 0, width: progress * kScreenWidth, height: self.frame.size.height)
-        })
     }
     
-    func updateVolume(volumeScale: CGFloat) {
-        if volumeView.isHidden == true {
-            volumeView.isHidden = false
-            volumeView.alpha = 1.0
+    func updateVolume(newValue: CGFloat, oldValue: CGFloat) {
+        self.isVolumeDismissing = false
+        let interval = CACurrentMediaTime() - lastChangeVolumeTime
+        if interval < 0.2 {
+            self.isVolumeDismissing = true
+        } else if interval < 1.0 {
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(dismissVolumeView), object: nil)
+        } else if interval < 1.3 && interval > 1.0 {
+            self.isVolumeDismissing = true
+        } else if interval < 1.6 {
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showOtherViewAfterVolumeViewDismissed), object: nil)
         }
+        
+        self.volumeView.snp.updateConstraints { (make) in
+            make.width.equalTo(oldValue * kScreenWidth)
+        }
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
+        
+        volumeView.isHidden = false
+        volumeView.alpha = 1.0
 
         self.isChangingVolume = true
         if status == .progress {
             progressView.isHidden = true
             progressView.alpha = 0.0
-            UIView.animate(withDuration: 0.2, delay: 0.1, options: UIView.AnimationOptions.curveEaseInOut, animations: {
-                self.volumeView.frame = CGRect(x: 0, y: 0, width: volumeScale * kScreenWidth, height: self.frame.size.height)
+            self.volumeView.snp.updateConstraints { (make) in
+                make.width.equalTo(newValue * kScreenWidth)
+            }
+            self.setNeedsLayout()
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
+                self.layoutIfNeeded()
             }) { (_) in
-                UIView.animate(withDuration: 0.3, delay: 0.2, options: UIView.AnimationOptions.curveEaseInOut, animations: {
-                    self.volumeView.alpha = 0.0
-                }, completion: { (_) in
-                    self.volumeView.isHidden = true
-                    if self.status == .progress {
-                        self.progressView.isHidden = false
-                        UIView.animate(withDuration: 0.3, animations: {
-                            self.progressView.alpha = 1.0
-                        }, completion: { (_) in
-                            self.isChangingVolume = false
-                        })
-                    } else {
-                        self.isChangingVolume = false
-                        self.cachingView.isHidden = false
-                        self.cachingView.alpha = 1.0
-                        self.showCachingAnimation()
-                    }
-                })
+                self.lastChangeVolumeTime = CACurrentMediaTime()
+                self.perform(#selector(self.dismissVolumeView), with: nil, afterDelay: 1.0)
             }
         } else if status == .caching {
             cachingView.isHidden = true
             cachingView.alpha = 0.0
-            UIView.animate(withDuration: 0.2, delay: 0.1, options: UIView.AnimationOptions.curveEaseInOut, animations: {
-                self.volumeView.frame = CGRect(x: 0, y: 0, width: volumeScale * kScreenWidth, height: self.frame.size.height)
-            }) { (_) in
-                UIView.animate(withDuration: 0.3, delay: 0.2, options: UIView.AnimationOptions.curveEaseInOut, animations: {
-                    self.volumeView.alpha = 0.0
-                }, completion: { (_) in
-                    if self.status == .caching {
-                        self.isChangingVolume = false
-                        self.volumeView.isHidden = true
-                        self.cachingView.isHidden = false
-                        self.cachingView.alpha = 1.0
-                        self.showCachingAnimation()
-                    } else {
-                        UIView.animate(withDuration: 0.3, animations: {
-                            self.progressView.alpha = 1.0
-                        }, completion: { (_) in
-                            self.isChangingVolume = false
-                        })
-                    }
-                })
+            cachingView.layer.removeAllAnimations()
+            self.volumeView.snp.updateConstraints { (make) in
+                make.width.equalTo(newValue * kScreenWidth)
             }
+            self.setNeedsLayout()
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
+                self.layoutIfNeeded()
+            }) { (_) in
+                self.lastChangeVolumeTime = CACurrentMediaTime()
+                if self.isVolumeDismissing == false {
+                    self.perform(#selector(self.dismissVolumeView), with: nil, afterDelay: 1.0)
+                }
+            }
+        }
+    }
+    
+    @objc private func dismissVolumeView() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.volumeView.alpha = 0.0
+        }, completion: { (_) in
+            self.lastChangeVolumeTime = CACurrentMediaTime()
+            if self.isVolumeDismissing == false {
+                self.perform(#selector(self.showOtherViewAfterVolumeViewDismissed), with: nil, afterDelay: 0.3)
+            }
+        })
+    }
+    
+    @objc private func showOtherViewAfterVolumeViewDismissed() {
+        self.volumeView.isHidden = true
+        if self.status == .caching {
+            self.isChangingVolume = false
+            self.showCachingAnimation()
+        } else {
+            self.progressView.isHidden = false
+            UIView.animate(withDuration: 0.3, animations: {
+                self.progressView.alpha = 1.0
+            }, completion: { (_) in
+                self.isChangingVolume = false
+            })
         }
     }
     
@@ -179,7 +244,14 @@ extension PlayerStatusBarView {
         volumeView.isHidden = true
         volumeView.alpha = 0.0
         currentProgress = 0
+        isVolumeDismissing = false
+        isChangingVolume = false
+        lastChangeVolumeTime = 0
         cachingView.layer.removeAllAnimations()
-        progressView.frame = CGRect(x: 0, y: 0, width: 0, height: self.frame.size.height)
+        progressView.snp.updateConstraints { (make) in
+            make.width.equalTo(0)
+        }
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
     }
 }

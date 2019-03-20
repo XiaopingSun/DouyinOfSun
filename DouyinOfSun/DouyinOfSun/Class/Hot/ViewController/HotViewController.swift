@@ -16,7 +16,7 @@ class HotViewController: UIViewController {
     
     @objc dynamic var currentIndex: Int = 0
     private var awemeList = [aweme_list]()
-    
+    private var systemVolume: CGFloat = 0
     private lazy var navigationBarView: HotNavigationBarView = {
         let navigationBarView = HotNavigationBarView(frame: CGRect.zero)
         return navigationBarView
@@ -51,6 +51,8 @@ class HotViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        MPVolumeViewManager.shared().load()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -63,12 +65,14 @@ class HotViewController: UIViewController {
         super.viewWillDisappear(animated)
         if awemeList.count == 0 {return}
         CacheCellManager.shared().pauseAll()
+        MPVolumeViewManager.shared().unload()
     }
     
     deinit {
         self.removeObserver(self, forKeyPath: "currentIndex")
         NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
     }
 }
 
@@ -118,8 +122,9 @@ extension HotViewController {
     private func addNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActiveNotification), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(systemVolumeDidChangeNotification(sender:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
     }
-
+    
     @objc private func applicationWillResignActiveNotification() {
         if awemeList.count == 0 {return}
         CacheCellManager.shared().pauseAll()
@@ -128,6 +133,14 @@ extension HotViewController {
     @objc private func applicationDidBecomeActiveNotification() {
         if awemeList.count == 0 {return}
         CacheCellManager.shared().resume()
+    }
+    
+    @objc private func systemVolumeDidChangeNotification(sender: Notification) {
+        let volume = sender.userInfo!["AVSystemController_AudioVolumeNotificationParameter"] as! CGFloat
+        systemVolume = MPVolumeViewManager.shared().getSystemVolume()
+        
+        if awemeList.count == 0 {return}
+        CacheCellManager.shared().updateVolume(newValue: volume, oldValue: systemVolume)
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
