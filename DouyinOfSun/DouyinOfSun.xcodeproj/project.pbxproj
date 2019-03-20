@@ -27,6 +27,7 @@
 		CC10E2CB21D77B9100090806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2CA21D77B9100090806 /* Assets.xcassets */; };
 		CC10E2CE21D77B9100090806 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2CC21D77B9100090806 /* LaunchScreen.storyboard */; };
 		CC252FF72241DE9A001191AA /* MPVolumeViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC252FF62241DE9A001191AA /* MPVolumeViewManager.swift */; };
+		CC252FF92242210E001191AA /* SharePopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC252FF82242210E001191AA /* SharePopView.swift */; };
 		CC32E7D6222E60580040ABED /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D5222E60580040ABED /* BaseModel.swift */; };
 		CC32E7D8222E60970040ABED /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D7222E60970040ABED /* UserInfoModel.swift */; };
 		CC32E7DA222E71B30040ABED /* AwemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D9222E71B30040ABED /* AwemeModel.swift */; };
@@ -100,6 +101,7 @@
 		CC10E2CD21D77B9100090806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC10E2CF21D77B9100090806 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC252FF62241DE9A001191AA /* MPVolumeViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPVolumeViewManager.swift; sourceTree = "<group>"; };
+		CC252FF82242210E001191AA /* SharePopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePopView.swift; sourceTree = "<group>"; };
 		CC32E7D5222E60580040ABED /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		CC32E7D7222E60970040ABED /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		CC32E7D9222E71B30040ABED /* AwemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwemeModel.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				CC05A48D223B98B900B2D43E /* FocusView.swift */,
 				CC05A48F223C8A1600B2D43E /* CacheCellManager.swift */,
 				CC252FF62241DE9A001191AA /* MPVolumeViewManager.swift */,
+				CC252FF82242210E001191AA /* SharePopView.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -736,6 +739,7 @@
 			files = (
 				CCD25E6122293211007143DB /* UserInfoHeaderTabbar.swift in Sources */,
 				CC05A3D12235FDBB00B2D43E /* UIWindow-Extension.swift in Sources */,
+				CC252FF92242210E001191AA /* SharePopView.swift in Sources */,
 				CC32E7DA222E71B30040ABED /* AwemeModel.swift in Sources */,
 				CCD25E4D2227BAF8007143DB /* MyCollectionViewFlowLayout.swift in Sources */,
 				CCC01B512230BCBF00A2A380 /* UIImageView-Extension.swift in Sources */,

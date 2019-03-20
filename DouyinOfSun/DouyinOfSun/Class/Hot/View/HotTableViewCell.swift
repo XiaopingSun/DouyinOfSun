@@ -330,7 +330,7 @@ class HotTableViewCell: UITableViewCell {
         case kMyCellCommentIconTag:
             print("kMyCellCommentIconTag")
         case kMyCellShareIconTag:
-            print("kMyCellShareIconTag")
+            SharePopView(frame: self.bounds).show()
         default:
             break
         }
