@@ -20,7 +20,6 @@ class PlayerStatusBarView: UIView {
     private var isChangingVolume: Bool = false
     private var status: PlayerStatusBarViewStatus = .progress
     private var lastChangeVolumeTime: CFTimeInterval = 0
-    private var isVolumeDismissing: Bool = false
     private lazy var progressView: UIView = {
         let progressView = UIView(frame: CGRect.zero)
         progressView.backgroundColor = UIColor.white
@@ -156,16 +155,18 @@ extension PlayerStatusBarView {
     }
     
     func updateVolume(newValue: CGFloat, oldValue: CGFloat) {
-        self.isVolumeDismissing = false
         let interval = CACurrentMediaTime() - lastChangeVolumeTime
+        self.lastChangeVolumeTime = CACurrentMediaTime()
         if interval < 0.2 {
-            self.isVolumeDismissing = true
-        } else if interval < 1.0 {
+            self.volumeView.layer.removeAllAnimations()
+        } else if interval < 0.8 {
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(dismissVolumeView), object: nil)
-        } else if interval < 1.3 && interval > 1.0 {
-            self.isVolumeDismissing = true
-        } else if interval < 1.6 {
+        } else if interval < 1.0 {
+            self.volumeView.layer.removeAllAnimations()
+        } else if interval < 1.1 {
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showOtherViewAfterVolumeViewDismissed), object: nil)
+        } else if interval < 1.3 && status == .progress {
+            self.progressView.layer.removeAllAnimations()
         }
         
         self.volumeView.snp.updateConstraints { (make) in
@@ -187,9 +188,10 @@ extension PlayerStatusBarView {
             self.setNeedsLayout()
             UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
                 self.layoutIfNeeded()
-            }) { (_) in
-                self.lastChangeVolumeTime = CACurrentMediaTime()
-                self.perform(#selector(self.dismissVolumeView), with: nil, afterDelay: 1.0)
+            }) { (success) in
+                if success == true {
+                    self.perform(#selector(self.dismissVolumeView), with: nil, afterDelay: 0.6)
+                }
             }
         } else if status == .caching {
             cachingView.isHidden = true
@@ -201,22 +203,20 @@ extension PlayerStatusBarView {
             self.setNeedsLayout()
             UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
                 self.layoutIfNeeded()
-            }) { (_) in
-                self.lastChangeVolumeTime = CACurrentMediaTime()
-                if self.isVolumeDismissing == false {
-                    self.perform(#selector(self.dismissVolumeView), with: nil, afterDelay: 1.0)
+            }) { (success) in
+                if success == true {
+                    self.perform(#selector(self.dismissVolumeView), with: nil, afterDelay: 0.6)
                 }
             }
         }
     }
     
     @objc private func dismissVolumeView() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.volumeView.alpha = 0.0
-        }, completion: { (_) in
-            self.lastChangeVolumeTime = CACurrentMediaTime()
-            if self.isVolumeDismissing == false {
-                self.perform(#selector(self.showOtherViewAfterVolumeViewDismissed), with: nil, afterDelay: 0.3)
+        }, completion: { (success) in
+            if success == true {
+                self.perform(#selector(self.showOtherViewAfterVolumeViewDismissed), with: nil, afterDelay: 0.1)
             }
         })
     }
@@ -228,10 +228,12 @@ extension PlayerStatusBarView {
             self.showCachingAnimation()
         } else {
             self.progressView.isHidden = false
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: 0.2, animations: {
                 self.progressView.alpha = 1.0
-            }, completion: { (_) in
-                self.isChangingVolume = false
+            }, completion: { (success) in
+                if success == true {
+                    self.isChangingVolume = false
+                }
             })
         }
     }
@@ -244,7 +246,6 @@ extension PlayerStatusBarView {
         volumeView.isHidden = true
         volumeView.alpha = 0.0
         currentProgress = 0
-        isVolumeDismissing = false
         isChangingVolume = false
         lastChangeVolumeTime = 0
         cachingView.layer.removeAllAnimations()

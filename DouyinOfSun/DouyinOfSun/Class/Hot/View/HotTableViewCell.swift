@@ -234,7 +234,7 @@ class HotTableViewCell: UITableViewCell {
         playerStatusBar.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.bottom.equalToSuperview().offset(-(kTabbarH))
-            make.height.equalTo(0.8)
+            make.height.equalTo(1.0)
         }
         musicIcon.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
