@@ -91,21 +91,21 @@ extension MainViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x == kScreenWidth {
             statusBarHidden = false
-            homeTabVC?.hotVC?.hotVCTransformOperation(isActive: false)
+            homeTabVC?.hotVC?.hotVCTransformOperation(isActive: false, needUpdateBackgroundNotification: true)
         }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x == kScreenWidth {
             statusBarHidden = false
-            homeTabVC?.hotVC?.hotVCTransformOperation(isActive: true)
+            homeTabVC?.hotVC?.hotVCTransformOperation(isActive: true, needUpdateBackgroundNotification: true)
         }
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView.contentOffset.x == kScreenWidth {
             statusBarHidden = true
-            homeTabVC?.hotVC?.hotVCTransformOperation(isActive: true)
+            homeTabVC?.hotVC?.hotVCTransformOperation(isActive: true, needUpdateBackgroundNotification: true)
         }
     }
 }

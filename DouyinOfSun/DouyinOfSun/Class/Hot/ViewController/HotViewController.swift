@@ -18,6 +18,7 @@ class HotViewController: UIViewController {
     private var awemeList = [aweme_list]()
     private var systemVolume: CGFloat = 0
     private var isCurrentCellPaused = false
+    private var isRefreshPanGestureChanging: Bool = false
     private lazy var navigationBarView: HotNavigationBarView = {
         let navigationBarView = HotNavigationBarView(frame: CGRect.zero)
         return navigationBarView
@@ -26,8 +27,9 @@ class HotViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: CGRect(x: 0, y: -kScreenHeight, width: kScreenWidth, height: 3 * kScreenHeight), style: .plain)
         tableView.contentInset = UIEdgeInsets(top: kScreenHeight, left: 0, bottom: kScreenHeight, right: 0)
-        tableView.backgroundColor = UIColor.black
+        tableView.backgroundColor = UIColor(r: 22, g: 24, b: 35)
         tableView.separatorStyle = .none
+        tableView.bounces = false
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
@@ -40,11 +42,16 @@ class HotViewController: UIViewController {
         tableView.register(HotTableViewCell.self, forCellReuseIdentifier: hotCellIdentifier)
         return tableView
     }()
+    
+    private lazy var reloadPanGesture: UIPanGestureRecognizer = {
+        let reloadPanGesture = UIPanGestureRecognizer(target: self, action: #selector(reloadPanGestureValueChanged(sender:)))
+        reloadPanGesture.delegate = self
+        return reloadPanGesture
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(r: 22, g: 24, b: 35)
         setupUI()
         loadData()
     }
@@ -56,12 +63,12 @@ class HotViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        hotVCTransformOperation(isActive: true)
+        hotVCTransformOperation(isActive: true, needUpdateBackgroundNotification: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        hotVCTransformOperation(isActive: false)
+        hotVCTransformOperation(isActive: false, needUpdateBackgroundNotification: true)
     }
     
     deinit {
@@ -112,31 +119,30 @@ extension HotViewController {
         }
     }
     
-    private func addNotification() {
+    private func addBackgroundNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActiveNotification), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    private func addVolumeNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(systemVolumeDidChangeNotification(sender:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
     }
     
-    private func removeNotification() {
+    private func removeBackgroundNotification() {
         NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    private func removeVolumeNotification() {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
     }
     
     @objc private func applicationWillResignActiveNotification() {
-        if awemeList.count == 0 {return}
-        isCurrentCellPaused = !(CacheCellManager.shared().currentPlayingCell?.isPlaying ?? true)
-        if isCurrentCellPaused == false {
-            CacheCellManager.shared().pauseAll()
-        }
+        hotVCTransformOperation(isActive: false, needUpdateBackgroundNotification: false)
     }
     
     @objc private func applicationDidBecomeActiveNotification() {
-        if awemeList.count == 0 {return}
-        if isCurrentCellPaused == false {
-            CacheCellManager.shared().resume()
-        }
+        hotVCTransformOperation(isActive: true, needUpdateBackgroundNotification: false)
     }
     
     @objc private func systemVolumeDidChangeNotification(sender: Notification) {
@@ -160,27 +166,38 @@ extension HotViewController {
                 let currentCell = tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as! HotTableViewCell
                 CacheCellManager.shared().play(cell: currentCell)
             }
+            if currentIndex == 0 {
+                self.tableView.addGestureRecognizer(reloadPanGesture)
+            } else {
+                self.tableView.removeGestureRecognizer(reloadPanGesture)
+            }
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
     
-    func hotVCTransformOperation(isActive: Bool) {
+    func hotVCTransformOperation(isActive: Bool, needUpdateBackgroundNotification: Bool) {
         if isActive == false {
+            MPVolumeViewManager.shared().unload()
+            if needUpdateBackgroundNotification == true {
+                removeBackgroundNotification()
+            }
+            removeVolumeNotification()
             if awemeList.count == 0 {return}
             isCurrentCellPaused = !(CacheCellManager.shared().currentPlayingCell?.isPlaying ?? true)
             if isCurrentCellPaused == false {
                 CacheCellManager.shared().pauseAll()
             }
-            MPVolumeViewManager.shared().unload()
-            removeNotification()
         } else {
+            MPVolumeViewManager.shared().load()
+            if needUpdateBackgroundNotification == true {
+                addBackgroundNotification()
+            }
+            addVolumeNotification()
             if awemeList.count == 0 {return}
             if isCurrentCellPaused == false {
                 CacheCellManager.shared().resume()
             }
-            MPVolumeViewManager.shared().load()
-            addNotification()
         }
     }
 }
@@ -232,6 +249,54 @@ extension HotViewController: UIScrollViewDelegate {
                 scrollView.panGestureRecognizer.isEnabled = true
                 self.currentIndex = tempIndex
             })
+        }
+    }
+}
+
+// 顶部滑动手势
+extension HotViewController: UIGestureRecognizerDelegate {
+    
+    @objc private func reloadPanGestureValueChanged(sender: UIPanGestureRecognizer) {
+        let progress: CGFloat = sender.translation(in: sender.view).y
+
+        switch sender.state {
+        case .began:
+            isRefreshPanGestureChanging = true
+        case .changed:
+            navigationBarView.updateNavigationBarStatus(offset: progress)
+        case .ended, .cancelled:
+            isRefreshPanGestureChanging = false
+            navigationBarView.finishPanGesture(offset: progress)
+        default:
+            break
+        }
+    }
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return panReload(sender: gestureRecognizer)
+    }
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return !panReload(sender: gestureRecognizer)
+    }
+    
+    private func panReload(sender: UIGestureRecognizer) -> Bool {
+        if sender.isKind(of: UIPanGestureRecognizer.self) {
+            let translation = (sender as! UIPanGestureRecognizer).translation(in: sender.view)
+            let absX: CGFloat = abs(translation.x)
+            let absY: CGFloat = abs(translation.y)
+            if absX > absY {
+                return false
+            } else if absX < absY {
+                if translation.y < 0 {// 上滑
+                    return false
+                } else {// 下滑
+                    return true
+                }
+            } else {
+                return false
+            }
+        } else {
+            return false
         }
     }
 }
