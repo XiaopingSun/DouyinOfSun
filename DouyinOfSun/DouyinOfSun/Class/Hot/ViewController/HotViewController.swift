@@ -91,7 +91,7 @@ extension HotViewController {
     private func loadData() {
         DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 1) {
             let bundleName = ["production1",
-                              "favorite1", "favorite2", "favorite3", "favorite4", "favorite5", "favorite6"]
+                              "favorite1", "favorite2", "favorite3", "favorite4", "favorite5", "favorite6", "favorite7"]
             var tempAwemeList = [aweme_list]()
             for i in 0 ..< bundleName.count {
                 let awemeDataJson: String = try! NSString(contentsOfFile: Bundle.main.path(forResource: bundleName[i], ofType: "json")!, encoding: String.Encoding.utf8.rawValue) as String
