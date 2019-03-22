@@ -9,8 +9,14 @@
 import UIKit
 import SnapKit
 
+protocol HotNavigationBarViewDelegate: class {
+    func hotNavigationBarViewWillStartReloading()
+}
+
 class HotNavigationBarView: UIView {
     
+    private var isReloading: Bool = false
+    weak var delegate: HotNavigationBarViewDelegate?
     private lazy var container: UIView = {
         let container = UIView(frame: CGRect.zero)
         container.backgroundColor = UIColor.clear
@@ -134,6 +140,7 @@ extension HotNavigationBarView {
 extension HotNavigationBarView {
     func updateNavigationBarStatus(offset: CGFloat) {
         print(offset)
+        if isReloading == true { return }
         if offset <= 0 {
             self.snp.updateConstraints { (make) in
                 make.top.equalToSuperview()
@@ -142,10 +149,12 @@ extension HotNavigationBarView {
             titleView.alpha = 1.0
             refreshTitle.alpha = 0.0
             loadingView.alpha = 0.0
+            loadingView.layer.transform = CATransform3DMakeRotation(0, 0, 0, 1.0)
         } else if offset <= 60 {
             self.snp.updateConstraints { (make) in
                 make.top.equalToSuperview().offset(offset / 2.0)
             }
+            loadingView.layer.transform = CATransform3DMakeRotation(CGFloat(4 * Double.pi) * offset / 60.0, 0, 0, 1.0)
             if offset <= 30 {
                 container.alpha = 1.0 - offset / 30.0
                 titleView.alpha = 1.0 - offset / 30.0
@@ -161,6 +170,7 @@ extension HotNavigationBarView {
             self.snp.updateConstraints { (make) in
                 make.top.equalToSuperview().offset(30)
             }
+            loadingView.layer.transform = CATransform3DMakeRotation(CGFloat(4 * Double.pi), 0, 0, 1.0)
             container.alpha = 0.0
             titleView.alpha = 0.0
             refreshTitle.alpha = 1.0
@@ -169,6 +179,7 @@ extension HotNavigationBarView {
     }
     
     func finishPanGesture(offset: CGFloat) {
+        if isReloading == true { return }
         
         self.snp.updateConstraints { (make) in
             make.top.equalToSuperview()
@@ -179,17 +190,57 @@ extension HotNavigationBarView {
         }) { (_) in
             
         }
-        UIView.animate(withDuration: 0.15, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
-            self.refreshTitle.alpha = 0.0
-            self.loadingView.alpha = 0.0
-        }) { (_) in
+        if offset < 60 {
+            isReloading = false
             UIView.animate(withDuration: 0.15, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
-                self.container.alpha = 1.0
-                self.titleView.alpha = 1.0
-            }, completion: { (_) in
-                
-            })
+                self.refreshTitle.alpha = 0.0
+                self.loadingView.alpha = 0.0
+            }) { (_) in
+                UIView.animate(withDuration: 0.15, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                    self.container.alpha = 1.0
+                    self.titleView.alpha = 1.0
+                }, completion: nil)
+            }
+            if offset <= 30 {
+                UIView.animate(withDuration: 0.15, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                    self.container.alpha = 1.0
+                    self.titleView.alpha = 1.0
+                }, completion: nil)
+            }
+        } else {
+            delegate?.hotNavigationBarViewWillStartReloading()
+            innerStartReloadingAnimation()
+            UIView.animate(withDuration: 0.15, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                self.refreshTitle.alpha = 0.0
+            }) { (_) in
+                UIView.animate(withDuration: 0.15, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                    self.titleView.alpha = 1.0
+                }, completion: nil)
+            }
         }
-            
+    }
+    
+    private func innerStartReloadingAnimation() {
+        isReloading = true
+        let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotateAnimation.fromValue = 0.0
+        rotateAnimation.toValue = Double.pi * 2
+        rotateAnimation.duration = 0.5
+        rotateAnimation.isRemovedOnCompletion = false
+        rotateAnimation.repeatCount = MAXFLOAT
+        loadingView.layer.add(rotateAnimation, forKey: nil)
+    }
+    
+    func startLoading() {
+        loadingView.alpha = 1.0
+        container.alpha = 0.0
+        innerStartReloadingAnimation()
+    }
+    
+    func finishLoading() {
+        loadingView.layer.removeAllAnimations()
+        loadingView.alpha = 0.0
+        container.alpha = 1.0
+        isReloading = false
     }
 }

@@ -79,6 +79,7 @@ extension PlayerStatusBarView {
 
 extension PlayerStatusBarView {
     func showCachingAnimation() {
+        if status == .caching { return }
         status = .caching
         if isChangingVolume == true {
             return
@@ -96,6 +97,7 @@ extension PlayerStatusBarView {
         animationGroup.beginTime = CACurrentMediaTime()
         animationGroup.repeatCount = .infinity
         animationGroup.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        animationGroup.fillMode = .forwards
         animationGroup.isRemovedOnCompletion = false
 
         let scaleAnimation = CAKeyframeAnimation(keyPath: "transform.scale.x")
@@ -109,12 +111,14 @@ extension PlayerStatusBarView {
     }
     
     func removeCachingAnimation() {
-        cachingView.layer.removeAllAnimations()
-        cachingView.isHidden = true
-        cachingView.alpha = 0.0
-        progressView.isHidden = false
-        progressView.alpha = 1.0
-        status = .progress
+        if status == .caching {
+            cachingView.alpha = 0.0
+            cachingView.layer.removeAllAnimations()
+            cachingView.isHidden = true
+            progressView.isHidden = false
+            progressView.alpha = 1.0
+            status = .progress
+        }
     }
     
     func updateProgress(progress: CGFloat) {

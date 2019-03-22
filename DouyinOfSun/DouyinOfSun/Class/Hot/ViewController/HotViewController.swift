@@ -18,9 +18,9 @@ class HotViewController: UIViewController {
     private var awemeList = [aweme_list]()
     private var systemVolume: CGFloat = 0
     private var isCurrentCellPaused = false
-    private var isRefreshPanGestureChanging: Bool = false
     private lazy var navigationBarView: HotNavigationBarView = {
         let navigationBarView = HotNavigationBarView(frame: CGRect.zero)
+        navigationBarView.delegate = self
         return navigationBarView
     }()
     
@@ -33,6 +33,7 @@ class HotViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
+        tableView.estimatedRowHeight = 0 // 禁止tableView在reloadData时估算cell高度
         tableView.isScrollEnabled = false
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = UIScrollView.ContentInsetAdjustmentBehavior.never
@@ -54,6 +55,7 @@ class HotViewController: UIViewController {
         
         setupUI()
         loadData()
+        navigationBarView.startLoading()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,15 +108,10 @@ extension HotViewController {
                 return Int(arc4random() % 3) - 1 > 0
             })
             DispatchQueue.main.async {
-                // reloadData会按默认高度init对应个数的cell，造成播放器大量实例化
-                var indexPaths = [IndexPath]()
-                for i in (0 ..< self.awemeList.count) {
-                    let indexPath = IndexPath(row: i, section: 0)
-                    indexPaths.append(indexPath)
-                }
                 self.tableView.isScrollEnabled = true
-                self.tableView.insertRows(at: indexPaths, with: UITableView.RowAnimation.none)
+                self.tableView.reloadData()
                 self.addObserver(self, forKeyPath: "currentIndex", options: [.initial, .old, .new], context: nil)
+                self.navigationBarView.finishLoading()
             }
         }
     }
@@ -254,18 +251,22 @@ extension HotViewController: UIScrollViewDelegate {
 }
 
 // 顶部滑动手势
-extension HotViewController: UIGestureRecognizerDelegate {
+extension HotViewController: UIGestureRecognizerDelegate, HotNavigationBarViewDelegate {
+    
+    func hotNavigationBarViewWillStartReloading() {
+        self.removeObserver(self, forKeyPath: "currentIndex")
+        loadData()
+    }
     
     @objc private func reloadPanGestureValueChanged(sender: UIPanGestureRecognizer) {
         let progress: CGFloat = sender.translation(in: sender.view).y
 
         switch sender.state {
         case .began:
-            isRefreshPanGestureChanging = true
+            navigationBarView.updateNavigationBarStatus(offset: progress)
         case .changed:
             navigationBarView.updateNavigationBarStatus(offset: progress)
         case .ended, .cancelled:
-            isRefreshPanGestureChanging = false
             navigationBarView.finishPanGesture(offset: progress)
         default:
             break
