@@ -102,6 +102,7 @@ extension PLPlayerView: PLPlayerDelegate {
             } else {
                 timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(progressTimerAction), userInfo: nil, repeats: true)
             }
+            RunLoop.current.add(timer!, forMode: .common)
             timer?.fire()
         }
         delegate?.playerView!(self, player, firstRender: firstRenderType)

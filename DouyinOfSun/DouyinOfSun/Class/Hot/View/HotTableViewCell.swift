@@ -209,7 +209,6 @@ class HotTableViewCell: UITableViewCell {
         
         selectionStyle = .none
         initSubviews()
-        print("init cell")
     }
     
     override func layoutSubviews() {
