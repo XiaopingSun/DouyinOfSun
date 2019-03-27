@@ -1,8 +1,8 @@
 //
-//  HotViewController.swift
+//  MyAwemeViewController.swift
 //  DouyinOfSun
 //
-//  Created by WorkSpace_Sun on 2019/1/17.
+//  Created by WorkSpace_Sun on 2019/3/25.
 //  Copyright © 2019 WorkSpace_Sun. All rights reserved.
 //
 
@@ -10,27 +10,32 @@ import UIKit
 import SnapKit
 import HandyJSON
 
-private let hotCellIdentifier: String = "hotCellIdentifier"
+private let myAwemeCellIdentifier: String = "myAwemeCellIdentifier"
 
-class HotViewController: UIViewController {
+class MyAwemeViewController: BaseViewController {
     
     @objc dynamic var currentIndex: Int = 0
     var cellManager: CacheCellManager = CacheCellManager()
     private var awemeList = [aweme_list]()
     private var systemVolume: CGFloat = 0
     private var isCurrentCellPaused = false
-    private lazy var navigationBarView: HotNavigationBarView = {
-        let navigationBarView = HotNavigationBarView(frame: CGRect.zero)
-        navigationBarView.delegate = self
-        return navigationBarView
-    }()
+    private var pageIndex: Int = 0
     
+    private lazy var backButton: UIButton = {
+        let backButton = UIButton(type: .custom)
+        backButton.frame = CGRect(x: 15.0, y: 32.0, width: 20.0, height: 20.0)
+        backButton.setImage(UIImage(named: "icon_titlebar_whiteback"), for: .normal)
+        backButton.backgroundColor = UIColor.clear
+        backButton.showsTouchWhenHighlighted = false
+        backButton.addTarget(self, action: #selector(backAction), for: .touchUpInside)
+        return backButton
+    }()
+
     private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
+        let tableView = UITableView(frame: CGRect(x: 0, y: -kScreenHeight, width: kScreenWidth, height: 3 * kScreenHeight), style: .plain)
         tableView.contentInset = UIEdgeInsets(top: kScreenHeight, left: 0, bottom: kScreenHeight, right: 0)
         tableView.backgroundColor = UIColor(r: 22, g: 24, b: 35)
         tableView.separatorStyle = .none
-        tableView.bounces = false
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
@@ -41,26 +46,31 @@ class HotViewController: UIViewController {
         } else {
             self.automaticallyAdjustsScrollViewInsets = false
         }
-        tableView.register(HotTableViewCell.self, forCellReuseIdentifier: hotCellIdentifier)
+        tableView.register(HotTableViewCell.self, forCellReuseIdentifier: myAwemeCellIdentifier)
         return tableView
-    }()
-    
-    private lazy var reloadPanGesture: UIPanGestureRecognizer = {
-        let reloadPanGesture = UIPanGestureRecognizer(target: self, action: #selector(reloadPanGestureValueChanged(sender:)))
-        reloadPanGesture.delegate = self
-        return reloadPanGesture
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.clipsToBounds = true
         setupUI()
-        loadData()
-        navigationBarView.startLoading()
+        initData()
+    }
+    
+    init(awemeList: [aweme_list], currentIndex: Int) {
+        super.init(nibName: nil, bundle: nil)
+        self.awemeList = awemeList
+        self.currentIndex = currentIndex
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        statusBarHidden = true
+        statusBarStyle = .lightContent
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -70,55 +80,25 @@ class HotViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        statusBarHidden = false
         hotVCTransformOperation(isActive: false, needUpdateBackgroundNotification: true)
     }
     
     deinit {
+        cellManager.currentPlayingCell?.stop()
         self.removeObserver(self, forKeyPath: "currentIndex")
     }
-}
-
-extension HotViewController {
+    
     private func setupUI() {
-        view.addSubview(navigationBarView)
-        view.insertSubview(tableView, belowSubview: navigationBarView)
-        navigationBarView.snp.makeConstraints { (make) in
-            make.top.left.right.equalToSuperview()
-            make.height.equalTo(64)
-        }
-        tableView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(-kScreenHeight)
-            make.left.right.equalToSuperview()
-            make.height.equalTo(3 * kScreenHeight)
-        }
+        view.addSubview(backButton)
+        view.insertSubview(tableView, belowSubview: backButton)
     }
     
-    private func loadData() {
-        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 1) {
-            let bundleName = ["production1",
-                              "favorite1", "favorite2", "favorite3", "favorite4", "favorite5", "favorite6", "favorite7"]
-            var tempAwemeList = [aweme_list]()
-            for i in 0 ..< bundleName.count {
-                let awemeDataJson: String = try! NSString(contentsOfFile: Bundle.main.path(forResource: bundleName[i], ofType: "json")!, encoding: String.Encoding.utf8.rawValue) as String
-                let awemeModel = JSONDeserializer<AwemeModel>.deserializeFrom(json: awemeDataJson)
-                var validAwemeModel = [aweme_list]()
-                for aweme in (awemeModel?.aweme_list)! {
-                    if aweme.video != nil {
-                        validAwemeModel.append(aweme)
-                    }
-                }
-                tempAwemeList += validAwemeModel
-            }
-            self.awemeList = tempAwemeList.sorted(by: { (obj1, obj2) -> Bool in
-                return Int(arc4random() % 3) - 1 > 0
-            })
-            DispatchQueue.main.async {
-                self.tableView.isScrollEnabled = true
-                self.tableView.reloadData()
-                self.addObserver(self, forKeyPath: "currentIndex", options: [.initial, .old, .new], context: nil)
-                self.navigationBarView.finishLoading()
-            }
-        }
+    private func initData() {
+        let curIndexPath = IndexPath(row: currentIndex, section: 0)
+        tableView.isScrollEnabled = true
+        tableView.scrollToRow(at: curIndexPath, at: .top, animated: false)
+        addObserver(self, forKeyPath: "currentIndex", options: [.initial, .old, .new], context: nil)
     }
     
     private func addBackgroundNotification() {
@@ -155,6 +135,10 @@ extension HotViewController {
         cellManager.updateVolume(newValue: volume, oldValue: systemVolume)
     }
     
+    @objc private func backAction() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "currentIndex" {
             guard let nonnilChange = change else {
@@ -167,11 +151,6 @@ extension HotViewController {
             } else {
                 let currentCell = tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as! HotTableViewCell
                 cellManager.play(cell: currentCell)
-            }
-            if currentIndex == 0 {
-                self.tableView.addGestureRecognizer(reloadPanGesture)
-            } else {
-                self.tableView.removeGestureRecognizer(reloadPanGesture)
             }
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
@@ -186,7 +165,7 @@ extension HotViewController {
             }
             removeVolumeNotification()
             if awemeList.count == 0 {return}
-            isCurrentCellPaused = !((cellManager.currentPlayingCell?.isPlaying)!)
+            isCurrentCellPaused = !(cellManager.currentPlayingCell?.isPlaying ?? true)
             if isCurrentCellPaused == false {
                 cellManager.pauseAll()
             }
@@ -204,13 +183,13 @@ extension HotViewController {
     }
 }
 
-extension HotViewController: UITableViewDelegate {
+extension MyAwemeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
     }
 }
 
-extension HotViewController: UITableViewDataSource {
+extension MyAwemeViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -220,11 +199,11 @@ extension HotViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: hotCellIdentifier, for: indexPath) as! HotTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: myAwemeCellIdentifier, for: indexPath) as! HotTableViewCell
         if awemeList.count != 0 {
             cell.aweme = awemeList[indexPath.row]
         }
-        cell.isCommentHidden = true
+        cell.isCommentHidden = false
         return cell
     }
     
@@ -233,21 +212,22 @@ extension HotViewController: UITableViewDataSource {
     }
 }
 
-extension HotViewController: UIScrollViewDelegate {
+extension MyAwemeViewController: UIScrollViewDelegate {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         DispatchQueue.main.async {
             let translatedPoint = scrollView.panGestureRecognizer.translation(in: scrollView)
-            scrollView.panGestureRecognizer.isEnabled = false
             
             var tempIndex = self.currentIndex
-            
             if translatedPoint.y < -kScreenHeight / 2.0 || velocity.y > 0.3 {
                 tempIndex += 1
             } else if (translatedPoint.y > kScreenHeight / 2.0 || velocity.y < -0.3) && self.currentIndex > 0 {
                 tempIndex -= 1
             }
+            if tempIndex < 0 || tempIndex >=  self.awemeList.count { return }
+            scrollView.panGestureRecognizer.isEnabled = false
+
             UIView.animate(withDuration: 0.24, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
-                self.tableView.scrollToRow(at: IndexPath(row: tempIndex, section: 0), at: UITableView.ScrollPosition.top, animated: false)
+                self.tableView.scrollToRow(at: IndexPath(row: tempIndex, section: 0), at: .top, animated: false)
             }, completion: { (_) in
                 scrollView.panGestureRecognizer.isEnabled = true
                 self.currentIndex = tempIndex
@@ -256,53 +236,4 @@ extension HotViewController: UIScrollViewDelegate {
     }
 }
 
-// 顶部滑动手势
-extension HotViewController: UIGestureRecognizerDelegate, HotNavigationBarViewDelegate {
-    func hotNavigationBarViewWillStartReloading() {
-        self.removeObserver(self, forKeyPath: "currentIndex")
-        loadData()
-    }
-    
-    @objc private func reloadPanGestureValueChanged(sender: UIPanGestureRecognizer) {
-        let progress: CGFloat = sender.translation(in: sender.view).y
 
-        switch sender.state {
-        case .began:
-            navigationBarView.updateNavigationBarStatus(offset: progress)
-        case .changed:
-            navigationBarView.updateNavigationBarStatus(offset: progress)
-        case .ended, .cancelled:
-            navigationBarView.finishPanGesture(offset: progress)
-        default:
-            break
-        }
-    }
-    
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return panReload(sender: gestureRecognizer)
-    }
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return !panReload(sender: gestureRecognizer)
-    }
-    
-    private func panReload(sender: UIGestureRecognizer) -> Bool {
-        if sender.isKind(of: UIPanGestureRecognizer.self) {
-            let translation = (sender as! UIPanGestureRecognizer).translation(in: sender.view)
-            let absX: CGFloat = abs(translation.x)
-            let absY: CGFloat = abs(translation.y)
-            if absX > absY {
-                return false
-            } else if absX < absY {
-                if translation.y < 0 {// 上滑
-                    return false
-                } else {// 下滑
-                    return true
-                }
-            } else {
-                return false
-            }
-        } else {
-            return false
-        }
-    }
-}

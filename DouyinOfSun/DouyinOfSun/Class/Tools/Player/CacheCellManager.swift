@@ -10,13 +10,6 @@ import UIKit
 import AVFoundation
 
 class CacheCellManager: NSObject {
-    private override init() {
-        super.init()
-    }
-    private static let instance = CacheCellManager()
-    class func shared() -> CacheCellManager {
-        return instance
-    }
     
     private var cellArray = [HotTableViewCell]()
     var currentPlayingCell: HotTableViewCell?

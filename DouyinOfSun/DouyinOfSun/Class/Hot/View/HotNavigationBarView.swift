@@ -139,7 +139,6 @@ extension HotNavigationBarView {
 
 extension HotNavigationBarView {
     func updateNavigationBarStatus(offset: CGFloat) {
-        print(offset)
         if isReloading == true { return }
         if offset <= 0 {
             self.snp.updateConstraints { (make) in

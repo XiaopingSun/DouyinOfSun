@@ -19,16 +19,12 @@ private let kFocusIconLength: CGFloat = 24
 
 class HotTableViewCell: UITableViewCell {
     
-    private enum CellAnimationStatus {
-        case uninit
-        case animating
-        case paused
-    }
-    
     var isPlaying: Bool = false
-    private var lastTapTime: CFTimeInterval = 0
-    private var animationStatus: CellAnimationStatus = .uninit
-    
+    var isCommentHidden: Bool = false {
+        didSet {
+            self.commentTextView.isHidden = isCommentHidden
+        }
+    }
     var aweme: aweme_list? {
         didSet {
             nickNameLabel.text = "@" + (aweme?.author?.nickname)!
@@ -53,6 +49,15 @@ class HotTableViewCell: UITableViewCell {
         }
     }
     
+    private enum CellAnimationStatus {
+        case uninit
+        case animating
+        case paused
+    }
+    private var lastTapTime: CFTimeInterval = 0
+    private var animationStatus: CellAnimationStatus = .uninit
+    
+    private weak var superTableView: UITableView?
     private lazy var playerView: PLPlayerView = {
         let playerView = PLPlayerView(frame: CGRect.zero)
         playerView.delegate = self
@@ -201,6 +206,7 @@ class HotTableViewCell: UITableViewCell {
     
     private lazy var commentTextView: CommentTextView = {
         let commentTextView = CommentTextView(frame: CGRect.zero)
+        commentTextView.delegate = self
         return commentTextView
     }()
     
@@ -235,6 +241,9 @@ class HotTableViewCell: UITableViewCell {
             make.left.right.equalToSuperview()
             make.bottom.equalToSuperview().offset(-(kTabbarH))
             make.height.equalTo(1.0)
+        }
+        commentTextView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
         }
         musicIcon.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
@@ -424,6 +433,7 @@ extension HotTableViewCell {
         addSubview(playerView)
         addSubview(backgroundImageView)
         addSubview(container)
+        addSubview(commentTextView)
         container.addSubview(pauseIcon)
         container.addSubview(playerStatusBar)
         container.addSubview(musicIcon)
@@ -476,6 +486,18 @@ extension HotTableViewCell {
         musicName.reset()
         musicAlbum.reset()
         animationStatus = .uninit
+    }
+}
+
+extension HotTableViewCell: CommentTextViewDelegate {
+    func commentTextView(textView: CommentTextView, willShowOnScreen willShow: Bool) {
+        container.alpha = willShow ? 0.0 : 1.0
+    }
+    
+    func commentTextView(textView: CommentTextView, willSendMessage message: String) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
+            UIWindow.showTips(text: "评论成功-。-")
+        }
     }
 }
 

@@ -17,24 +17,29 @@ private let kFooterViewIdentifier: String = "MyCollectionViewCellFooterView"
 
 class MyViewController: BaseViewController {
     
+    var selectedCellIndex: Int = 0
+    
     private var user: user?
     private var awemeList = [aweme_list]()
     private var selectedTabbarType: UserInfoHeaderTabbarType = .productions
-    private var pageNumber: UInt = 1
+    private var pageNumber: Int = 1
     private var headerViewHeight: CGFloat = 0
+    private let interactiveTransition: LeftSwipeInteractiveTransition = LeftSwipeInteractiveTransition()
+    private let presentAnimation: ScalePresentAnimation = ScalePresentAnimation()
+    private let dismissAnimation: ScaleDismissAnimation = ScaleDismissAnimation()
     
     private lazy var loadMore: LoadMoreControl = {
         let loadMore = LoadMoreControl(frame: CGRect(x: 0, y: headerViewHeight, width: kScreenWidth, height: 50), surplusCount: 6)
         loadMore.startLoading()
         loadMore.onLoad = {[weak self] in
-            self!.pageNumber += 1
+            self?.pageNumber += 1
             self?.loadAwemeData(pageNumber: self!.pageNumber)
         }
         loadMore.superView = collectionView
         return loadMore
     }()
     
-    private lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: MyCollectionViewFlowLayout())
         collectionView.backgroundColor = UIColor(r: 21, g: 23, b: 35, alpha: 1)
         if #available(iOS 11.0, *) {
@@ -107,7 +112,7 @@ extension MyViewController {
         }
     }
     
-    private func loadAwemeData(pageNumber: UInt) {
+    private func loadAwemeData(pageNumber: Int) {
         DispatchQueue.global().async {
             let jsonPath = (self.selectedTabbarType == .productions ? "production" : "favorite") + String(pageNumber)
             let awemeDataJson: String = try! NSString(contentsOfFile: Bundle.main.path(forResource: jsonPath, ofType: "json")!, encoding: String.Encoding.utf8.rawValue) as String
@@ -209,10 +214,14 @@ extension MyViewController: UIScrollViewDelegate {
 
 extension MyViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    }
-    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return false
+        collectionView.deselectItem(at: indexPath, animated: false)
+        selectedCellIndex = indexPath.item
+        let myAwemeVC = MyAwemeViewController(awemeList: awemeList, currentIndex: indexPath.item)
+        myAwemeVC.transitioningDelegate = self
+        myAwemeVC.modalPresentationStyle = .custom
+        myAwemeVC.modalPresentationCapturesStatusBarAppearance = true
+        interactiveTransition.wireToViewController(viewController: myAwemeVC)
+        present(myAwemeVC, animated: true, completion: nil)
     }
 }
 
@@ -250,5 +259,17 @@ extension MyViewController: UICollectionViewDelegateFlowLayout {
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return section == 0 ? CGSize(width: kScreenWidth, height: UserInfoHeaderView.heightValue()) : .zero
+    }
+}
+
+extension MyViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return presentAnimation
+    }
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return dismissAnimation
+    }
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactiveTransition.isInteracting == true ? interactiveTransition : nil
     }
 }

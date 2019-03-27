@@ -22,6 +22,12 @@
 		CC05A48E223B98BA00B2D43E /* FocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05A48D223B98B900B2D43E /* FocusView.swift */; };
 		CC05A490223C8A1600B2D43E /* CacheCellManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05A48F223C8A1600B2D43E /* CacheCellManager.swift */; };
 		CC05A497223F49ED00B2D43E /* CALayer-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05A496223F49EC00B2D43E /* CALayer-Extension.swift */; };
+		CC080FEF22486D46006D56D2 /* MyAwemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FEE22486D46006D56D2 /* MyAwemeViewController.swift */; };
+		CC080FF12248758C006D56D2 /* LeftSwipeInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FF02248758C006D56D2 /* LeftSwipeInteractiveTransition.swift */; };
+		CC080FF32248780E006D56D2 /* ScalePresentAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FF22248780E006D56D2 /* ScalePresentAnimation.swift */; };
+		CC080FF522488200006D56D2 /* ScaleDismissAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FF422488200006D56D2 /* ScaleDismissAnimation.swift */; };
+		CC080FF9224A0765006D56D2 /* NSAttributedString-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FF8224A0765006D56D2 /* NSAttributedString-Extension.swift */; };
+		CC080FFB224A10BB006D56D2 /* Notification-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FFA224A10BB006D56D2 /* Notification-Extension.swift */; };
 		CC10E2C421D77B8F00090806 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC10E2C321D77B8F00090806 /* AppDelegate.swift */; };
 		CC10E2C921D77B8F00090806 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2C721D77B8F00090806 /* Main.storyboard */; };
 		CC10E2CB21D77B9100090806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2CA21D77B9100090806 /* Assets.xcassets */; };
@@ -95,6 +101,12 @@
 		CC05A48D223B98B900B2D43E /* FocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusView.swift; sourceTree = "<group>"; };
 		CC05A48F223C8A1600B2D43E /* CacheCellManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheCellManager.swift; sourceTree = "<group>"; };
 		CC05A496223F49EC00B2D43E /* CALayer-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer-Extension.swift"; sourceTree = "<group>"; };
+		CC080FEE22486D46006D56D2 /* MyAwemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAwemeViewController.swift; sourceTree = "<group>"; };
+		CC080FF02248758C006D56D2 /* LeftSwipeInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftSwipeInteractiveTransition.swift; sourceTree = "<group>"; };
+		CC080FF22248780E006D56D2 /* ScalePresentAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScalePresentAnimation.swift; sourceTree = "<group>"; };
+		CC080FF422488200006D56D2 /* ScaleDismissAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleDismissAnimation.swift; sourceTree = "<group>"; };
+		CC080FF8224A0765006D56D2 /* NSAttributedString-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString-Extension.swift"; sourceTree = "<group>"; };
+		CC080FFA224A10BB006D56D2 /* Notification-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification-Extension.swift"; sourceTree = "<group>"; };
 		CC10E2C021D77B8F00090806 /* DouyinOfSun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DouyinOfSun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC10E2C321D77B8F00090806 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC10E2C821D77B8F00090806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -200,6 +212,9 @@
 				CC05A48F223C8A1600B2D43E /* CacheCellManager.swift */,
 				CC252FF62241DE9A001191AA /* MPVolumeViewManager.swift */,
 				CC252FF82242210E001191AA /* SharePopView.swift */,
+				CC080FF02248758C006D56D2 /* LeftSwipeInteractiveTransition.swift */,
+				CC080FF22248780E006D56D2 /* ScalePresentAnimation.swift */,
+				CC080FF422488200006D56D2 /* ScaleDismissAnimation.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -359,6 +374,8 @@
 				CCC01B522230C93600A2A380 /* String-Extension.swift */,
 				CC05A46D223A5BA200B2D43E /* UIImage-Extension.swift */,
 				CC05A496223F49EC00B2D43E /* CALayer-Extension.swift */,
+				CC080FF8224A0765006D56D2 /* NSAttributedString-Extension.swift */,
+				CC080FFA224A10BB006D56D2 /* Notification-Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -495,6 +512,7 @@
 			children = (
 				CCC27F39221D9A8F00054AB6 /* MyViewController.swift */,
 				CC05A3D22236388F00B2D43E /* MyIconDetailViewController.swift */,
+				CC080FEE22486D46006D56D2 /* MyAwemeViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -745,11 +763,13 @@
 				CC05A3D12235FDBB00B2D43E /* UIWindow-Extension.swift in Sources */,
 				CC252FF92242210E001191AA /* SharePopView.swift in Sources */,
 				CC32E7DA222E71B30040ABED /* AwemeModel.swift in Sources */,
+				CC080FFB224A10BB006D56D2 /* Notification-Extension.swift in Sources */,
 				CCD25E4D2227BAF8007143DB /* MyCollectionViewFlowLayout.swift in Sources */,
 				CCC01B512230BCBF00A2A380 /* UIImageView-Extension.swift in Sources */,
 				CC05A497223F49ED00B2D43E /* CALayer-Extension.swift in Sources */,
 				CC05A48E223B98BA00B2D43E /* FocusView.swift in Sources */,
 				CCC01B472230AA0100A2A380 /* WebCombineOperation.swift in Sources */,
+				CC080FF522488200006D56D2 /* ScaleDismissAnimation.swift in Sources */,
 				CC10E2C421D77B8F00090806 /* AppDelegate.swift in Sources */,
 				CC83E8392223EFE800046ED7 /* FollowNavigationBarView.swift in Sources */,
 				CC32E7D8222E60970040ABED /* UserInfoModel.swift in Sources */,
@@ -764,9 +784,12 @@
 				CC05A46E223A5BA200B2D43E /* UIImage-Extension.swift in Sources */,
 				CC83E86222261E2400046ED7 /* BaseViewController.swift in Sources */,
 				CCCD3AEA21F033BF009D536A /* HomeTabBar.swift in Sources */,
+				CC080FF12248758C006D56D2 /* LeftSwipeInteractiveTransition.swift in Sources */,
 				CC05A4022237A9D700B2D43E /* CommentTextView.swift in Sources */,
 				CCC01B5A2230F0C500A2A380 /* WebPImage.m in Sources */,
 				CCD25E552227CDA0007143DB /* MyCollectionViewCell.swift in Sources */,
+				CC080FEF22486D46006D56D2 /* MyAwemeViewController.swift in Sources */,
+				CC080FF9224A0765006D56D2 /* NSAttributedString-Extension.swift in Sources */,
 				CCD25E4A2227767A007143DB /* MyNavigationBarView.swift in Sources */,
 				CC05A3CF2233738200B2D43E /* LoadMoreControl.swift in Sources */,
 				CC05A4642239096700B2D43E /* FavoriteView.swift in Sources */,
@@ -775,6 +798,7 @@
 				CCD25E572227CFE8007143DB /* UserInfoHeaderView.swift in Sources */,
 				CC05A3F7223761C500B2D43E /* HotTableViewCell.swift in Sources */,
 				CCCD3AE821F02C7E009D536A /* FollowViewController.swift in Sources */,
+				CC080FF32248780E006D56D2 /* ScalePresentAnimation.swift in Sources */,
 				CC05A45E2239003500B2D43E /* PlayerStatusBarView.swift in Sources */,
 				CCC1013A21DDB89500FC5F79 /* HomeTabBarViewController.swift in Sources */,
 				CCC01B532230C93600A2A380 /* String-Extension.swift in Sources */,

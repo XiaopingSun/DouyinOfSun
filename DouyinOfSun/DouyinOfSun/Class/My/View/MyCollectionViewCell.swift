@@ -41,6 +41,7 @@ class MyCollectionViewCell: UICollectionViewCell {
         imageView.backgroundColor = UIColor(r: 92.0, g: 93.0, b: 102.0, alpha: 1.0)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
@@ -96,14 +97,10 @@ extension MyCollectionViewCell {
     private func setupUI() {
         addSubview(imageView)
         imageView.layer.addSublayer(gradientLayer)
-        addSubview(isTopImageView)
         addSubview(favoriteNumButton)
         
         imageView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
-        }
-        isTopImageView.snp.makeConstraints { (make) in
-            make.left.top.equalToSuperview().offset(4)
         }
         favoriteNumButton.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(12)
