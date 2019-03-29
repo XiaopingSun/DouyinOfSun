@@ -42,7 +42,7 @@ class WebPImageView: UIImageView {
     init() {
         super.init(frame:.zero)
         self.backgroundColor = UIColor.clear
-        displayLink = CADisplayLink.init(target: self, selector: #selector(startAnimation(link:)))
+        displayLink = CADisplayLink(target: self, selector: #selector(startAnimation(link:)))
         displayLink?.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
         displayLink?.isPaused = true
         
@@ -56,13 +56,13 @@ class WebPImageView: UIImageView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
-        displayLink = CADisplayLink.init(target: self, selector: #selector(startAnimation(link:)))
+        displayLink = CADisplayLink(target: self, selector: #selector(startAnimation(link:)))
         displayLink?.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
         displayLink?.isPaused = true
-        
+
         requestQueue.maxConcurrentOperationCount = 1
         requestQueue.qualityOfService = .utility
-        
+
         firstFrameQueue.maxConcurrentOperationCount = 1
         firstFrameQueue.qualityOfService = .userInteractive
     }
@@ -72,7 +72,7 @@ class WebPImageView: UIImageView {
         super.init(image: image)
         self.image = image
         self.backgroundColor = UIColor.clear
-        displayLink = CADisplayLink.init(target: self, selector: #selector(startAnimation(link:)))
+        displayLink = CADisplayLink(target: self, selector: #selector(startAnimation(link:)))
         displayLink?.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
         displayLink?.isPaused = true
         
@@ -90,7 +90,7 @@ class WebPImageView: UIImageView {
     //解码WebP格式动图
     func decodeFrames() {
         //在_firstFrameQueue中添加解码第一帧的任务
-        let operation = WebPImageOperation.init(image: (image as? WebPImage) ?? WebPImage.init()) {[weak self] frame in
+        let operation = WebPImageOperation(image: (image as? WebPImage) ?? WebPImage()) {[weak self] frame in
             DispatchQueue.main.async {
                 self?.layer.contents = frame?.image?.cgImage ?? nil
             }
@@ -99,7 +99,7 @@ class WebPImageView: UIImageView {
         firstFrameQueue.addOperation(operation)
         
         while (operationCount < (image as? WebPImage)?.frameCount ?? 0) {
-            let operation = WebPImageOperation.init(image: (image as? WebPImage) ?? WebPImage.init()) {[weak self] frame in
+            let operation = WebPImageOperation(image: (image as? WebPImage) ?? WebPImage()) {[weak self] frame in
                 DispatchQueue.main.async {
                     self?.layer.setNeedsDisplay()
                 }

@@ -18,9 +18,9 @@ class MyCollectionViewCell: UICollectionViewCell {
         didSet {
             let dynamic_cover = aweme_list?.video?.dynamic_cover?.url_list?.first
             if (dynamic_cover?.hasSuffix("jpeg"))! {
-                imageView.setImageWithURL(imageUrl: URL(string: dynamic_cover ?? "")!) { (image, error) in
+                imageView.setImageWithURL(imageUrl: URL(string: dynamic_cover ?? "")!) {[weak self] (image, error) in
                     if error == nil {
-                        self.imageView.image = image
+                        self?.imageView.image = image
                     }
                 }
             } else {
@@ -90,6 +90,10 @@ class MyCollectionViewCell: UICollectionViewCell {
     
     class func sizeForCell() -> CGSize {
         return CGSize(width: kItemWidth, height: kItemHeight)
+    }
+    
+    deinit {
+        imageView.displayLink?.invalidate()
     }
 }
 

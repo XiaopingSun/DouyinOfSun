@@ -167,7 +167,6 @@ static void freeWebpFrameImageData(void *info, const void *data, size_t size) {
     
     CGImageRelease(imageRef);
     CGDataProviderRelease(provider);
-    
     CGColorSpaceRelease(colorSpaceRef);
     WebPFreeDecBuffer(&config.output);
     return image;

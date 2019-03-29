@@ -83,9 +83,7 @@ extension String {
             return (String.format(decimal: Float(count)/Float(10000)) ?? "0") + "w"
         }
     }
-    
-    
-    
+        
     func singleLineSizeWithText(font:UIFont) -> CGSize {
         return self.size(withAttributes: [NSAttributedString.Key.font : font])
     }

@@ -97,7 +97,7 @@ extension MainViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x == kScreenWidth {
-            statusBarHidden = false
+            statusBarHidden = true
             homeTabVC?.hotVC?.hotVCTransformOperation(isActive: true, needUpdateBackgroundNotification: true)
         }
     }

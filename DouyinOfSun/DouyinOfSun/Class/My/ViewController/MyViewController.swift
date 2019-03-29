@@ -82,6 +82,10 @@ class MyViewController: BaseViewController {
         
         navigationController!.navigationTransitionType = .rightPop
     }
+    
+    deinit {
+        WebCacheManager.shared().clearMemoryCache()
+    }
 }
 
 extension MyViewController {

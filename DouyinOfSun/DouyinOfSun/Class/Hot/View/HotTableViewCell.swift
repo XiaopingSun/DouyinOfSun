@@ -57,7 +57,6 @@ class HotTableViewCell: UITableViewCell {
     private var lastTapTime: CFTimeInterval = 0
     private var animationStatus: CellAnimationStatus = .uninit
     
-    private weak var superTableView: UITableView?
     private lazy var playerView: PLPlayerView = {
         let playerView = PLPlayerView(frame: CGRect.zero)
         playerView.delegate = self
