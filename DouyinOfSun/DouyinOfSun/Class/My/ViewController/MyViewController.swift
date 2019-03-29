@@ -110,7 +110,6 @@ extension MyViewController {
             DispatchQueue.main.async {
                 self.navigationBarView.titleLabel.text = self.user?.nickname
                 self.collectionView.reloadSections(IndexSet(integer: 0))
-                
                 self.loadAwemeData(pageNumber: self.pageNumber)
             }
         }

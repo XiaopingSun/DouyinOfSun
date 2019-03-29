@@ -28,6 +28,7 @@
 		CC080FF522488200006D56D2 /* ScaleDismissAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FF422488200006D56D2 /* ScaleDismissAnimation.swift */; };
 		CC080FF9224A0765006D56D2 /* NSAttributedString-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FF8224A0765006D56D2 /* NSAttributedString-Extension.swift */; };
 		CC080FFB224A10BB006D56D2 /* Notification-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FFA224A10BB006D56D2 /* Notification-Extension.swift */; };
+		CC081065224E1B81006D56D2 /* FollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC081064224E1B81006D56D2 /* FollowTableViewCell.swift */; };
 		CC10E2C421D77B8F00090806 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC10E2C321D77B8F00090806 /* AppDelegate.swift */; };
 		CC10E2C921D77B8F00090806 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2C721D77B8F00090806 /* Main.storyboard */; };
 		CC10E2CB21D77B9100090806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2CA21D77B9100090806 /* Assets.xcassets */; };
@@ -107,6 +108,7 @@
 		CC080FF422488200006D56D2 /* ScaleDismissAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleDismissAnimation.swift; sourceTree = "<group>"; };
 		CC080FF8224A0765006D56D2 /* NSAttributedString-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString-Extension.swift"; sourceTree = "<group>"; };
 		CC080FFA224A10BB006D56D2 /* Notification-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification-Extension.swift"; sourceTree = "<group>"; };
+		CC081064224E1B81006D56D2 /* FollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowTableViewCell.swift; sourceTree = "<group>"; };
 		CC10E2C021D77B8F00090806 /* DouyinOfSun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DouyinOfSun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC10E2C321D77B8F00090806 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC10E2C821D77B8F00090806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -449,6 +451,7 @@
 			isa = PBXGroup;
 			children = (
 				CC83E8382223EFE800046ED7 /* FollowNavigationBarView.swift */,
+				CC081064224E1B81006D56D2 /* FollowTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -649,6 +652,11 @@
 					CC10E2BF21D77B8F00090806 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -778,6 +786,7 @@
 				CC95BD2B222FA25800FF9043 /* WebDownloader.swift in Sources */,
 				CC32E7D6222E60580040ABED /* BaseModel.swift in Sources */,
 				CCC27F01221AC48500054AB6 /* UIBarButtonItem-Extension.swift in Sources */,
+				CC081065224E1B81006D56D2 /* FollowTableViewCell.swift in Sources */,
 				CC05A490223C8A1600B2D43E /* CacheCellManager.swift in Sources */,
 				CC252FF72241DE9A001191AA /* MPVolumeViewManager.swift in Sources */,
 				CC05A3FA22376E6F00B2D43E /* PLPlayerView.swift in Sources */,
