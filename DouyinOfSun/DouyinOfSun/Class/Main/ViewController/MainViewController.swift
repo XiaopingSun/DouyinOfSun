@@ -11,7 +11,6 @@ import UIKit
 class MainViewController: BaseViewController {
     
     fileprivate var homeTabBarSelectedType: HomeTabBarViewControllerSelectedType?
-    fileprivate var isCurrentCellPaused: Bool = false
     fileprivate var recommendVC: RecommendViewController?
     fileprivate var homeTabVC: HomeTabBarViewController?
     fileprivate lazy var scrollView: HomeScrollView = {

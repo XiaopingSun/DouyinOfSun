@@ -20,6 +20,7 @@ private let kFocusIconLength: CGFloat = 24
 class HotTableViewCell: UITableViewCell {
     
     var isPlaying: Bool = false
+    var isManualPaused: Bool = false
     var isCommentHidden: Bool = false {
         didSet {
             self.commentTextView.isHidden = isCommentHidden
@@ -367,6 +368,7 @@ class HotTableViewCell: UITableViewCell {
     @objc private func singleTapToPausePlayer() {
         if isPlaying == false {
             playerView.resume()
+            isManualPaused = false
             UIView.animate(withDuration: 0.1, animations: {
                 self.pauseIcon.alpha = 0.0
             }) { _ in
@@ -377,6 +379,7 @@ class HotTableViewCell: UITableViewCell {
             pauseIcon.transform = CGAffineTransform(scaleX: 1.8, y: 1.8)
             pauseIcon.alpha = 1.0
             playerView.pause()
+            isManualPaused = true
             UIView.animate(withDuration: 0.24) {
                 self.pauseIcon.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             }
@@ -419,6 +422,7 @@ class HotTableViewCell: UITableViewCell {
         sendSubviewToBack(playerView)
         if pauseIcon.isHidden == false {
             pauseIcon.isHidden = true
+            isManualPaused = false
         }
     }
     
@@ -472,6 +476,7 @@ extension HotTableViewCell {
         pauseIcon.isHidden = true
         descLabel.text = ""
         isPlaying = false
+        isManualPaused = false
         avatarImageView.image = UIImage(named: "img_find_default")
         backgroundImageView.image = UIImage(named: "img_video_loading")
         focusIcon.reset()

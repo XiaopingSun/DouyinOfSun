@@ -18,7 +18,6 @@ class HotViewController: UIViewController {
     var cellManager: CacheCellManager = CacheCellManager()
     private var awemeList = [aweme_list]()
     private var systemVolume: CGFloat = 0
-    private var isCurrentCellPaused = false
     private lazy var navigationBarView: HotNavigationBarView = {
         let navigationBarView = HotNavigationBarView(frame: CGRect.zero)
         navigationBarView.delegate = self
@@ -186,10 +185,8 @@ extension HotViewController {
             }
             removeVolumeNotification()
             if awemeList.count == 0 {return}
-            isCurrentCellPaused = !((cellManager.currentPlayingCell?.isPlaying)!)
-            if isCurrentCellPaused == false {
-                cellManager.pauseAll()
-            }
+            if cellManager.currentPlayingCell?.isManualPaused == true { return }
+            cellManager.pauseAll()
         } else {
             MPVolumeViewManager.shared().load()
             if needUpdateBackgroundNotification == true {
@@ -197,9 +194,8 @@ extension HotViewController {
             }
             addVolumeNotification()
             if awemeList.count == 0 {return}
-            if isCurrentCellPaused == false {
-                cellManager.resume()
-            }
+            if cellManager.currentPlayingCell?.isManualPaused == true { return }
+            cellManager.resume()
         }
     }
 }
