@@ -114,8 +114,10 @@ class HomeTabBar: UITabBar {
     func updateTabbarBackgroundColor() {
         if HomeTabBarItemType.getItemType(tag: (selectedButton?.tag)!) == .hot {
             backgroundImage = getTabbarFillImage(withRect: CGRect(x: 0, y: 0, width: 1, height: 1), color: UIColor(red: 1, green: 1, blue: 1, alpha: 0))
+            shadowImage = getTabbarFillImage(withRect: CGRect(x: 0, y: 0, width: kScreenWidth, height: 0.06), color: UIColor(r: 255, g: 255, b: 255))
         } else if HomeTabBarItemType.getItemType(tag: (selectedButton?.tag)!) == .follow {
-            backgroundImage = getTabbarFillImage(withRect: CGRect(x: 0, y: 0, width: 1, height: 1), color: UIColor(r: 22, g: 24, b: 35))
+            backgroundImage = getTabbarFillImage(withRect: CGRect(x: 0, y: 0, width: 1, height: 1), color: UIColor(r: 26, g: 27, b: 32))
+            shadowImage = UIImage()
         }
     }
 }

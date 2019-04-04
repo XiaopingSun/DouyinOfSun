@@ -72,13 +72,11 @@ class PLPlayerView: UIView {
     }
     
     func stop() {
-        if player?.status == .statusPlaying || player?.status == .statusPaused {
-            timer?.invalidate()
-            timer = nil
-            player?.stop()
-            player?.playerView?.removeFromSuperview()
-            player = nil
-        }
+        timer?.invalidate()
+        timer = nil
+        player?.stop()
+        player?.playerView?.removeFromSuperview()
+        player = nil
     }
 }
 

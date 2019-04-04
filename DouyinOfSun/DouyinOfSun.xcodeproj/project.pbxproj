@@ -29,6 +29,7 @@
 		CC080FF9224A0765006D56D2 /* NSAttributedString-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FF8224A0765006D56D2 /* NSAttributedString-Extension.swift */; };
 		CC080FFB224A10BB006D56D2 /* Notification-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FFA224A10BB006D56D2 /* Notification-Extension.swift */; };
 		CC081065224E1B81006D56D2 /* FollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC081064224E1B81006D56D2 /* FollowTableViewCell.swift */; };
+		CC08106D2252070D006D56D2 /* PLFollowPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC08106C2252070D006D56D2 /* PLFollowPlayerView.swift */; };
 		CC10E2C421D77B8F00090806 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC10E2C321D77B8F00090806 /* AppDelegate.swift */; };
 		CC10E2C921D77B8F00090806 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2C721D77B8F00090806 /* Main.storyboard */; };
 		CC10E2CB21D77B9100090806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2CA21D77B9100090806 /* Assets.xcassets */; };
@@ -109,6 +110,7 @@
 		CC080FF8224A0765006D56D2 /* NSAttributedString-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString-Extension.swift"; sourceTree = "<group>"; };
 		CC080FFA224A10BB006D56D2 /* Notification-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification-Extension.swift"; sourceTree = "<group>"; };
 		CC081064224E1B81006D56D2 /* FollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowTableViewCell.swift; sourceTree = "<group>"; };
+		CC08106C2252070D006D56D2 /* PLFollowPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLFollowPlayerView.swift; sourceTree = "<group>"; };
 		CC10E2C021D77B8F00090806 /* DouyinOfSun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DouyinOfSun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC10E2C321D77B8F00090806 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC10E2C821D77B8F00090806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				CC05A3F922376E6F00B2D43E /* PLPlayerView.swift */,
+				CC08106C2252070D006D56D2 /* PLFollowPlayerView.swift */,
 				CC05A4012237A9D600B2D43E /* CommentTextView.swift */,
 				CC05A45D2239003500B2D43E /* PlayerStatusBarView.swift */,
 				CC05A45F2239031C00B2D43E /* CircleTextView.swift */,
@@ -809,6 +812,7 @@
 				CCCD3AE821F02C7E009D536A /* FollowViewController.swift in Sources */,
 				CC080FF32248780E006D56D2 /* ScalePresentAnimation.swift in Sources */,
 				CC05A45E2239003500B2D43E /* PlayerStatusBarView.swift in Sources */,
+				CC08106D2252070D006D56D2 /* PLFollowPlayerView.swift in Sources */,
 				CCC1013A21DDB89500FC5F79 /* HomeTabBarViewController.swift in Sources */,
 				CCC01B532230C93600A2A380 /* String-Extension.swift in Sources */,
 				CCCD3AE621F02C72009D536A /* HotViewController.swift in Sources */,

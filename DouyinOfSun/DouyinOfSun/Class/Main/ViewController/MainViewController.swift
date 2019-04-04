@@ -83,6 +83,9 @@ extension MainViewController: HomeTabBarViewControllerDelegate {
         homeTabBarSelectedType = type
         navigationController!.navigationTransitionType = type == .hot ? .leftPush : .none
         scrollView.isScrollEnabled = type == .hot ? true : false
+        if type == .follow {
+            tabBarViewController.followVC?.loadData()
+        }
     }
 }
 
