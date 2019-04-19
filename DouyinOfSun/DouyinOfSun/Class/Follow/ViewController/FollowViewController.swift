@@ -17,7 +17,7 @@ class FollowViewController: UIViewController {
     private var isFirstLoaded: Bool = false
     private var awemeList = [aweme_list]()
     private var isScrollingToTop: Bool = false
-    private weak var fullScreenController: PlayerVerticalFullScreenViewController?
+    private weak var fullScreenController: PlayerFullScreenViewController?
     private var cellHeightArray = [CGFloat]()
     var currentCell: FollowTableViewCell?
     
@@ -110,7 +110,6 @@ extension FollowViewController {
             
             // 计算cell高度
             self.calculateCellHeight()
-            
             DispatchQueue.main.async {
                 self.tableView.isScrollEnabled = true
                 self.tableView.reloadData()
@@ -151,14 +150,12 @@ extension FollowViewController {
 }
 
 extension FollowViewController: UITableViewDelegate {
-    
-}
-
-extension FollowViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.cellHeightArray[indexPath.row]
     }
-    
+}
+
+extension FollowViewController: UITableViewDataSource {    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return awemeList.count
     }
@@ -214,7 +211,8 @@ extension FollowViewController: UIScrollViewDelegate {
 
 extension FollowViewController: FollowTableViewCellDelegate {
     func followTableViewCell(cell: FollowTableViewCell, playerViewWillEnterFullScreenWithIsVertical isVertical: Bool) {
-        let fullScreenVC = PlayerVerticalFullScreenViewController()
+        let fullScreenVC = PlayerFullScreenViewController()
+        fullScreenVC.isVertical = currentCell?.isPlayerViewVertical ?? true
         fullScreenVC.modalPresentationStyle = .overFullScreen
         fullScreenVC.transitioningDelegate = self
         fullScreenVC.modalPresentationCapturesStatusBarAppearance = true
@@ -233,10 +231,10 @@ extension FollowViewController: FollowTableViewCellDelegate {
 
 extension FollowViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return FollowScalePresentTransition(cell: currentCell!)
+        return FollowScalePresentTransition(cell: currentCell!, needRotation: !(currentCell?.isPlayerViewVertical)!)
     }
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return FollowScaleDismissTransition(cell: currentCell!)
+        return FollowScaleDismissTransition(cell: currentCell!, needRotation: !(currentCell?.isPlayerViewVertical)!)
     }
 }
 

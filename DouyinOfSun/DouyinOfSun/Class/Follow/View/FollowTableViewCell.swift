@@ -19,6 +19,7 @@ private let kPortraitHeight: CGFloat = 36
 class FollowTableViewCell: UITableViewCell {
     
     weak var delegate: FollowTableViewCellDelegate?
+    var isPlayerViewVertical: Bool = true
     var aweme: aweme_list? {
         didSet {
             nicknameLabel.text = "@" + (aweme?.author?.nickname)!
@@ -48,6 +49,7 @@ class FollowTableViewCell: UITableViewCell {
                     make.width.equalTo(kScreenWidth - 2 * 15)
                     make.height.equalTo((kScreenWidth - 2 * 15) / 16.0 * 9.0)
                 }
+                isPlayerViewVertical = false
             } else {
                 playerView.snp.remakeConstraints { (make) in
                     make.left.equalTo(descriptionLabel)
@@ -55,6 +57,7 @@ class FollowTableViewCell: UITableViewCell {
                     make.width.equalTo(310)
                     make.height.equalTo(415)
                 }
+                isPlayerViewVertical = true
             }
         }
     }
