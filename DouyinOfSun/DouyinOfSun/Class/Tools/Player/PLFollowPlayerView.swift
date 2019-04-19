@@ -19,7 +19,15 @@ import SnapKit
 
 class PLFollowPlayerView: UIView {
     
+    enum PlayViewState {
+        case small
+        case animating
+        case fullScreen
+    }
+    
     weak var delegate: PLFollowPlayerViewDelegate?
+    var playViewState: PlayViewState = .small
+    var playerViewFrame: CGRect = CGRect.zero
     private var timer: Timer?
     private var urlStr: String?
     private var isPlayerCaching: Bool = false
@@ -98,6 +106,23 @@ class PLFollowPlayerView: UIView {
         super.init(frame: frame)
         
         initSubviews()
+    }
+    
+    func resetAll() {
+        timer?.invalidate()
+        timer = nil
+        urlStr = nil
+        isPlayerCaching = false
+        currentProgress = 0
+        player.stop()
+        musicName.text = ""
+        musicName.reset()
+        playIcon.isHidden = true
+        pauseIcon.isHidden = true
+        loadingIcon.isHidden = true
+        progressBar.snp.updateConstraints { (make) in
+            make.width.equalTo(0)
+        }
     }
     
     override func layoutSubviews() {
@@ -245,8 +270,12 @@ extension PLFollowPlayerView {
     
     @objc func play() {
         guard let urlStr = urlStr else { return }
-        player.play(with: URL(string: urlStr), sameSource: false)
-        self.musicName.startAnimation()
+        if player.status == .statusPaused {
+            player.resume()
+        } else {
+            player.play(with: URL(string: urlStr), sameSource: false)
+            self.musicName.startAnimation()
+        }
     }
     
     @objc func resume() {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         UIApplication.shared.isIdleTimerDisabled = true
+        do {
+            if #available(iOS 10.0, *) {
+                try! AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
+            } else {
+                AVAudioSession.sharedInstance().perform(NSSelectorFromString("setCategory:error:"), with: AVAudioSession.Category.playback)
+            }
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print("setAudioMode error:" + error.localizedDescription)
+        }
         return true
     }
 

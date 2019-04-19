@@ -1,5 +1,5 @@
 //
-//  ScalePresentAnimation.swift
+//  MyScalePresentAnimation.swift
 //  DouyinOfSun
 //
 //  Created by WorkSpace_Sun on 2019/3/25.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ScalePresentAnimation: NSObject {
+class MyScalePresentAnimation: NSObject {
 
 }
 
-extension ScalePresentAnimation: UIViewControllerAnimatedTransitioning {
+extension MyScalePresentAnimation: UIViewControllerAnimatedTransitioning {
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.25
     }

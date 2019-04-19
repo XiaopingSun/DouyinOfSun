@@ -25,8 +25,8 @@ class MyViewController: BaseViewController {
     private var pageNumber: Int = 1
     private var headerViewHeight: CGFloat = 0
     private let interactiveTransition: LeftSwipeInteractiveTransition = LeftSwipeInteractiveTransition()
-    private let presentAnimation: ScalePresentAnimation = ScalePresentAnimation()
-    private let dismissAnimation: ScaleDismissAnimation = ScaleDismissAnimation()
+    private let presentAnimation: MyScalePresentAnimation = MyScalePresentAnimation()
+    private let dismissAnimation: MyScaleDismissAnimation = MyScaleDismissAnimation()
     
     private lazy var loadMore: LoadMoreControl = {
         let loadMore = LoadMoreControl(frame: CGRect(x: 0, y: headerViewHeight, width: kScreenWidth, height: 50), surplusCount: 6)

@@ -24,12 +24,13 @@
 		CC05A497223F49ED00B2D43E /* CALayer-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05A496223F49EC00B2D43E /* CALayer-Extension.swift */; };
 		CC080FEF22486D46006D56D2 /* MyAwemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FEE22486D46006D56D2 /* MyAwemeViewController.swift */; };
 		CC080FF12248758C006D56D2 /* LeftSwipeInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FF02248758C006D56D2 /* LeftSwipeInteractiveTransition.swift */; };
-		CC080FF32248780E006D56D2 /* ScalePresentAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FF22248780E006D56D2 /* ScalePresentAnimation.swift */; };
-		CC080FF522488200006D56D2 /* ScaleDismissAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FF422488200006D56D2 /* ScaleDismissAnimation.swift */; };
+		CC080FF32248780E006D56D2 /* MyScalePresentAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FF22248780E006D56D2 /* MyScalePresentAnimation.swift */; };
+		CC080FF522488200006D56D2 /* MyScaleDismissAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FF422488200006D56D2 /* MyScaleDismissAnimation.swift */; };
 		CC080FF9224A0765006D56D2 /* NSAttributedString-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FF8224A0765006D56D2 /* NSAttributedString-Extension.swift */; };
 		CC080FFB224A10BB006D56D2 /* Notification-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC080FFA224A10BB006D56D2 /* Notification-Extension.swift */; };
 		CC081065224E1B81006D56D2 /* FollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC081064224E1B81006D56D2 /* FollowTableViewCell.swift */; };
 		CC08106D2252070D006D56D2 /* PLFollowPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC08106C2252070D006D56D2 /* PLFollowPlayerView.swift */; };
+		CC0810C622645B01006D56D2 /* favorite8.json in Resources */ = {isa = PBXBuildFile; fileRef = CC0810C522645AFF006D56D2 /* favorite8.json */; };
 		CC10E2C421D77B8F00090806 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC10E2C321D77B8F00090806 /* AppDelegate.swift */; };
 		CC10E2C921D77B8F00090806 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2C721D77B8F00090806 /* Main.storyboard */; };
 		CC10E2CB21D77B9100090806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2CA21D77B9100090806 /* Assets.xcassets */; };
@@ -53,6 +54,10 @@
 		CC83E8892226837100046ED7 /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = CC83E8882226837100046ED7 /* user.json */; };
 		CC95BD2B222FA25800FF9043 /* WebDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC95BD2A222FA25800FF9043 /* WebDownloader.swift */; };
 		CC95BD2D222FBBE100FF9043 /* WebCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC95BD2C222FBBE100FF9043 /* WebCacheManager.swift */; };
+		CCA28C2A2266C07E00183AB4 /* FollowScalePresentTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA28C292266C07E00183AB4 /* FollowScalePresentTransition.swift */; };
+		CCA28C2C2266C08F00183AB4 /* FollowScaleDismissTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA28C2B2266C08F00183AB4 /* FollowScaleDismissTransition.swift */; };
+		CCA28C39226819CF00183AB4 /* PlayerVerticalFullScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA28C38226819CF00183AB4 /* PlayerVerticalFullScreenViewController.swift */; };
+		CCA28C3B22681A1500183AB4 /* PlayerHorizontalFullScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA28C3A22681A1500183AB4 /* PlayerHorizontalFullScreenViewController.swift */; };
 		CCC01B472230AA0100A2A380 /* WebCombineOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC01B462230AA0100A2A380 /* WebCombineOperation.swift */; };
 		CCC01B492230AA5D00A2A380 /* WebDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC01B482230AA5D00A2A380 /* WebDownloadOperation.swift */; };
 		CCC01B512230BCBF00A2A380 /* UIImageView-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC01B502230BCBF00A2A380 /* UIImageView-Extension.swift */; };
@@ -105,12 +110,13 @@
 		CC05A496223F49EC00B2D43E /* CALayer-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer-Extension.swift"; sourceTree = "<group>"; };
 		CC080FEE22486D46006D56D2 /* MyAwemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAwemeViewController.swift; sourceTree = "<group>"; };
 		CC080FF02248758C006D56D2 /* LeftSwipeInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftSwipeInteractiveTransition.swift; sourceTree = "<group>"; };
-		CC080FF22248780E006D56D2 /* ScalePresentAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScalePresentAnimation.swift; sourceTree = "<group>"; };
-		CC080FF422488200006D56D2 /* ScaleDismissAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleDismissAnimation.swift; sourceTree = "<group>"; };
+		CC080FF22248780E006D56D2 /* MyScalePresentAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyScalePresentAnimation.swift; sourceTree = "<group>"; };
+		CC080FF422488200006D56D2 /* MyScaleDismissAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyScaleDismissAnimation.swift; sourceTree = "<group>"; };
 		CC080FF8224A0765006D56D2 /* NSAttributedString-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString-Extension.swift"; sourceTree = "<group>"; };
 		CC080FFA224A10BB006D56D2 /* Notification-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification-Extension.swift"; sourceTree = "<group>"; };
 		CC081064224E1B81006D56D2 /* FollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowTableViewCell.swift; sourceTree = "<group>"; };
 		CC08106C2252070D006D56D2 /* PLFollowPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLFollowPlayerView.swift; sourceTree = "<group>"; };
+		CC0810C522645AFF006D56D2 /* favorite8.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favorite8.json; sourceTree = "<group>"; };
 		CC10E2C021D77B8F00090806 /* DouyinOfSun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DouyinOfSun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC10E2C321D77B8F00090806 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC10E2C821D77B8F00090806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -137,6 +143,10 @@
 		CC95BD1F222F623800FF9043 /* DouyinOfSun-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DouyinOfSun-Bridging-Header.h"; sourceTree = "<group>"; };
 		CC95BD2A222FA25800FF9043 /* WebDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDownloader.swift; sourceTree = "<group>"; };
 		CC95BD2C222FBBE100FF9043 /* WebCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebCacheManager.swift; sourceTree = "<group>"; };
+		CCA28C292266C07E00183AB4 /* FollowScalePresentTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowScalePresentTransition.swift; sourceTree = "<group>"; };
+		CCA28C2B2266C08F00183AB4 /* FollowScaleDismissTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowScaleDismissTransition.swift; sourceTree = "<group>"; };
+		CCA28C38226819CF00183AB4 /* PlayerVerticalFullScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerVerticalFullScreenViewController.swift; sourceTree = "<group>"; };
+		CCA28C3A22681A1500183AB4 /* PlayerHorizontalFullScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHorizontalFullScreenViewController.swift; sourceTree = "<group>"; };
 		CCC01B462230AA0100A2A380 /* WebCombineOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebCombineOperation.swift; sourceTree = "<group>"; };
 		CCC01B482230AA5D00A2A380 /* WebDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDownloadOperation.swift; sourceTree = "<group>"; };
 		CCC01B502230BCBF00A2A380 /* UIImageView-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView-Extension.swift"; sourceTree = "<group>"; };
@@ -218,8 +228,10 @@
 				CC252FF62241DE9A001191AA /* MPVolumeViewManager.swift */,
 				CC252FF82242210E001191AA /* SharePopView.swift */,
 				CC080FF02248758C006D56D2 /* LeftSwipeInteractiveTransition.swift */,
-				CC080FF22248780E006D56D2 /* ScalePresentAnimation.swift */,
-				CC080FF422488200006D56D2 /* ScaleDismissAnimation.swift */,
+				CC080FF22248780E006D56D2 /* MyScalePresentAnimation.swift */,
+				CC080FF422488200006D56D2 /* MyScaleDismissAnimation.swift */,
+				CCA28C292266C07E00183AB4 /* FollowScalePresentTransition.swift */,
+				CCA28C2B2266C08F00183AB4 /* FollowScaleDismissTransition.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -298,6 +310,7 @@
 				CC83E87E2226813D00046ED7 /* favorite6.json */,
 				CC252FFC2244E517001191AA /* favorite7.json */,
 				CC83E87F2226813D00046ED7 /* favorite1.json */,
+				CC0810C522645AFF006D56D2 /* favorite8.json */,
 			);
 			path = favorites;
 			sourceTree = "<group>";
@@ -463,6 +476,8 @@
 			isa = PBXGroup;
 			children = (
 				CCCD3AE721F02C7E009D536A /* FollowViewController.swift */,
+				CCA28C38226819CF00183AB4 /* PlayerVerticalFullScreenViewController.swift */,
+				CCA28C3A22681A1500183AB4 /* PlayerHorizontalFullScreenViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -698,6 +713,7 @@
 				CC83E8372223EFAE00046ED7 /* imageFollow.png in Resources */,
 				CC83E8842226813D00046ED7 /* favorite6.json in Resources */,
 				CC10E2CB21D77B9100090806 /* Assets.xcassets in Resources */,
+				CC0810C622645B01006D56D2 /* favorite8.json in Resources */,
 				CC83E8872226835C00046ED7 /* production1.json in Resources */,
 				CC10E2C921D77B8F00090806 /* Main.storyboard in Resources */,
 				CCC27F3C221E9EF200054AB6 /* imageHot.png in Resources */,
@@ -775,18 +791,20 @@
 				CC252FF92242210E001191AA /* SharePopView.swift in Sources */,
 				CC32E7DA222E71B30040ABED /* AwemeModel.swift in Sources */,
 				CC080FFB224A10BB006D56D2 /* Notification-Extension.swift in Sources */,
+				CCA28C2A2266C07E00183AB4 /* FollowScalePresentTransition.swift in Sources */,
 				CCD25E4D2227BAF8007143DB /* MyCollectionViewFlowLayout.swift in Sources */,
 				CCC01B512230BCBF00A2A380 /* UIImageView-Extension.swift in Sources */,
 				CC05A497223F49ED00B2D43E /* CALayer-Extension.swift in Sources */,
 				CC05A48E223B98BA00B2D43E /* FocusView.swift in Sources */,
 				CCC01B472230AA0100A2A380 /* WebCombineOperation.swift in Sources */,
-				CC080FF522488200006D56D2 /* ScaleDismissAnimation.swift in Sources */,
+				CC080FF522488200006D56D2 /* MyScaleDismissAnimation.swift in Sources */,
 				CC10E2C421D77B8F00090806 /* AppDelegate.swift in Sources */,
 				CC83E8392223EFE800046ED7 /* FollowNavigationBarView.swift in Sources */,
 				CC32E7D8222E60970040ABED /* UserInfoModel.swift in Sources */,
 				CCC100F221DDA15700FC5F79 /* UIColor-Extension.swift in Sources */,
 				CCC27F46221FF0F600054AB6 /* HomeScrollView.swift in Sources */,
 				CC95BD2B222FA25800FF9043 /* WebDownloader.swift in Sources */,
+				CCA28C3B22681A1500183AB4 /* PlayerHorizontalFullScreenViewController.swift in Sources */,
 				CC32E7D6222E60580040ABED /* BaseModel.swift in Sources */,
 				CCC27F01221AC48500054AB6 /* UIBarButtonItem-Extension.swift in Sources */,
 				CC081065224E1B81006D56D2 /* FollowTableViewCell.swift in Sources */,
@@ -796,6 +814,7 @@
 				CC05A46E223A5BA200B2D43E /* UIImage-Extension.swift in Sources */,
 				CC83E86222261E2400046ED7 /* BaseViewController.swift in Sources */,
 				CCCD3AEA21F033BF009D536A /* HomeTabBar.swift in Sources */,
+				CCA28C2C2266C08F00183AB4 /* FollowScaleDismissTransition.swift in Sources */,
 				CC080FF12248758C006D56D2 /* LeftSwipeInteractiveTransition.swift in Sources */,
 				CC05A4022237A9D700B2D43E /* CommentTextView.swift in Sources */,
 				CCC01B5A2230F0C500A2A380 /* WebPImage.m in Sources */,
@@ -810,7 +829,7 @@
 				CCD25E572227CFE8007143DB /* UserInfoHeaderView.swift in Sources */,
 				CC05A3F7223761C500B2D43E /* HotTableViewCell.swift in Sources */,
 				CCCD3AE821F02C7E009D536A /* FollowViewController.swift in Sources */,
-				CC080FF32248780E006D56D2 /* ScalePresentAnimation.swift in Sources */,
+				CC080FF32248780E006D56D2 /* MyScalePresentAnimation.swift in Sources */,
 				CC05A45E2239003500B2D43E /* PlayerStatusBarView.swift in Sources */,
 				CC08106D2252070D006D56D2 /* PLFollowPlayerView.swift in Sources */,
 				CCC1013A21DDB89500FC5F79 /* HomeTabBarViewController.swift in Sources */,
@@ -818,6 +837,7 @@
 				CCCD3AE621F02C72009D536A /* HotViewController.swift in Sources */,
 				CC05A3D32236389000B2D43E /* MyIconDetailViewController.swift in Sources */,
 				CCC2A2CD21DCA23A00610D3B /* MainViewController.swift in Sources */,
+				CCA28C39226819CF00183AB4 /* PlayerVerticalFullScreenViewController.swift in Sources */,
 				CC05A4602239031C00B2D43E /* CircleTextView.swift in Sources */,
 				CCC01B5C2230F0C500A2A380 /* WebPImageView.swift in Sources */,
 				CCCD3AE421EF01B2009D536A /* UIViewController-InteractiveGesture.swift in Sources */,

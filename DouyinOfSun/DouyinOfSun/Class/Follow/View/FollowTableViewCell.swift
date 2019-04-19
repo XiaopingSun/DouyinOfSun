@@ -10,9 +10,15 @@ import UIKit
 import SnapKit
 import HandyJSON
 
+protocol FollowTableViewCellDelegate: class {
+    func followTableViewCell(cell: FollowTableViewCell, playerViewWillEnterFullScreenWithIsVertical isVertical: Bool)
+    func followTableViewCell(cell: FollowTableViewCell, playerViewWillExitFullScreenWithIsVertical isVertical: Bool)
+}
+
 private let kPortraitHeight: CGFloat = 36
 class FollowTableViewCell: UITableViewCell {
     
+    weak var delegate: FollowTableViewCellDelegate?
     var aweme: aweme_list? {
         didSet {
             nicknameLabel.text = "@" + (aweme?.author?.nickname)!
@@ -36,18 +42,20 @@ class FollowTableViewCell: UITableViewCell {
             guard let width = aweme?.video?.width else { return }
             guard let height = aweme?.video?.height else { return }
             if width > height {
-                playerView.snp.updateConstraints { (make) in
+                playerView.snp.remakeConstraints { (make) in
+                    make.left.equalTo(descriptionLabel)
+                    make.top.equalTo(descriptionLabel.snp.bottom).offset(15)
                     make.width.equalTo(kScreenWidth - 2 * 15)
                     make.height.equalTo((kScreenWidth - 2 * 15) / 16.0 * 9.0)
                 }
             } else {
-                playerView.snp.updateConstraints { (make) in
+                playerView.snp.remakeConstraints { (make) in
+                    make.left.equalTo(descriptionLabel)
+                    make.top.equalTo(descriptionLabel.snp.bottom).offset(15)
                     make.width.equalTo(310)
                     make.height.equalTo(415)
                 }
             }
-            self.setNeedsLayout()
-            self.layoutIfNeeded()
         }
     }
     
@@ -59,7 +67,7 @@ class FollowTableViewCell: UITableViewCell {
     
     private lazy var nicknameLabel: UILabel = {
         let nicknameLabel = UILabel(frame: .zero)
-        nicknameLabel.text = "@测试nickname"
+        nicknameLabel.text = ""
         nicknameLabel.textColor = UIColor(r: 232, g: 232, b: 234)
         nicknameLabel.font = UIFont.boldSystemFont(ofSize: 15.0)
         return nicknameLabel
@@ -73,17 +81,16 @@ class FollowTableViewCell: UITableViewCell {
     
     private lazy var descriptionLabel: UILabel = {
         let descriptionLabel = UILabel(frame: .zero)
-        descriptionLabel.text = "测试描述测试描述测试描述测试描述测试描述测试描述测试描述测试描述测试描述测试描述测试描述测试描述测试描述测试描述测试描述"
+        descriptionLabel.text = ""
         descriptionLabel.textColor = UIColor(r: 232, g: 232, b: 234)
-        descriptionLabel.font = UIFont.systemFont(ofSize: 14)
+        descriptionLabel.font = UIFont.systemFont(ofSize: 15)
         descriptionLabel.numberOfLines = 0
         descriptionLabel.lineBreakMode = .byTruncatingTail
         return descriptionLabel
     }()
     
-    private lazy var playerView: PLFollowPlayerView = {
+    lazy var playerView: PLFollowPlayerView = {
         let playerView = PLFollowPlayerView(frame: .zero)
-//        playerView.delegate = self
         return playerView
     }()
     
@@ -133,6 +140,43 @@ class FollowTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        portraitImageView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(15)
+            make.top.equalToSuperview().offset(20)
+            make.width.height.equalTo(kPortraitHeight)
+        }
+        nicknameLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(portraitImageView.snp.right).offset(8)
+            make.centerY.equalTo(portraitImageView)
+        }
+        moreImageView.snp.makeConstraints { (make) in
+            make.right.equalToSuperview().offset(-15)
+            make.centerY.equalTo(portraitImageView)
+        }
+        descriptionLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(portraitImageView)
+            make.top.equalTo(portraitImageView.snp.bottom).offset(15)
+            make.right.equalTo(moreImageView)
+        }
+        favoriteButton.snp.makeConstraints { (make) in
+            make.right.equalToSuperview().offset(-15)
+            make.bottom.equalToSuperview().offset(-20)
+        }
+        commentButton.snp.makeConstraints { (make) in
+            make.right.equalTo(favoriteButton.snp.left).offset(-15)
+            make.bottom.equalTo(favoriteButton)
+        }
+        repostButton.snp.makeConstraints { (make) in
+            make.right.equalTo(commentButton.snp.left).offset(-15)
+            make.bottom.equalTo(favoriteButton)
+        }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        nicknameLabel.text = ""
+        descriptionLabel.text = ""
+        playerView.resetAll()
     }
     
     @objc private func repostButtonAction(sender: UIButton) {
@@ -176,46 +220,6 @@ extension FollowTableViewCell {
         addSubview(repostButton)
         addSubview(commentButton)
         addSubview(favoriteButton)
-        
-        portraitImageView.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(15)
-            make.top.equalToSuperview().offset(20)
-            make.width.height.equalTo(kPortraitHeight)
-        }
-        nicknameLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(portraitImageView.snp.right).offset(8)
-            make.centerY.equalTo(portraitImageView)
-        }
-        moreImageView.snp.makeConstraints { (make) in
-            make.right.equalToSuperview().offset(-15)
-            make.centerY.equalTo(portraitImageView)
-        }
-        descriptionLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(portraitImageView)
-            make.top.equalTo(portraitImageView.snp.bottom).offset(15)
-            make.right.equalTo(moreImageView)
-        }
-        playerView.snp.makeConstraints { (make) in
-            make.left.equalTo(descriptionLabel)
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(15)
-            make.width.equalTo(310)
-            make.height.equalTo(415)
-        }
-        favoriteButton.snp.makeConstraints { (make) in
-            make.top.equalTo(playerView.snp.bottom).offset(20)
-            make.right.equalToSuperview().offset(-15)
-            make.bottom.equalToSuperview().offset(-20)
-        }
-        commentButton.snp.makeConstraints { (make) in
-            make.right.equalTo(favoriteButton.snp.left).offset(-15)
-            make.top.equalTo(favoriteButton)
-            make.bottom.equalTo(favoriteButton)
-        }
-        repostButton.snp.makeConstraints { (make) in
-            make.right.equalTo(commentButton.snp.left).offset(-15)
-            make.top.equalTo(favoriteButton)
-            make.bottom.equalTo(favoriteButton)
-        }
     }
 }
 
@@ -226,5 +230,30 @@ extension FollowTableViewCell {
     
     func pause() {
         playerView.pause()
+    }
+    
+    func setEnable(_ isEnable: Bool) {
+        if isEnable == true {
+            playerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(fullScreenAction(sender:))))
+        } else {
+            playerView.gestureRecognizers?.removeAll()
+        }
+    }
+    
+    @objc private func fullScreenAction(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            switch playerView.playViewState {
+            case .small:
+                if playerView.playViewState != .small { return }
+                playerView.playViewState = .animating
+                delegate?.followTableViewCell(cell: self, playerViewWillEnterFullScreenWithIsVertical: true)
+            case .fullScreen:
+                if playerView.playViewState != .fullScreen { return }
+                playerView.playViewState = .animating
+                delegate?.followTableViewCell(cell: self, playerViewWillExitFullScreenWithIsVertical: true)
+            case .animating:
+                break
+            }
+        }
     }
 }

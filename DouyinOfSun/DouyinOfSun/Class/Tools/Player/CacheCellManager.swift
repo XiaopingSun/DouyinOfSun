@@ -14,19 +14,6 @@ class CacheCellManager: NSObject {
     private var cellArray = [HotTableViewCell]()
     var currentPlayingCell: HotTableViewCell?
     
-    class func setAudioMode() {
-        do {
-            if #available(iOS 10.0, *) {
-                try! AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
-            } else {
-                AVAudioSession.sharedInstance().perform(NSSelectorFromString("setCategory:error:"), with: AVAudioSession.Category.playback)
-            }
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch {
-            print("setAudioMode error:" + error.localizedDescription)
-        }
-    }
-    
     func play(cell: HotTableViewCell) {
         stopAll()
         if !cellArray.contains(cell) {

@@ -1,5 +1,5 @@
 //
-//  ScaleDismissAnimation.swift
+//  MyScaleDismissAnimation.swift
 //  DouyinOfSun
 //
 //  Created by WorkSpace_Sun on 2019/3/25.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ScaleDismissAnimation: NSObject {
+class MyScaleDismissAnimation: NSObject {
 
 }
 
-extension ScaleDismissAnimation: UIViewControllerAnimatedTransitioning {
+extension MyScaleDismissAnimation: UIViewControllerAnimatedTransitioning {
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.25
     }
