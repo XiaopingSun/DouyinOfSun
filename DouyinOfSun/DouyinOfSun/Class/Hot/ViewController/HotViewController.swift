@@ -156,9 +156,8 @@ extension HotViewController {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "currentIndex" {
-            guard let nonnilChange = change else {
-                return
-            }
+            guard let nonnilChange = change else { return }
+            guard UIApplication.shared.applicationState == .active else { return }
             let old = nonnilChange[NSKeyValueChangeKey.oldKey]
             let new = nonnilChange[NSKeyValueChangeKey.newKey]
             if new != nil && old != nil && old as! Int == new as! Int {
