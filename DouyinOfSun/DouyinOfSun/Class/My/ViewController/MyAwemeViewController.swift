@@ -15,7 +15,7 @@ private let myAwemeCellIdentifier: String = "myAwemeCellIdentifier"
 class MyAwemeViewController: BaseViewController {
     
     @objc dynamic var currentIndex: Int = 0
-    var cellManager: CacheCellManager = CacheCellManager()
+    var cellManager: HotCellCacheManager = HotCellCacheManager()
     private var awemeList = [aweme_list]()
     private var systemVolume: CGFloat = 0
     private var isCurrentCellPaused = false

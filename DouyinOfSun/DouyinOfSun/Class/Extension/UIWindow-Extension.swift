@@ -35,9 +35,9 @@ extension UIWindow {
         }
         Thread.sleep(forTimeInterval: 0.5)
         
-        let window = UIApplication.shared.delegate?.window as? UIWindow
+        let window = UIApplication.shared.delegate?.window as! UIWindow
         let maxWidth: CGFloat = 200
-        let maxHeight: CGFloat = window?.frame.size.height ?? 0 - 200
+        let maxHeight: CGFloat = window.frame.size.height - 200
         let commonInset: CGFloat = 15
         
         let font = UIFont.systemFont(ofSize: 14)
@@ -47,7 +47,12 @@ extension UIWindow {
         let rect = string.boundingRect(with: CGSize(width: maxWidth, height: CGFloat(MAXFLOAT)), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
         let size = CGSize(width: CGFloat(ceilf(Float(rect.size.width))), height: CGFloat(ceilf(rect.size.height < maxHeight ? Float(rect.size.height) : Float(maxHeight))))
         
-        let textFrame = CGRect(x: (window?.frame.size.width ?? 0)/2 - size.width/2 - commonInset, y: (window?.frame.size.height ?? 0) / 2 - size.height/2 - commonInset, width: size.width  + commonInset * 2, height: size.height + commonInset * 2)
+        let textX = window.frame.size.width / 2.0 - size.width / 2.0 - commonInset
+        let textY = window.frame.size.height / 2.0 - size.height / 2.0 - commonInset
+        let textW = size.width  + commonInset * 2
+        let textH = size.height + commonInset * 2
+        
+        let textFrame = CGRect(x: textX, y: textY, width: textW, height: textH)
         
         let textLabel = UILabel(frame: textFrame)
         textLabel.text = text
@@ -60,8 +65,8 @@ extension UIWindow {
         textLabel.alpha = 0
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handlerGuesture(sender:)))
-        window?.addGestureRecognizer(tapGesture)
-        window?.addSubview(textLabel)
+        window.addGestureRecognizer(tapGesture)
+        window.addSubview(textLabel)
         
         UIView.animate(withDuration: 0.25, animations: {
             textLabel.alpha = 1

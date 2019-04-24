@@ -1,5 +1,5 @@
 //
-//  CacheCellManager.swift
+//  HotCellCacheManager.swift
 //  DouyinOfSun
 //
 //  Created by WorkSpace_Sun on 2019/3/16.
@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class CacheCellManager: NSObject {
+class HotCellCacheManager: NSObject {
     
     private var cellArray = [HotTableViewCell]()
     var currentPlayingCell: HotTableViewCell?

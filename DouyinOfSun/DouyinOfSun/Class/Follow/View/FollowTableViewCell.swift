@@ -235,12 +235,17 @@ extension FollowTableViewCell {
         playerView.pause()
     }
     
+    func resume(isIgnoreManualPause: Bool) {
+        playerView.resume(isIgnoreManualPause: isIgnoreManualPause)
+    }
+    
     func setEnable(_ isEnable: Bool) {
         if isEnable == true {
             playerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(fullScreenAction(sender:))))
         } else {
             playerView.gestureRecognizers?.removeAll()
         }
+        playerView.setEnable(isEnable)
     }
     
     @objc private func fullScreenAction(sender: UITapGestureRecognizer) {

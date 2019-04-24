@@ -1,7 +1,7 @@
 PODS:
   - Alamofire (4.8.0)
-  - HandyJSON (4.2.1)
-  - Kingfisher (5.0.1)
+  - HandyJSON (5.0.0-beta.1)
+  - Kingfisher (5.3.1)
   - libwebp (1.0.2):
     - libwebp/core (= 1.0.2)
     - libwebp/dec (= 1.0.2)
@@ -33,8 +33,8 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
-  - HandyJSON
-  - Kingfisher
+  - HandyJSON (= 5.0.0-beta.1)
+  - Kingfisher (= 5.3.1)
   - libwebp
   - PLPlayerKit (from `https://raw.githubusercontent.com/pili-engineering/PLPlayerKit/master/PLPlayerKit-Universal.podspec`)
   - SnapKit
@@ -53,12 +53,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
-  HandyJSON: d0c5fc80204f29056d59d3e5c4587fa0b16b60a8
-  Kingfisher: 4f771421b9208185217550528a06fd48756cb7c2
+  HandyJSON: 582477127ab3ab65bd2e471815f1a7b846856978
+  Kingfisher: d9e7e0b209b59b8f9873aa2f37654e81a7beea51
   libwebp: b068a3bd7c45f7460f6715be7bed1a18fd5d6b48
   PLPlayerKit: 8dbda4525878842315e0ae6329dcefa7b5d8cc7e
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
 
-PODFILE CHECKSUM: 0eb78615dae2b0a14442fabaa9c33262b5966017
+PODFILE CHECKSUM: d4e00028e463ff8afd9b6b7399a3bd8041fe163b
 
 COCOAPODS: 1.6.0.beta.2

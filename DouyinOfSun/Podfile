@@ -6,9 +6,9 @@ target 'DouyinOfSun' do
   use_frameworks!
 
 pod 'Alamofire'
-pod 'Kingfisher'
+pod 'Kingfisher', '5.3.1'
 pod 'SnapKit'
-pod 'HandyJSON'
+pod 'HandyJSON', '5.0.0-beta.1'
 pod 'libwebp'
 pod 'PLPlayerKit', :podspec => 'https://raw.githubusercontent.com/pili-engineering/PLPlayerKit/master/PLPlayerKit-Universal.podspec'
 

@@ -19,7 +19,8 @@ class FollowViewController: UIViewController {
     private var isScrollingToTop: Bool = false
     private weak var fullScreenController: PlayerFullScreenViewController?
     private var cellHeightArray = [CGFloat]()
-    var currentCell: FollowTableViewCell?
+    private var cellManager = FollowCellCachesManager()
+    private var lastUpdateTime: CFTimeInterval = 0
     
     private lazy var navigationBarView: FollowNavigationBarView = {
         let navigationBarView = FollowNavigationBarView(frame: CGRect.zero)
@@ -45,17 +46,18 @@ class FollowViewController: UIViewController {
         
         view.backgroundColor = UIColor(r: 22, g: 24, b: 35)
         setupUI()
-        addBackgroundNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        currentCell?.play()
+        cellManager.currentPlayingCell?.resume(isIgnoreManualPause: false)
+        addBackgroundNotification()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        currentCell?.pause()
+        cellManager.currentPlayingCell?.pause()
+        removeBackgroundNotification()
     }
 }
 
@@ -78,12 +80,17 @@ extension FollowViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
+    private func removeBackgroundNotification() {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
     @objc private func applicationWillResignActiveNotification() {
-        currentCell?.pause()
+        cellManager.currentPlayingCell?.pause()
     }
     
     @objc private func applicationDidBecomeActiveNotification() {
-        currentCell?.play()
+        cellManager.currentPlayingCell?.resume(isIgnoreManualPause: false)
     }
     
     func loadData() {
@@ -147,6 +154,10 @@ extension FollowViewController {
             self.cellHeightArray.append(cellHeight)
         }
     }
+    
+    @objc private func play(cell: FollowTableViewCell) {
+        cellManager.play(cell: cell)
+    }
 }
 
 extension FollowViewController: UITableViewDelegate {
@@ -186,23 +197,20 @@ extension FollowViewController: UIScrollViewDelegate {
             guard let nonnilChange = change else { return }
             let old = nonnilChange[NSKeyValueChangeKey.oldKey]
             let new = nonnilChange[NSKeyValueChangeKey.newKey]
+            let time = CACurrentMediaTime()
             if new != nil && old != nil {
-                if old as! Int == new as! Int {
-                    return
-                } else {
-                    let nextCell = tableView.cellForRow(at: IndexPath(row: new as! Int, section: 0)) as! FollowTableViewCell
-                    self.currentCell?.pause()
-                    nextCell.play()
-                    self.currentCell?.setEnable(false)
-                    self.currentCell = nextCell
-                    self.currentCell?.setEnable(true)
+                if old as! Int == new as! Int { return }
+                let lastCell = tableView.cellForRow(at: IndexPath(row: old as! Int, section: 0)) as! FollowTableViewCell
+                let currentCell = tableView.cellForRow(at: IndexPath(row: new as! Int, section: 0)) as! FollowTableViewCell
+                self.perform(#selector(play(cell:)), with: currentCell, afterDelay: 0.5, inModes: [RunLoop.Mode.common])
+                if (time - lastUpdateTime) < 0.5 {
+                    NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(play(cell:)), object: lastCell)
                 }
             } else {
-                let firstCell = tableView.cellForRow(at: IndexPath(row: playingCellIndex, section: 0)) as! FollowTableViewCell
-                firstCell.play()
-                self.currentCell = firstCell
-                self.currentCell?.setEnable(true)
+                let firstCell = tableView.cellForRow(at: IndexPath(row: new as! Int, section: 0)) as! FollowTableViewCell
+                self.play(cell: firstCell)
             }
+            lastUpdateTime = time
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
@@ -212,18 +220,18 @@ extension FollowViewController: UIScrollViewDelegate {
 extension FollowViewController: FollowTableViewCellDelegate {
     func followTableViewCell(cell: FollowTableViewCell, playerViewWillEnterFullScreenWithIsVertical isVertical: Bool) {
         let fullScreenVC = PlayerFullScreenViewController()
-        fullScreenVC.isVertical = currentCell?.isPlayerViewVertical ?? true
+        fullScreenVC.isVertical = cellManager.currentPlayingCell?.isPlayerViewVertical ?? true
         fullScreenVC.modalPresentationStyle = .overFullScreen
         fullScreenVC.transitioningDelegate = self
         fullScreenVC.modalPresentationCapturesStatusBarAppearance = true
         present(fullScreenVC, animated: true) {
-            self.currentCell?.playerView.playViewState = .fullScreen
+            self.cellManager.currentPlayingCell!.playerView.playViewState = .fullScreen
         }
         fullScreenController = fullScreenVC
     }
     func followTableViewCell(cell: FollowTableViewCell, playerViewWillExitFullScreenWithIsVertical isVertical: Bool) {
         fullScreenController?.dismiss(animated: true, completion: {[weak self] in
-            self?.currentCell?.playerView.playViewState = .small
+            self?.cellManager.currentPlayingCell!.playerView.playViewState = .small
             self?.fullScreenController = nil
         })
     }
@@ -231,10 +239,10 @@ extension FollowViewController: FollowTableViewCellDelegate {
 
 extension FollowViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return FollowScalePresentTransition(cell: currentCell!, needRotation: !(currentCell?.isPlayerViewVertical)!)
+        return FollowScalePresentTransition(cell: cellManager.currentPlayingCell!, needRotation: !(cellManager.currentPlayingCell!.isPlayerViewVertical))
     }
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return FollowScaleDismissTransition(cell: currentCell!, needRotation: !(currentCell?.isPlayerViewVertical)!)
+        return FollowScaleDismissTransition(cell: cellManager.currentPlayingCell!, needRotation: !(cellManager.currentPlayingCell!.isPlayerViewVertical))
     }
 }
 

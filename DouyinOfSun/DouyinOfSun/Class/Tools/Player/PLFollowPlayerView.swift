@@ -10,13 +10,6 @@ import UIKit
 import PLPlayerKit
 import SnapKit
 
-@objc protocol PLFollowPlayerViewDelegate: class {
-    @objc optional func playerView(_ playerView: PLFollowPlayerView, _ player: PLPlayer, statusDidChange state: PLPlayerStatus)
-    @objc optional func playerView(_ playerView: PLFollowPlayerView, _ player: PLPlayer, stoppedWithError error: Error?)
-    @objc optional func playerView(_ playerView: PLFollowPlayerView, _ player: PLPlayer, firstRender firstRenderType: PLPlayerFirstRenderType)
-    @objc optional func playerView(_ playerView: PLFollowPlayerView, _ player: PLPlayer, playingProgressValue playingProgress: CGFloat)
-}
-
 class PLFollowPlayerView: UIView {
     
     enum PlayViewState {
@@ -25,11 +18,11 @@ class PLFollowPlayerView: UIView {
         case fullScreen
     }
     
-    weak var delegate: PLFollowPlayerViewDelegate?
     var playViewState: PlayViewState = .small
     var playerViewFrame: CGRect = CGRect.zero
     private var timer: Timer?
     private var urlStr: String?
+    private var isManualPause: Bool = false
     private var isPlayerCaching: Bool = false
     private var currentProgress: CGFloat = 0
     private lazy var player: PLPlayer = {
@@ -69,7 +62,7 @@ class PLFollowPlayerView: UIView {
         playIcon.image = UIImage(named: "icon_modern_feed_play_28x28_")
         playIcon.contentMode = .center
         playIcon.isHidden = true
-        playIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(resume)))
+        playIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(playIconAction)))
         return playIcon
     }()
     
@@ -78,7 +71,7 @@ class PLFollowPlayerView: UIView {
         pauseIcon.image = UIImage(named: "icon_modern_feed_stop_28x28_")
         pauseIcon.contentMode = .center
         pauseIcon.isHidden = true
-        pauseIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(pause)))
+        pauseIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(pauseIconAction)))
         return pauseIcon
     }()
     
@@ -113,6 +106,7 @@ class PLFollowPlayerView: UIView {
         timer = nil
         urlStr = nil
         isPlayerCaching = false
+        isManualPause = false
         currentProgress = 0
         player.stop()
         musicName.text = ""
@@ -170,6 +164,11 @@ class PLFollowPlayerView: UIView {
             })
         }
         self.currentProgress = progress
+    }
+    
+    func setEnable(_ isEnable: Bool) {
+        playIcon.isUserInteractionEnabled = isEnable
+        pauseIcon.isUserInteractionEnabled = isEnable
     }
 }
 
@@ -268,19 +267,21 @@ extension PLFollowPlayerView {
         loadingIcon.isHidden = true
     }
     
+    @objc private func playIconAction() {
+        self.resume(isIgnoreManualPause: true)
+    }
+    
+    @objc private func pauseIconAction() {
+        self.manualPause()
+    }
+    
     @objc func play() {
         guard let urlStr = urlStr else { return }
         if player.status == .statusPaused {
-            player.resume()
+            self.resume(isIgnoreManualPause: true)
         } else {
             player.play(with: URL(string: urlStr), sameSource: false)
             self.musicName.startAnimation()
-        }
-    }
-    
-    @objc func resume() {
-        if player.status == .statusPaused {
-            player.resume()
         }
     }
     
@@ -290,7 +291,29 @@ extension PLFollowPlayerView {
         }
     }
     
-    func stop() {
+    func resume(isIgnoreManualPause: Bool) {
+        if player.status == .statusPaused {
+            if isIgnoreManualPause == false && isManualPause == true { return }
+            isManualPause = false
+            player.resume()
+        }
+    }
+    
+    @objc func manualResume() {
+        if player.status == .statusPaused {
+            isManualPause = false
+            player.resume()
+        }
+    }
+    
+    @objc private func manualPause() {
+        isManualPause = true
+        if player.status == .statusPlaying {
+            player.pause()
+        }
+    }
+    
+    private func stop() {
         timer?.invalidate()
         timer = nil
         player.stop()
@@ -322,7 +345,6 @@ extension PLFollowPlayerView: PLPlayerDelegate {
             RunLoop.current.add(timer!, forMode: .common)
             timer?.fire()
         }
-        delegate?.playerView!(self, player, statusDidChange: state)
     }
     func player(_ player: PLPlayer, firstRender firstRenderType: PLPlayerFirstRenderType) {
         if firstRenderType == .video {
