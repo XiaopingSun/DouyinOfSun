@@ -39,7 +39,11 @@ class MainViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         interactiveGestureDelegate = self
-        statusBarHidden = homeTabBarSelectedType == .hot ? true : false
+        if scrollView.contentOffset.x == kScreenWidth && homeTabBarSelectedType == .hot {
+            statusBarHidden = true
+        } else {
+            statusBarHidden = false
+        }
         statusBarStyle = .lightContent
         navigationController?.isNavigationBarHidden = true
     }
@@ -62,6 +66,7 @@ extension MainViewController {
     
     private func addChildViewController() {
         recommendVC = RecommendViewController()
+        recommendVC?.recommendViewControllerDelegate = self
         homeTabVC = HomeTabBarViewController()
         homeTabVC?.homeTabBarViewControllerDelegate = self
         homeTabVC?.selectedIndex = 0
@@ -89,6 +94,17 @@ extension MainViewController: HomeTabBarViewControllerDelegate {
     }
 }
 
+extension MainViewController: RecommendViewControllerDelegate {
+    func recommendViewControllerBackItemDidSelected() {
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
+            self.scrollView.setContentOffset(CGPoint(x: kScreenWidth, y: 0), animated: false)
+        }) { (_) in
+            self.homeTabVC?.hotVC?.hotVCTransformOperation(isActive: true, needUpdateBackgroundNotification: true)
+            self.homeTabVC?.isTabbarVCShowing = true
+        }
+    }
+}
+
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x == kScreenWidth {
@@ -101,6 +117,9 @@ extension MainViewController: UIScrollViewDelegate {
         if scrollView.contentOffset.x == kScreenWidth {
             statusBarHidden = true
             homeTabVC?.hotVC?.hotVCTransformOperation(isActive: true, needUpdateBackgroundNotification: true)
+            homeTabVC?.isTabbarVCShowing = true
+        } else {
+            homeTabVC?.isTabbarVCShowing = false
         }
     }
     
@@ -108,6 +127,9 @@ extension MainViewController: UIScrollViewDelegate {
         if scrollView.contentOffset.x == kScreenWidth {
             statusBarHidden = true
             homeTabVC?.hotVC?.hotVCTransformOperation(isActive: true, needUpdateBackgroundNotification: true)
+            homeTabVC?.isTabbarVCShowing = true
+        } else {
+            homeTabVC?.isTabbarVCShowing = false
         }
     }
 }

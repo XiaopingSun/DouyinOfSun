@@ -28,6 +28,9 @@
 		CC081065224E1B81006D56D2 /* FollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC081064224E1B81006D56D2 /* FollowTableViewCell.swift */; };
 		CC08106D2252070D006D56D2 /* PLFollowPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC08106C2252070D006D56D2 /* PLFollowPlayerView.swift */; };
 		CC0810C622645B01006D56D2 /* favorite8.json in Resources */ = {isa = PBXBuildFile; fileRef = CC0810C522645AFF006D56D2 /* favorite8.json */; };
+		CC0C6BBF22705B7700D7A055 /* RecommendNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0C6BBE22705B7700D7A055 /* RecommendNavigationBarView.swift */; };
+		CC0C6BC1227149B800D7A055 /* ScanCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0C6BC0227149B800D7A055 /* ScanCodeViewController.swift */; };
+		CC0C6BC3227159AB00D7A055 /* RoomShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0C6BC2227159AB00D7A055 /* RoomShowViewController.swift */; };
 		CC10E2C421D77B8F00090806 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC10E2C321D77B8F00090806 /* AppDelegate.swift */; };
 		CC10E2C921D77B8F00090806 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2C721D77B8F00090806 /* Main.storyboard */; };
 		CC10E2CB21D77B9100090806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC10E2CA21D77B9100090806 /* Assets.xcassets */; };
@@ -38,7 +41,6 @@
 		CC32E7D6222E60580040ABED /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D5222E60580040ABED /* BaseModel.swift */; };
 		CC32E7D8222E60970040ABED /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D7222E60970040ABED /* UserInfoModel.swift */; };
 		CC32E7DA222E71B30040ABED /* AwemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D9222E71B30040ABED /* AwemeModel.swift */; };
-		CC83E8372223EFAE00046ED7 /* imageFollow.png in Resources */ = {isa = PBXBuildFile; fileRef = CC83E8362223EFAE00046ED7 /* imageFollow.png */; };
 		CC83E8392223EFE800046ED7 /* FollowNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83E8382223EFE800046ED7 /* FollowNavigationBarView.swift */; };
 		CC83E86222261E2400046ED7 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83E86122261E2400046ED7 /* BaseViewController.swift */; };
 		CC83E8802226813D00046ED7 /* favorite3.json in Resources */ = {isa = PBXBuildFile; fileRef = CC83E87A2226813D00046ED7 /* favorite3.json */; };
@@ -72,9 +74,7 @@
 		CCC27F01221AC48500054AB6 /* UIBarButtonItem-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC27F00221AC48500054AB6 /* UIBarButtonItem-Extension.swift */; };
 		CCC27F29221BD78000054AB6 /* HomeNaviTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC27F28221BD78000054AB6 /* HomeNaviTitleView.swift */; };
 		CCC27F3A221D9A8F00054AB6 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC27F39221D9A8F00054AB6 /* MyViewController.swift */; };
-		CCC27F3C221E9EF200054AB6 /* imageHot.png in Resources */ = {isa = PBXBuildFile; fileRef = CCC27F3B221E9EF200054AB6 /* imageHot.png */; };
 		CCC27F42221FDA0800054AB6 /* HotNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC27F41221FDA0800054AB6 /* HotNavigationBarView.swift */; };
-		CCC27F44221FE2A400054AB6 /* WechatIMG240.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = CCC27F43221FE2A400054AB6 /* WechatIMG240.jpeg */; };
 		CCC27F46221FF0F600054AB6 /* HomeScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC27F45221FF0F600054AB6 /* HomeScrollView.swift */; };
 		CCC2A2CD21DCA23A00610D3B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC2A2CC21DCA23A00610D3B /* MainViewController.swift */; };
 		CCCAA357226D62F100066B42 /* FollowCellCachesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAA356226D62F100066B42 /* FollowCellCachesManager.swift */; };
@@ -114,6 +114,9 @@
 		CC081064224E1B81006D56D2 /* FollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowTableViewCell.swift; sourceTree = "<group>"; };
 		CC08106C2252070D006D56D2 /* PLFollowPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLFollowPlayerView.swift; sourceTree = "<group>"; };
 		CC0810C522645AFF006D56D2 /* favorite8.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favorite8.json; sourceTree = "<group>"; };
+		CC0C6BBE22705B7700D7A055 /* RecommendNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendNavigationBarView.swift; sourceTree = "<group>"; };
+		CC0C6BC0227149B800D7A055 /* ScanCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanCodeViewController.swift; sourceTree = "<group>"; };
+		CC0C6BC2227159AB00D7A055 /* RoomShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomShowViewController.swift; sourceTree = "<group>"; };
 		CC10E2C021D77B8F00090806 /* DouyinOfSun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DouyinOfSun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC10E2C321D77B8F00090806 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC10E2C821D77B8F00090806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -126,7 +129,6 @@
 		CC32E7D5222E60580040ABED /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		CC32E7D7222E60970040ABED /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		CC32E7D9222E71B30040ABED /* AwemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwemeModel.swift; sourceTree = "<group>"; };
-		CC83E8362223EFAE00046ED7 /* imageFollow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageFollow.png; sourceTree = "<group>"; };
 		CC83E8382223EFE800046ED7 /* FollowNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNavigationBarView.swift; sourceTree = "<group>"; };
 		CC83E86122261E2400046ED7 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		CC83E87A2226813D00046ED7 /* favorite3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favorite3.json; sourceTree = "<group>"; };
@@ -162,9 +164,7 @@
 		CCC27F00221AC48500054AB6 /* UIBarButtonItem-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem-Extension.swift"; sourceTree = "<group>"; };
 		CCC27F28221BD78000054AB6 /* HomeNaviTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNaviTitleView.swift; sourceTree = "<group>"; };
 		CCC27F39221D9A8F00054AB6 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
-		CCC27F3B221E9EF200054AB6 /* imageHot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageHot.png; sourceTree = "<group>"; };
 		CCC27F41221FDA0800054AB6 /* HotNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotNavigationBarView.swift; sourceTree = "<group>"; };
-		CCC27F43221FE2A400054AB6 /* WechatIMG240.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WechatIMG240.jpeg; sourceTree = "<group>"; };
 		CCC27F45221FF0F600054AB6 /* HomeScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScrollView.swift; sourceTree = "<group>"; };
 		CCC2A2CC21DCA23A00610D3B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		CCCAA356226D62F100066B42 /* FollowCellCachesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowCellCachesManager.swift; sourceTree = "<group>"; };
@@ -354,9 +354,6 @@
 				CC83E8882226837100046ED7 /* user.json */,
 				CCD998D6222E4B54001F8611 /* cover_default.png */,
 				CCD25E5E22291B09007143DB /* 91551426428_.pic.jpg */,
-				CCC27F3B221E9EF200054AB6 /* imageHot.png */,
-				CC83E8362223EFAE00046ED7 /* imageFollow.png */,
-				CCC27F43221FE2A400054AB6 /* WechatIMG240.jpeg */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -435,6 +432,7 @@
 		CCC2A2B521DCA20500610D3B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CC0C6BBE22705B7700D7A055 /* RecommendNavigationBarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -443,6 +441,8 @@
 			isa = PBXGroup;
 			children = (
 				CCC1013721DDB79C00FC5F79 /* RecommendViewController.swift */,
+				CC0C6BC0227149B800D7A055 /* ScanCodeViewController.swift */,
+				CC0C6BC2227159AB00D7A055 /* RoomShowViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -713,18 +713,15 @@
 				CC83E8822226813D00046ED7 /* favorite5.json in Resources */,
 				CCD998D7222E4B54001F8611 /* cover_default.png in Resources */,
 				CC83E8812226813D00046ED7 /* favorite2.json in Resources */,
-				CCC27F44221FE2A400054AB6 /* WechatIMG240.jpeg in Resources */,
 				CC10E2CE21D77B9100090806 /* LaunchScreen.storyboard in Resources */,
 				CC83E8832226813D00046ED7 /* favorite4.json in Resources */,
 				CCD25E5F22291B09007143DB /* 91551426428_.pic.jpg in Resources */,
 				CC252FFD2244E517001191AA /* favorite7.json in Resources */,
-				CC83E8372223EFAE00046ED7 /* imageFollow.png in Resources */,
 				CC83E8842226813D00046ED7 /* favorite6.json in Resources */,
 				CC10E2CB21D77B9100090806 /* Assets.xcassets in Resources */,
 				CC0810C622645B01006D56D2 /* favorite8.json in Resources */,
 				CC83E8872226835C00046ED7 /* production1.json in Resources */,
 				CC10E2C921D77B8F00090806 /* Main.storyboard in Resources */,
-				CCC27F3C221E9EF200054AB6 /* imageHot.png in Resources */,
 				CC83E8802226813D00046ED7 /* favorite3.json in Resources */,
 				CC83E8852226813D00046ED7 /* favorite1.json in Resources */,
 			);
@@ -745,7 +742,9 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${PODS_ROOT}/PLPlayerKit/Pod/Library-Universal/PLPlayerKit.framework",
+				"${PODS_ROOT}/PLMediaStreamingKit/Pod/Library/PLMediaStreamingKit.framework",
+				"${PODS_ROOT}/PLMediaStreamingKit/Pod/Library/HappyDNS.framework",
+				"${PODS_ROOT}/PLPlayerKit/Pod/Library/PLPlayerKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/libwebp/libwebp.framework",
 			);
@@ -756,6 +755,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PLMediaStreamingKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HappyDNS.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PLPlayerKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libwebp.framework",
@@ -805,6 +806,7 @@
 				CCC01B512230BCBF00A2A380 /* UIImageView-Extension.swift in Sources */,
 				CC05A497223F49ED00B2D43E /* CALayer-Extension.swift in Sources */,
 				CC05A48E223B98BA00B2D43E /* FocusView.swift in Sources */,
+				CC0C6BBF22705B7700D7A055 /* RecommendNavigationBarView.swift in Sources */,
 				CCC01B472230AA0100A2A380 /* WebCombineOperation.swift in Sources */,
 				CC10E2C421D77B8F00090806 /* AppDelegate.swift in Sources */,
 				CC83E8392223EFE800046ED7 /* FollowNavigationBarView.swift in Sources */,
@@ -839,6 +841,7 @@
 				CCCD3AE821F02C7E009D536A /* FollowViewController.swift in Sources */,
 				CC05A45E2239003500B2D43E /* PlayerStatusBarView.swift in Sources */,
 				CC08106D2252070D006D56D2 /* PLFollowPlayerView.swift in Sources */,
+				CC0C6BC1227149B800D7A055 /* ScanCodeViewController.swift in Sources */,
 				CCC1013A21DDB89500FC5F79 /* HomeTabBarViewController.swift in Sources */,
 				CCCAA357226D62F100066B42 /* FollowCellCachesManager.swift in Sources */,
 				CCC01B532230C93600A2A380 /* String-Extension.swift in Sources */,
@@ -853,6 +856,7 @@
 				CCC27F29221BD78000054AB6 /* HomeNaviTitleView.swift in Sources */,
 				CC95BD2D222FBBE100FF9043 /* WebCacheManager.swift in Sources */,
 				CCC01B592230F0C500A2A380 /* WebPImageOperation.swift in Sources */,
+				CC0C6BC3227159AB00D7A055 /* RoomShowViewController.swift in Sources */,
 				CCCD3AEC21F06C5C009D536A /* HomeTabBarButton.swift in Sources */,
 				CC05A4622239048100B2D43E /* MusicAlbumView.swift in Sources */,
 				CCC01B492230AA5D00A2A380 /* WebDownloadOperation.swift in Sources */,

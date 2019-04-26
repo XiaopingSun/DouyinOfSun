@@ -45,7 +45,8 @@ extension MusicAlbumView {
             make.edges.equalToSuperview()
         }
         albumImageView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview().inset(12)
+            make.center.equalToSuperview()
+            make.width.height.equalTo(28)
         }
     }
     

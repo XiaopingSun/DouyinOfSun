@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (4.8.0)
+  - Alamofire (4.8.2)
   - HandyJSON (5.0.0-beta.1)
   - Kingfisher (5.3.1)
   - libwebp (1.0.2):
@@ -26,17 +26,21 @@ PODS:
   - libwebp/utils (1.0.2):
     - libwebp/core
   - libwebp/webp (1.0.2)
+  - PLMediaStreamingKit (2.3.3):
+    - PLMediaStreamingKit/iphoneos (= 2.3.3)
+  - PLMediaStreamingKit/iphoneos (2.3.3)
   - PLPlayerKit (3.4.1):
-    - PLPlayerKit/universal (= 3.4.1)
-  - PLPlayerKit/universal (3.4.1)
-  - SnapKit (4.2.0)
+    - PLPlayerKit/iphoneos (= 3.4.1)
+  - PLPlayerKit/iphoneos (3.4.1)
+  - SnapKit (5.0.0)
 
 DEPENDENCIES:
   - Alamofire
   - HandyJSON (= 5.0.0-beta.1)
   - Kingfisher (= 5.3.1)
   - libwebp
-  - PLPlayerKit (from `https://raw.githubusercontent.com/pili-engineering/PLPlayerKit/master/PLPlayerKit-Universal.podspec`)
+  - PLMediaStreamingKit
+  - PLPlayerKit
   - SnapKit
 
 SPEC REPOS:
@@ -45,20 +49,19 @@ SPEC REPOS:
     - HandyJSON
     - Kingfisher
     - libwebp
+    - PLMediaStreamingKit
+    - PLPlayerKit
     - SnapKit
 
-EXTERNAL SOURCES:
-  PLPlayerKit:
-    :podspec: https://raw.githubusercontent.com/pili-engineering/PLPlayerKit/master/PLPlayerKit-Universal.podspec
-
 SPEC CHECKSUMS:
-  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   HandyJSON: 582477127ab3ab65bd2e471815f1a7b846856978
   Kingfisher: d9e7e0b209b59b8f9873aa2f37654e81a7beea51
   libwebp: b068a3bd7c45f7460f6715be7bed1a18fd5d6b48
-  PLPlayerKit: 8dbda4525878842315e0ae6329dcefa7b5d8cc7e
-  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  PLMediaStreamingKit: 762e312dd088b1b487c5b7f3a59b56231d1cbb71
+  PLPlayerKit: ebec9d70b66a95d1770b2dc5107fe2a469454a28
+  SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
 
-PODFILE CHECKSUM: d4e00028e463ff8afd9b6b7399a3bd8041fe163b
+PODFILE CHECKSUM: c35aaa38a52cc78696a0c0d22ae5b5c591f495cf
 
 COCOAPODS: 1.6.0.beta.2

@@ -64,11 +64,15 @@ class HotViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        let homeTabbarVC = self.tabBarController as! HomeTabBarViewController
+        if homeTabbarVC.isTabbarVCShowing == false { return }
         hotVCTransformOperation(isActive: true, needUpdateBackgroundNotification: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        let homeTabbarVC = self.tabBarController as! HomeTabBarViewController
+        if homeTabbarVC.isTabbarVCShowing == false { return }
         hotVCTransformOperation(isActive: false, needUpdateBackgroundNotification: true)
     }
     
@@ -109,7 +113,7 @@ extension HotViewController {
                 tempAwemeList += validAwemeModel
             }
             self.awemeList = tempAwemeList.sorted(by: { (obj1, obj2) -> Bool in
-                return Int(arc4random() % 3) - 1 > 0
+                return Int(arc4random() % 3) > 0
             })
             DispatchQueue.main.async {
                 self.tableView.isScrollEnabled = true

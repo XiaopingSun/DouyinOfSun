@@ -75,13 +75,11 @@ class MyAwemeViewController: BaseViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        hotVCTransformOperation(isActive: true, needUpdateBackgroundNotification: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         statusBarHidden = false
-        hotVCTransformOperation(isActive: false, needUpdateBackgroundNotification: true)
     }
     
     deinit {
@@ -98,7 +96,9 @@ class MyAwemeViewController: BaseViewController {
         let curIndexPath = IndexPath(row: currentIndex, section: 0)
         tableView.isScrollEnabled = true
         tableView.scrollToRow(at: curIndexPath, at: .top, animated: false)
-        addObserver(self, forKeyPath: "currentIndex", options: [.initial, .old, .new], context: nil)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+            self.addObserver(self, forKeyPath: "currentIndex", options: [.initial, .old, .new], context: nil)
+        }
     }
     
     private func addBackgroundNotification() {

@@ -205,7 +205,7 @@ class HotTableViewCell: UITableViewCell {
     }()
     
     private lazy var commentTextView: CommentTextView = {
-        let commentTextView = CommentTextView(frame: CGRect.zero)
+        let commentTextView = CommentTextView(frame: UIScreen.main.bounds)
         commentTextView.delegate = self
         return commentTextView
     }()

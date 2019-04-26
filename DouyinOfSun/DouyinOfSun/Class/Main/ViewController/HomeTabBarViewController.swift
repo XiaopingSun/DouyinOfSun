@@ -20,6 +20,7 @@ protocol HomeTabBarViewControllerDelegate: class {
 class HomeTabBarViewController: UITabBarController {
     
     weak var homeTabBarViewControllerDelegate: HomeTabBarViewControllerDelegate?
+    var isTabbarVCShowing: Bool = true
     var hotVC: HotViewController?
     var followVC: FollowViewController?
     fileprivate lazy var homeTabBar: HomeTabBar = {[weak self] in

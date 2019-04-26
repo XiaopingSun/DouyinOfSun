@@ -50,12 +50,16 @@ class FollowViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let homeTabbarVC = self.tabBarController as! HomeTabBarViewController
+        if homeTabbarVC.isTabbarVCShowing == false { return }
         cellManager.currentPlayingCell?.resume(isIgnoreManualPause: false)
         addBackgroundNotification()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        let homeTabbarVC = self.tabBarController as! HomeTabBarViewController
+        if homeTabbarVC.isTabbarVCShowing == false { return }
         cellManager.currentPlayingCell?.pause()
         removeBackgroundNotification()
     }
@@ -112,8 +116,9 @@ extension FollowViewController {
                 tempAwemeList += validAwemeModel
             }
             self.awemeList = tempAwemeList.sorted(by: { (obj1, obj2) -> Bool in
-                return Int(arc4random() % 3) - 1 > 0
+                return Int(arc4random() % 3) > 0
             })
+        
             
             // 计算cell高度
             self.calculateCellHeight()
