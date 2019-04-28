@@ -41,6 +41,7 @@
 		CC32E7D6222E60580040ABED /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D5222E60580040ABED /* BaseModel.swift */; };
 		CC32E7D8222E60970040ABED /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D7222E60970040ABED /* UserInfoModel.swift */; };
 		CC32E7DA222E71B30040ABED /* AwemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D9222E71B30040ABED /* AwemeModel.swift */; };
+		CC7DE0BD2275574100049C06 /* favorite9.json in Resources */ = {isa = PBXBuildFile; fileRef = CC7DE0BC2275574000049C06 /* favorite9.json */; };
 		CC83E8392223EFE800046ED7 /* FollowNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83E8382223EFE800046ED7 /* FollowNavigationBarView.swift */; };
 		CC83E86222261E2400046ED7 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83E86122261E2400046ED7 /* BaseViewController.swift */; };
 		CC83E8802226813D00046ED7 /* favorite3.json in Resources */ = {isa = PBXBuildFile; fileRef = CC83E87A2226813D00046ED7 /* favorite3.json */; };
@@ -129,6 +130,7 @@
 		CC32E7D5222E60580040ABED /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		CC32E7D7222E60970040ABED /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		CC32E7D9222E71B30040ABED /* AwemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwemeModel.swift; sourceTree = "<group>"; };
+		CC7DE0BC2275574000049C06 /* favorite9.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favorite9.json; sourceTree = "<group>"; };
 		CC83E8382223EFE800046ED7 /* FollowNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNavigationBarView.swift; sourceTree = "<group>"; };
 		CC83E86122261E2400046ED7 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		CC83E87A2226813D00046ED7 /* favorite3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favorite3.json; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				CC252FFC2244E517001191AA /* favorite7.json */,
 				CC83E87F2226813D00046ED7 /* favorite1.json */,
 				CC0810C522645AFF006D56D2 /* favorite8.json */,
+				CC7DE0BC2275574000049C06 /* favorite9.json */,
 			);
 			path = favorites;
 			sourceTree = "<group>";
@@ -724,6 +727,7 @@
 				CC10E2C921D77B8F00090806 /* Main.storyboard in Resources */,
 				CC83E8802226813D00046ED7 /* favorite3.json in Resources */,
 				CC83E8852226813D00046ED7 /* favorite1.json in Resources */,
+				CC7DE0BD2275574100049C06 /* favorite9.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -102,23 +102,23 @@ extension FollowViewController {
         isFirstLoaded = true
         DispatchQueue.global().async {
             let bundleName = ["production1",
-                              "favorite1", "favorite2", "favorite3", "favorite4", "favorite5", "favorite6", "favorite7", "favorite8"]
+                              "favorite1", "favorite2", "favorite3", "favorite4", "favorite5", "favorite6", "favorite7", "favorite8", "favorite9"]
             var tempAwemeList = [aweme_list]()
             for i in 0 ..< bundleName.count {
                 let awemeDataJson: String = try! NSString(contentsOfFile: Bundle.main.path(forResource: bundleName[i], ofType: "json")!, encoding: String.Encoding.utf8.rawValue) as String
                 let awemeModel = JSONDeserializer<AwemeModel>.deserializeFrom(json: awemeDataJson)
                 var validAwemeModel = [aweme_list]()
                 for aweme in (awemeModel?.aweme_list)! {
-                    if aweme.video != nil {
+                    if aweme.video != nil && aweme.video?.play_addr != nil {
                         validAwemeModel.append(aweme)
                     }
                 }
                 tempAwemeList += validAwemeModel
             }
             self.awemeList = tempAwemeList.sorted(by: { (obj1, obj2) -> Bool in
-                return Int(arc4random() % 3) > 0
+                let randomResult = Int(arc4random()) % 2;
+                return randomResult == 1
             })
-        
             
             // 计算cell高度
             self.calculateCellHeight()

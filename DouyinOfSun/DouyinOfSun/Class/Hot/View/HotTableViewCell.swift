@@ -390,7 +390,7 @@ class HotTableViewCell: UITableViewCell {
         guard let videoUrlList = aweme?.video?.play_addr?.url_list else {return}
         var playUrl: String?
         for urlStr in videoUrlList {
-            if urlStr.hasPrefix("https://aweme.snssdk.com/aweme/v1/play/") {
+            if urlStr.contains("snssdk.com/aweme/v1/play/") {
                 playUrl = urlStr
                 break
             }

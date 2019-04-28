@@ -97,9 +97,9 @@ extension HotViewController {
     }
     
     private func loadData() {
-        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 1) {
+        DispatchQueue.global().async {
             let bundleName = ["production1",
-                              "favorite1", "favorite2", "favorite3", "favorite4", "favorite5", "favorite6", "favorite7", "favorite8"]
+                              "favorite1", "favorite2", "favorite3", "favorite4", "favorite5", "favorite6", "favorite7", "favorite8", "favorite9"]
             var tempAwemeList = [aweme_list]()
             for i in 0 ..< bundleName.count {
                 let awemeDataJson: String = try! NSString(contentsOfFile: Bundle.main.path(forResource: bundleName[i], ofType: "json")!, encoding: String.Encoding.utf8.rawValue) as String
@@ -112,9 +112,10 @@ extension HotViewController {
                 }
                 tempAwemeList += validAwemeModel
             }
-            self.awemeList = tempAwemeList.sorted(by: { (obj1, obj2) -> Bool in
-                return Int(arc4random() % 3) > 0
-            })
+            self.awemeList = tempAwemeList.sorted { (obj1, obj2) -> Bool in
+                let randomResult = Int(arc4random()) % 2;
+                return randomResult == 1
+            }
             DispatchQueue.main.async {
                 self.tableView.isScrollEnabled = true
                 self.tableView.reloadData()
