@@ -92,6 +92,10 @@ extension MainViewController: HomeTabBarViewControllerDelegate {
             tabBarViewController.followVC?.loadData()
         }
     }
+    func homeTabBarViewControllerRecorderButtonDidSelected() {
+        let recorderVC = RecordViewController()
+        present(recorderVC, animated: true, completion: nil)
+    }
 }
 
 extension MainViewController: RecommendViewControllerDelegate {

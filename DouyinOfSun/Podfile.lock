@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (4.8.2)
   - HandyJSON (5.0.0-beta.1)
+  - HappyDNS (0.3.15)
   - Kingfisher (5.3.1)
   - libwebp (1.0.2):
     - libwebp/core (= 1.0.2)
@@ -26,12 +27,23 @@ PODS:
   - libwebp/utils (1.0.2):
     - libwebp/core
   - libwebp/webp (1.0.2)
+  - Masonry (1.1.0)
   - PLMediaStreamingKit (2.3.3):
     - PLMediaStreamingKit/iphoneos (= 2.3.3)
   - PLMediaStreamingKit/iphoneos (2.3.3)
   - PLPlayerKit (3.4.1):
     - PLPlayerKit/iphoneos (= 3.4.1)
   - PLPlayerKit/iphoneos (3.4.1)
+  - PLShortVideoKit (2.0.0):
+    - PLShortVideoKit/ex-libMuseProcessor (= 2.0.0)
+    - PLShortVideoKit/libMuseProcessor (= 2.0.0)
+    - Qiniu (= 7.2.5)
+  - PLShortVideoKit/ex-libMuseProcessor (2.0.0):
+    - Qiniu (= 7.2.5)
+  - PLShortVideoKit/libMuseProcessor (2.0.0):
+    - Qiniu (= 7.2.5)
+  - Qiniu (7.2.5):
+    - HappyDNS (~> 0.3)
   - SnapKit (5.0.0)
 
 DEPENDENCIES:
@@ -39,29 +51,39 @@ DEPENDENCIES:
   - HandyJSON (= 5.0.0-beta.1)
   - Kingfisher (= 5.3.1)
   - libwebp
+  - Masonry
   - PLMediaStreamingKit
   - PLPlayerKit
+  - PLShortVideoKit
   - SnapKit
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - HandyJSON
+    - HappyDNS
     - Kingfisher
     - libwebp
+    - Masonry
     - PLMediaStreamingKit
     - PLPlayerKit
+    - PLShortVideoKit
+    - Qiniu
     - SnapKit
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   HandyJSON: 582477127ab3ab65bd2e471815f1a7b846856978
+  HappyDNS: 00c15e651a347206e58a20503a32a5564589b56a
   Kingfisher: d9e7e0b209b59b8f9873aa2f37654e81a7beea51
   libwebp: b068a3bd7c45f7460f6715be7bed1a18fd5d6b48
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   PLMediaStreamingKit: 762e312dd088b1b487c5b7f3a59b56231d1cbb71
   PLPlayerKit: ebec9d70b66a95d1770b2dc5107fe2a469454a28
+  PLShortVideoKit: fc04d59968c4d70d529290ef817e84ec5d30e3aa
+  Qiniu: 909b408ee489ea54827e9717be90b94bc9dfbc48
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
 
-PODFILE CHECKSUM: c35aaa38a52cc78696a0c0d22ae5b5c591f495cf
+PODFILE CHECKSUM: 828138b7839b0f8c51f8a1ff6b3798f0759794c7
 
 COCOAPODS: 1.6.0.beta.2

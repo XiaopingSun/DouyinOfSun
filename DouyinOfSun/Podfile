@@ -12,6 +12,8 @@ pod 'HandyJSON', '5.0.0-beta.1'
 pod 'libwebp'
 pod 'PLPlayerKit'
 pod 'PLMediaStreamingKit'
+pod 'PLShortVideoKit'
+pod 'Masonry'
 
   # Pods for DouyinOfSun
 

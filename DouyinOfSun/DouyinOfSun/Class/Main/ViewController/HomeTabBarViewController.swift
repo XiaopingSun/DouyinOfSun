@@ -15,6 +15,7 @@ enum HomeTabBarViewControllerSelectedType {
 
 protocol HomeTabBarViewControllerDelegate: class {
     func homeTabBarViewController(tabBarViewController: HomeTabBarViewController, didSelected type: HomeTabBarViewControllerSelectedType)
+    func homeTabBarViewControllerRecorderButtonDidSelected()
 }
 
 class HomeTabBarViewController: UITabBarController {
@@ -41,7 +42,7 @@ class HomeTabBarViewController: UITabBarController {
 extension HomeTabBarViewController: HomeTabBarDelegate {
     func tabBar(tabBar: HomeTabBar, clickButton index: HomeTabBarItemType) {
         if index == .recorder {
-            // 短视频
+            homeTabBarViewControllerDelegate?.homeTabBarViewControllerRecorderButtonDidSelected()
         } else {
             self.selectedIndex = index.rawValue
             tabBar.updateTabbarBackgroundColor()

@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import PLMediaStreamingKit
+import PLShortVideoKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print("setAudioMode error:" + error.localizedDescription)
         }
+        PLShortVideoKitEnv.initEnv()
         PLStreamingEnv.initEnv()
         return true
     }

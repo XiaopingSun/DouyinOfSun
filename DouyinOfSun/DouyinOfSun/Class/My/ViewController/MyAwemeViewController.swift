@@ -71,6 +71,9 @@ class MyAwemeViewController: BaseViewController {
         super.viewWillAppear(animated)
         statusBarHidden = true
         statusBarStyle = .lightContent
+        MPVolumeViewManager.shared().load()
+        addBackgroundNotification()
+        addVolumeNotification()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -80,6 +83,9 @@ class MyAwemeViewController: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         statusBarHidden = false
+        MPVolumeViewManager.shared().unload()
+        removeBackgroundNotification()
+        removeVolumeNotification()
     }
     
     deinit {
@@ -120,11 +126,18 @@ class MyAwemeViewController: BaseViewController {
     }
     
     @objc private func applicationWillResignActiveNotification() {
-        hotVCTransformOperation(isActive: false, needUpdateBackgroundNotification: false)
+        if awemeList.count == 0 {return}
+        isCurrentCellPaused = !(cellManager.currentPlayingCell?.isPlaying ?? true)
+        if isCurrentCellPaused == false {
+            cellManager.pauseAll()
+        }
     }
     
     @objc private func applicationDidBecomeActiveNotification() {
-        hotVCTransformOperation(isActive: true, needUpdateBackgroundNotification: false)
+        if awemeList.count == 0 {return}
+        if isCurrentCellPaused == false {
+            cellManager.resume()
+        }
     }
     
     @objc private func systemVolumeDidChangeNotification(sender: Notification) {
@@ -154,31 +167,6 @@ class MyAwemeViewController: BaseViewController {
             }
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        }
-    }
-    
-    func hotVCTransformOperation(isActive: Bool, needUpdateBackgroundNotification: Bool) {
-        if isActive == false {
-            MPVolumeViewManager.shared().unload()
-            if needUpdateBackgroundNotification == true {
-                removeBackgroundNotification()
-            }
-            removeVolumeNotification()
-            if awemeList.count == 0 {return}
-            isCurrentCellPaused = !(cellManager.currentPlayingCell?.isPlaying ?? true)
-            if isCurrentCellPaused == false {
-                cellManager.pauseAll()
-            }
-        } else {
-            MPVolumeViewManager.shared().load()
-            if needUpdateBackgroundNotification == true {
-                addBackgroundNotification()
-            }
-            addVolumeNotification()
-            if awemeList.count == 0 {return}
-            if isCurrentCellPaused == false {
-                cellManager.resume()
-            }
         }
     }
 }

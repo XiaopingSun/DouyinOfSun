@@ -1,0 +1,20 @@
+{
+  "musics": [
+    {
+      "name": "古代韵味音效.m4r",
+      "category": "default"
+    },
+    {
+      "name": "清新鸟鸣音效.m4r",
+      "category": "default"
+    },
+    {
+      "name": "天使简约音效.m4r",
+      "category": "default"
+    },
+    {
+       "name": "胜利小旋律音效.m4r",
+       "category": "default"
+    },
+  ]
+}
