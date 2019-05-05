@@ -21,6 +21,15 @@ class MyAwemeViewController: BaseViewController {
     private var isCurrentCellPaused = false
     private var pageIndex: Int = 0
     
+    private lazy var backgroundView: UIView = {
+        let backgroundView = UIView(frame: self.view.bounds)
+        backgroundView.backgroundColor = UIColor.black
+        backgroundView.layer.masksToBounds = true
+        backgroundView.layer.cornerRadius = 6
+        backgroundView.clipsToBounds = true
+        return backgroundView
+    }()
+    
     private lazy var backButton: UIButton = {
         let backButton = UIButton(type: .custom)
         backButton.frame = CGRect(x: 15.0, y: 32.0, width: 20.0, height: 20.0)
@@ -52,7 +61,7 @@ class MyAwemeViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.clipsToBounds = true
+        view.backgroundColor = UIColor.clear
         setupUI()
         initData()
     }
@@ -94,8 +103,9 @@ class MyAwemeViewController: BaseViewController {
     }
     
     private func setupUI() {
-        view.addSubview(backButton)
-        view.insertSubview(tableView, belowSubview: backButton)
+        view.addSubview(backgroundView)
+        backgroundView.addSubview(backButton)
+        backgroundView.insertSubview(tableView, belowSubview: backButton)
     }
     
     private func initData() {

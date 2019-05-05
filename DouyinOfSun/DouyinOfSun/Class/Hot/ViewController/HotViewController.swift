@@ -24,6 +24,15 @@ class HotViewController: UIViewController {
         return navigationBarView
     }()
     
+    private lazy var backgroundView: UIView = {
+        let backgroundView = UIView(frame: .zero)
+        backgroundView.backgroundColor = UIColor.black
+        backgroundView.layer.masksToBounds = true
+        backgroundView.layer.cornerRadius = 6
+        backgroundView.clipsToBounds = true
+        return backgroundView
+    }()
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.contentInset = UIEdgeInsets(top: kScreenHeight, left: 0, bottom: kScreenHeight, right: 0)
@@ -83,8 +92,12 @@ class HotViewController: UIViewController {
 
 extension HotViewController {
     private func setupUI() {
+        view.addSubview(backgroundView)
         view.addSubview(navigationBarView)
-        view.insertSubview(tableView, belowSubview: navigationBarView)
+        backgroundView.insertSubview(tableView, belowSubview: navigationBarView)
+        backgroundView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
         navigationBarView.snp.makeConstraints { (make) in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(64)

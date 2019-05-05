@@ -39,6 +39,15 @@ class MyViewController: BaseViewController {
         return loadMore
     }()
     
+    private lazy var backgroundView: UIView = {
+        let backgroundView = UIView(frame: .zero)
+        backgroundView.backgroundColor = UIColor.black
+        backgroundView.layer.masksToBounds = true
+        backgroundView.layer.cornerRadius = 6
+        backgroundView.clipsToBounds = true
+        return backgroundView
+    }()
+    
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: MyCollectionViewFlowLayout())
         collectionView.backgroundColor = UIColor(r: 21, g: 23, b: 35, alpha: 1)
@@ -64,7 +73,7 @@ class MyViewController: BaseViewController {
         super.viewDidLoad()
         
         automaticallyAdjustsScrollViewInsets = false
-        view.backgroundColor = UIColor.randomColor()
+        view.backgroundColor = UIColor.clear
         setupUI()
         loadData()
     }
@@ -90,10 +99,13 @@ class MyViewController: BaseViewController {
 
 extension MyViewController {
     private func setupUI() {
+        view.addSubview(backgroundView)
         view.addSubview(navigationBarView)
-        view.insertSubview(collectionView, belowSubview: navigationBarView)
+        backgroundView.insertSubview(collectionView, belowSubview: navigationBarView)
         collectionView.addSubview(loadMore)
-        
+        backgroundView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
         navigationBarView.snp.makeConstraints { (make) in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(64)
