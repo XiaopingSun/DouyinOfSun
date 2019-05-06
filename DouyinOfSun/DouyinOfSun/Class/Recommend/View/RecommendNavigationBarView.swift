@@ -12,6 +12,7 @@ import SnapKit
 protocol RecommendNavigationBarViewDelegate: class {
     func navigationBarViewCameraButtonDidSelected()
     func navigationBarViewBackButtonDidSelected()
+    func navigationBarView(barView: RecommendNavigationBarView, titleViewDidSelectedWithType type: HomeNaviTitleViewSelectedButtonType)
 }
 
 class RecommendNavigationBarView: UIView {
@@ -25,12 +26,9 @@ class RecommendNavigationBarView: UIView {
         return cameraButton
     }()
     
-    private lazy var titleView: UILabel = {
-        let titleView = UILabel(frame: .zero)
-        titleView.text = "七牛直播"
-        titleView.font = UIFont.systemFont(ofSize: 16)
-        titleView.textColor = UIColor.white
-        titleView.textAlignment = .center
+    private lazy var titleView: HomeNaviTitleView = {
+        let titleView = HomeNaviTitleView(frame: .zero, titles: ["直播", "播放"])
+        titleView.delegate = self
         return titleView
     }()
     
@@ -96,5 +94,11 @@ extension RecommendNavigationBarView {
             make.centerY.equalTo(cameraButton)
             make.width.height.equalTo(24)
         }
+    }
+}
+
+extension RecommendNavigationBarView: HomeNaviTitleViewDelegate {
+    func naviTitleView(titleView: HomeNaviTitleView, didSelectedWithType type: HomeNaviTitleViewSelectedButtonType) {
+        delegate?.navigationBarView(barView: self, titleViewDidSelectedWithType: type)
     }
 }

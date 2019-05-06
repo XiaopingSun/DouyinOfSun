@@ -9,7 +9,19 @@
 import UIKit
 import SnapKit
 
+protocol HomeNaviTitleViewDelegate: class {
+    func naviTitleView(titleView: HomeNaviTitleView, didSelectedWithType type: HomeNaviTitleViewSelectedButtonType)
+}
+
+enum HomeNaviTitleViewSelectedButtonType {
+    case left
+    case right
+}
+
 class HomeNaviTitleView: UIView {
+    
+    private(set) var selectedButtonType: HomeNaviTitleViewSelectedButtonType = .left
+    weak var delegate: HomeNaviTitleViewDelegate?
     
     private var titles: [String]?
     
@@ -67,6 +79,8 @@ class HomeNaviTitleView: UIView {
         sender.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17.0)
         rightButton.isSelected = false
         rightButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16.0)
+        selectedButtonType = .left
+        delegate?.naviTitleView(titleView: self, didSelectedWithType: selectedButtonType)
     }
     
     @objc private func rightButtonDidSelected(sender: UIButton) {
@@ -75,6 +89,8 @@ class HomeNaviTitleView: UIView {
         sender.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17.0)
         leftButton.isSelected = false
         leftButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16.0)
+        selectedButtonType = .right
+        delegate?.naviTitleView(titleView: self, didSelectedWithType: selectedButtonType)
     }
 }
 

@@ -227,6 +227,8 @@
 		CC7DE273227E7ECE00049C06 /* sticker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC7DE272227E7ECE00049C06 /* sticker.bundle */; };
 		CC7DE276227E7FD200049C06 /* sticker_t_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7DE274227E7FD100049C06 /* sticker_t_0@2x.png */; };
 		CC7DE277227E7FD200049C06 /* sticker_t_0@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7DE275227E7FD100049C06 /* sticker_t_0@3x.png */; };
+		CC7DE28C227FCAE400049C06 /* RoomInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7DE28B227FCAE400049C06 /* RoomInfoView.swift */; };
+		CC7DE28E227FCAEE00049C06 /* PlayerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7DE28D227FCAEE00049C06 /* PlayerInfoView.swift */; };
 		CC83E8392223EFE800046ED7 /* FollowNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83E8382223EFE800046ED7 /* FollowNavigationBarView.swift */; };
 		CC83E86222261E2400046ED7 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83E86122261E2400046ED7 /* BaseViewController.swift */; };
 		CC83E8802226813D00046ED7 /* favorite3.json in Resources */ = {isa = PBXBuildFile; fileRef = CC83E87A2226813D00046ED7 /* favorite3.json */; };
@@ -535,6 +537,8 @@
 		CC7DE272227E7ECE00049C06 /* sticker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = sticker.bundle; sourceTree = "<group>"; };
 		CC7DE274227E7FD100049C06 /* sticker_t_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sticker_t_0@2x.png"; sourceTree = "<group>"; };
 		CC7DE275227E7FD100049C06 /* sticker_t_0@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sticker_t_0@3x.png"; sourceTree = "<group>"; };
+		CC7DE28B227FCAE400049C06 /* RoomInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomInfoView.swift; sourceTree = "<group>"; };
+		CC7DE28D227FCAEE00049C06 /* PlayerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInfoView.swift; sourceTree = "<group>"; };
 		CC83E8382223EFE800046ED7 /* FollowNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNavigationBarView.swift; sourceTree = "<group>"; };
 		CC83E86122261E2400046ED7 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		CC83E87A2226813D00046ED7 /* favorite3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favorite3.json; sourceTree = "<group>"; };
@@ -1137,6 +1141,8 @@
 			isa = PBXGroup;
 			children = (
 				CC0C6BBE22705B7700D7A055 /* RecommendNavigationBarView.swift */,
+				CC7DE28B227FCAE400049C06 /* RoomInfoView.swift */,
+				CC7DE28D227FCAEE00049C06 /* PlayerInfoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1659,6 +1665,7 @@
 				CC7DE13E227E746E00049C06 /* PLSStickerView.m in Sources */,
 				CC32E7DA222E71B30040ABED /* AwemeModel.swift in Sources */,
 				CC7DE13B227E745C00049C06 /* PLSStickerOverlayView.m in Sources */,
+				CC7DE28C227FCAE400049C06 /* RoomInfoView.swift in Sources */,
 				CC080FFB224A10BB006D56D2 /* Notification-Extension.swift in Sources */,
 				CCA28C742269D2CA00183AB4 /* LeftSwipeInteractiveTransition.swift in Sources */,
 				CCA28C732269D2CA00183AB4 /* FollowScalePresentTransition.swift in Sources */,
@@ -1751,6 +1758,7 @@
 				CCC01B5B2230F0C500A2A380 /* WebPQueueManager.swift in Sources */,
 				CC7DE0F82278217F00049C06 /* ViewRecordViewController.m in Sources */,
 				CCC1013821DDB79C00FC5F79 /* RecommendViewController.swift in Sources */,
+				CC7DE28E227FCAEE00049C06 /* PlayerInfoView.swift in Sources */,
 				CC7DE1012278224B00049C06 /* BaseViewController.m in Sources */,
 				CC7DE10B227E711800049C06 /* UIImage+PLSClip.m in Sources */,
 			);
