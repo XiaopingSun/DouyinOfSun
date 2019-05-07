@@ -40,6 +40,7 @@
 		CC32E7D6222E60580040ABED /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D5222E60580040ABED /* BaseModel.swift */; };
 		CC32E7D8222E60970040ABED /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D7222E60970040ABED /* UserInfoModel.swift */; };
 		CC32E7DA222E71B30040ABED /* AwemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E7D9222E71B30040ABED /* AwemeModel.swift */; };
+		CC6DEF6522812468001C9B04 /* NormalPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6DEF6422812468001C9B04 /* NormalPlayerViewController.swift */; };
 		CC7DE0BD2275574100049C06 /* favorite9.json in Resources */ = {isa = PBXBuildFile; fileRef = CC7DE0BC2275574000049C06 /* favorite9.json */; };
 		CC7DE0D622781F5700049C06 /* RecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7DE0D522781F5700049C06 /* RecordViewController.m */; };
 		CC7DE0D922781FDB00049C06 /* PLSProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7DE0D722781FDB00049C06 /* PLSProgressBar.m */; };
@@ -314,6 +315,7 @@
 		CC32E7D5222E60580040ABED /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		CC32E7D7222E60970040ABED /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		CC32E7D9222E71B30040ABED /* AwemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwemeModel.swift; sourceTree = "<group>"; };
+		CC6DEF6422812468001C9B04 /* NormalPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalPlayerViewController.swift; sourceTree = "<group>"; };
 		CC7DE0BC2275574000049C06 /* favorite9.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favorite9.json; sourceTree = "<group>"; };
 		CC7DE0D422781F5600049C06 /* RecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordViewController.h; sourceTree = "<group>"; };
 		CC7DE0D522781F5700049C06 /* RecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordViewController.m; sourceTree = "<group>"; };
@@ -1153,6 +1155,7 @@
 				CCC1013721DDB79C00FC5F79 /* RecommendViewController.swift */,
 				CC0C6BC0227149B800D7A055 /* ScanCodeViewController.swift */,
 				CC0C6BC2227159AB00D7A055 /* RoomShowViewController.swift */,
+				CC6DEF6422812468001C9B04 /* NormalPlayerViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1724,6 +1727,7 @@
 				CC7DE0E22278200500049C06 /* PhotoAlbumViewController.m in Sources */,
 				CCCD3AE821F02C7E009D536A /* FollowViewController.swift in Sources */,
 				CC05A45E2239003500B2D43E /* PlayerStatusBarView.swift in Sources */,
+				CC6DEF6522812468001C9B04 /* NormalPlayerViewController.swift in Sources */,
 				CC08106D2252070D006D56D2 /* PLFollowPlayerView.swift in Sources */,
 				CC7DE117227E724500049C06 /* PlayViewController.m in Sources */,
 				CC7DE129227E73BB00049C06 /* PLSTimelineView.m in Sources */,

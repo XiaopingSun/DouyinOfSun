@@ -26,7 +26,7 @@ class RecommendNavigationBarView: UIView {
         return cameraButton
     }()
     
-    private lazy var titleView: HomeNaviTitleView = {
+    lazy var titleView: HomeNaviTitleView = {
         let titleView = HomeNaviTitleView(frame: .zero, titles: ["直播", "播放"])
         titleView.delegate = self
         return titleView

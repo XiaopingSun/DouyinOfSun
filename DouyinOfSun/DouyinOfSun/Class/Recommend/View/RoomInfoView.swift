@@ -107,7 +107,7 @@ class RoomInfoView: UIView {
     
     private var isSessionPresetSelected: Bool = true
     
-    private lazy var tableView: UITableView = {[weak self] in
+    lazy var tableView: UITableView = {[weak self] in
         let tableView: UITableView = UITableView(frame: CGRect(x: 60, y: 240, width: kScreenWidth - 120, height: 44 * 4), style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
@@ -121,7 +121,7 @@ class RoomInfoView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        backgroundColor = UIColor(r: 22, g: 24, b: 35)
         setupUI()
     }
     
@@ -145,7 +145,8 @@ extension RoomInfoView {
         urlTextField?.textColor = UIColor(r: 22, g: 24, b: 35)
         urlTextField?.backgroundColor = UIColor.white
         urlTextField?.font = UIFont.systemFont(ofSize: 14)
-        urlTextField?.placeholder = "input push url"
+        urlTextField?.clearButtonMode = .whileEditing
+        urlTextField?.placeholder = "Input push url"
         addSubview(urlTextField!)
         
         let positionLabel = UILabel(frame: CGRect.zero)
@@ -346,12 +347,14 @@ extension RoomInfoView {
         }
         tableView.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(60)
-            make.center.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-80)
             make.height.equalTo(44 * 4)
         }
     }
     
     @objc private func startPush() {
+        endEditing(true)
         delegate?.roomInfoView(roomInfoView: self, startPushActionWithPushUrl: urlTextField?.text)
     }
     

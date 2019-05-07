@@ -13,7 +13,7 @@ protocol ScanCodeViewControllerDelegate: class {
     func scanCodeViewController(_ viewController: ScanCodeViewController, didCompleteScanning codeString: String?)
 }
 
-class ScanCodeViewController: UIViewController {
+class ScanCodeViewController: BaseViewController {
     
     private lazy var captureSession: AVCaptureSession = AVCaptureSession()
     private lazy var captureOutput: AVCaptureMetadataOutput = AVCaptureMetadataOutput()
@@ -25,6 +25,12 @@ class ScanCodeViewController: UIViewController {
         view.backgroundColor = UIColor.orange
         setupUI()
         setupCamera()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        statusBarHidden = true
     }
     
     deinit {
@@ -81,8 +87,10 @@ extension ScanCodeViewController: AVCaptureMetadataOutputObjectsDelegate {
             let codeString = metadata.stringValue
             captureSession.stopRunning()
 
-            dismiss(animated: true) {
-                self.delegate?.scanCodeViewController(self, didCompleteScanning: codeString)
+            DispatchQueue.main.async {
+                self.dismiss(animated: true) {
+                    self.delegate?.scanCodeViewController(self, didCompleteScanning: codeString)
+                }
             }
         }
     }
