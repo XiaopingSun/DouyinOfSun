@@ -121,7 +121,7 @@ extension RecommendViewController: RoomInfoViewDelegate {
             return
         }
         let pushUrl = (pushUrlStr?.replacingOccurrences(of: " ", with: ""))!
-        let showViewController = RoomShowViewController(pushUrl:pushUrl, cameraPosition: roomInfoView.cameraPosition, isVideoToolBox: roomInfoView.isVideoToolBox, sessionPreset: roomInfoView.sessionPreset, videoSize: roomInfoView.videoSize, frameRate: roomInfoView.frameRate, bitrate: roomInfoView.bitrate, keyframeInterval: roomInfoView.keyframeInterval)
+        let showViewController = RoomShowViewController(pushUrl:pushUrl, cameraPosition: roomInfoView.cameraPosition, isVideoToolBox: roomInfoView.isVideoToolBox, sessionPreset: roomInfoView.sessionPreset, videoSize: roomInfoView.videoSize, frameRate: roomInfoView.frameRate, bitrate: roomInfoView.bitrate, keyframeInterval: roomInfoView.keyframeInterval, isQuicEnable: roomInfoView.isQuicEnable)
         present(showViewController, animated: true, completion: nil)
     }
 }

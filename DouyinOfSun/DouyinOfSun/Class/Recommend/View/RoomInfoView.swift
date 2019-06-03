@@ -94,6 +94,10 @@ class RoomInfoView: UIView {
         return UInt((GOPSegment?.selectedSegmentIndex.advanced(by: 1))!) * frameRate
     }
     
+    var isQuicEnable: Bool {
+        return quicSegment?.selectedSegmentIndex == 0
+    }
+    
     private var urlTextField: UITextField?
     private var startPushButton: UIButton?
     private var positionSegment: UISegmentedControl?

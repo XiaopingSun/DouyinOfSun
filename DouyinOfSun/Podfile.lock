@@ -28,9 +28,9 @@ PODS:
     - libwebp/core
   - libwebp/webp (1.0.2)
   - Masonry (1.1.0)
-  - PLMediaStreamingKit (2.3.3):
-    - PLMediaStreamingKit/iphoneos (= 2.3.3)
-  - PLMediaStreamingKit/iphoneos (2.3.3)
+  - PLMediaStreamingKit (2.3.4):
+    - PLMediaStreamingKit/iphoneos (= 2.3.4)
+  - PLMediaStreamingKit/iphoneos (2.3.4)
   - PLPlayerKit (3.4.1):
     - PLPlayerKit/iphoneos (= 3.4.1)
   - PLPlayerKit/iphoneos (3.4.1)
@@ -78,7 +78,7 @@ SPEC CHECKSUMS:
   Kingfisher: d9e7e0b209b59b8f9873aa2f37654e81a7beea51
   libwebp: b068a3bd7c45f7460f6715be7bed1a18fd5d6b48
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  PLMediaStreamingKit: 762e312dd088b1b487c5b7f3a59b56231d1cbb71
+  PLMediaStreamingKit: 48a16270731a0a3fec8712c7dffe1e5701e6bcec
   PLPlayerKit: ebec9d70b66a95d1770b2dc5107fe2a469454a28
   PLShortVideoKit: fc04d59968c4d70d529290ef817e84ec5d30e3aa
   Qiniu: 909b408ee489ea54827e9717be90b94bc9dfbc48

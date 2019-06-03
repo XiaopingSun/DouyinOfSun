@@ -21,6 +21,7 @@ class RoomShowViewController: BaseViewController {
     private var frameRate: UInt
     private var bitrate: UInt
     private var keyframeInterval: UInt
+    private var isQuicEnable: Bool
     
     private lazy var startPushButton: UIButton = {[weak self] in
         let startPushButton = UIButton(type: .custom)
@@ -86,6 +87,7 @@ class RoomShowViewController: BaseViewController {
 
         streamingSession.setBeautifyModeOn(true)
         streamingSession.delegate = self
+        streamingSession.isQuicEnable = isQuicEnable
         if sessionPreset == .hd1280x720 {
             streamingSession.setWaterMarkWith(UIImage(named: "live_watermark"), position: CGPoint(x: 720 - 132 - 30 * 720 / kScreenWidth, y: 50 * 1280 / kScreenHeight))
         } else if sessionPreset == .hd1920x1080 {
@@ -109,7 +111,7 @@ class RoomShowViewController: BaseViewController {
         statusBarHidden = true
     }
     
-    init(pushUrl: String, cameraPosition: AVCaptureDevice.Position, isVideoToolBox: PLH264EncoderType, sessionPreset: AVCaptureSession.Preset, videoSize: CGSize, frameRate: UInt, bitrate: UInt, keyframeInterval: UInt) {
+    init(pushUrl: String, cameraPosition: AVCaptureDevice.Position, isVideoToolBox: PLH264EncoderType, sessionPreset: AVCaptureSession.Preset, videoSize: CGSize, frameRate: UInt, bitrate: UInt, keyframeInterval: UInt, isQuicEnable: Bool) {
         self.pushUrl = pushUrl
         self.cameraPosition = cameraPosition
         self.isVideoToolBox = isVideoToolBox
@@ -118,6 +120,7 @@ class RoomShowViewController: BaseViewController {
         self.frameRate = frameRate
         self.bitrate = bitrate
         self.keyframeInterval = keyframeInterval
+        self.isQuicEnable = isQuicEnable
         
         super.init(nibName: nil, bundle: nil)
     }
